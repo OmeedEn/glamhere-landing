@@ -40,7 +40,7 @@ export default function HowItWorks() {
                   className="mx-auto max-h-[440px] w-auto drop-shadow-xl"
                 />
               </div>
-              <div className="mt-6 flex h-10 w-10 items-center justify-center rounded-full bg-[#e9aeb3] text-sm font-bold text-white">
+              <div className="mt-6 flex h-10 w-10 items-center justify-center rounded-full bg-[#D91A5D] text-sm font-bold text-white">
                 {s.num}
               </div>
               <h3 className="mt-3 text-xl font-semibold text-[#1a1a1a]">

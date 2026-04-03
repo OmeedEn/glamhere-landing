@@ -18,7 +18,7 @@ export default function Header() {
           href={APP_STORE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full bg-[#e9aeb3] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#d895a0]"
+          className="rounded-full bg-[#D91A5D] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#B51550]"
         >
           Download Now
         </a>

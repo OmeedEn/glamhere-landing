@@ -37,7 +37,7 @@ export default function ForClients() {
           />
         </div>
         <div className="order-1 lg:order-2">
-          <p className="text-sm font-semibold uppercase tracking-wider text-[#e9aeb3]">
+          <p className="text-sm font-semibold uppercase tracking-wider text-[#D91A5D]">
             For Clients
           </p>
           <h2 className="mt-3 font-[var(--font-display)] text-3xl font-bold leading-tight text-[#1a1a1a] sm:text-4xl">

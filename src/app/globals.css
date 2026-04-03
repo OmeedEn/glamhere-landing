@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:is(.dark *));
+
 @theme inline {
-  --color-blush: #e9aeb3;
-  --color-blush-light: #fbeff0;
-  --color-blush-dark: #d895a0;
+  --color-fuchsia: #D91A5D;
+  --color-fuchsia-light: #FDE8EF;
+  --color-fuchsia-dark: #B51550;
   --color-dark: #1a1a1a;
   --color-dark-brown: #413737;
   --color-medium-brown: #6e5e5e;
