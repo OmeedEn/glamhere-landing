@@ -37,11 +37,11 @@ export default function ForClients() {
           />
         </div>
         <div className="order-1 lg:order-2">
-          <p className="text-sm font-semibold uppercase tracking-wider text-[#E8195A]">
+          <p className="text-sm font-semibold uppercase tracking-wider text-[#a30b45]">
             For Clients
           </p>
           <h2 className="mt-3 font-[var(--font-display)] text-3xl font-bold leading-tight text-[#1a1a1a] sm:text-4xl">
-            GLAMHERE &mdash; Built for Clients Too
+            <span className="text-[#a30b45]" style={{ fontFamily: "var(--font-brand)", letterSpacing: "-1px" }}><span className="font-bold italic">glam</span><span className="font-normal">here</span></span> &mdash; Built for Clients Too
           </h2>
           <ul className="mt-8 space-y-5">
             {benefits.map((b) => (

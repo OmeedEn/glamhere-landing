@@ -3,14 +3,15 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-fuchsia: #E8195A;
-  --color-fuchsia-light: #FFF0F4;
-  --color-fuchsia-dark: #C4154C;
+  --color-fuchsia: #a30b45;
+  --color-fuchsia-light: rgba(163, 11, 69, 0.12);
+  --color-fuchsia-dark: #70002D;
   --color-dark: #1a1a1a;
   --color-dark-brown: #413737;
   --color-medium-brown: #6e5e5e;
   --font-sans: var(--font-inter);
   --font-display: var(--font-montserrat);
+  --font-brand: var(--font-playfair);
 }
 
 html {
