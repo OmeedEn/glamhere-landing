@@ -3,9 +3,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-fuchsia: #D91A5D;
-  --color-fuchsia-light: #FDE8EF;
-  --color-fuchsia-dark: #B51550;
+  --color-fuchsia: #E8195A;
+  --color-fuchsia-light: #FFF0F4;
+  --color-fuchsia-dark: #C4154C;
   --color-dark: #1a1a1a;
   --color-dark-brown: #413737;
   --color-medium-brown: #6e5e5e;

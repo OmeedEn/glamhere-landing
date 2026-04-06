@@ -6,7 +6,7 @@ const stats = [
 
 export default function Stats() {
   return (
-    <section className="border-y border-gray-100 bg-[#FDE8EF]/40 py-8">
+    <section className="border-y border-gray-100 bg-[#FFF0F4]/40 py-8">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-8 px-6 sm:gap-16">
         <p className="text-sm font-medium text-[#6e5e5e]">
           Used by 1000+ influencers

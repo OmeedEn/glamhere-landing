@@ -37,13 +37,13 @@ export default function WaitlistPage() {
       <Header />
 
       <section className="relative overflow-hidden py-20">
-        <div className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-[#D91A5D]/10 blur-[160px]" />
-        <div className="pointer-events-none absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-[#FDE8EF]/80 blur-[120px]" />
+        <div className="pointer-events-none absolute -top-40 -right-40 h-[500px] w-[500px] rounded-full bg-[#E8195A]/10 blur-[160px]" />
+        <div className="pointer-events-none absolute -bottom-20 -left-20 h-80 w-80 rounded-full bg-[#FFF0F4]/80 blur-[120px]" />
 
         <div className="relative mx-auto max-w-xl px-6 text-center">
           {status === "joined" ? (
-            <div className="rounded-3xl bg-[#FDE8EF] p-10">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#D91A5D] text-2xl font-bold text-white">
+            <div className="rounded-3xl bg-[#FFF0F4] p-10">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#E8195A] text-2xl font-bold text-white">
                 {position}
               </div>
               <h1 className="mt-6 font-[var(--font-display)] text-3xl font-bold text-[#1a1a1a]">
@@ -67,7 +67,7 @@ export default function WaitlistPage() {
                       `${window.location.origin}/waitlist`
                     );
                   }}
-                  className="mt-4 rounded-full border-2 border-[#D91A5D] px-6 py-2 text-sm font-semibold text-[#D91A5D] transition hover:bg-[#D91A5D] hover:text-white"
+                  className="mt-4 rounded-full border-2 border-[#E8195A] px-6 py-2 text-sm font-semibold text-[#E8195A] transition hover:bg-[#E8195A] hover:text-white"
                 >
                   Copy Invite Link
                 </button>
@@ -75,12 +75,12 @@ export default function WaitlistPage() {
             </div>
           ) : (
             <>
-              <p className="inline-block rounded-full bg-[#FDE8EF] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#D91A5D]">
+              <p className="inline-block rounded-full bg-[#FFF0F4] px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#E8195A]">
                 Early Access
               </p>
               <h1 className="mt-6 font-[var(--font-display)] text-4xl font-bold leading-tight text-[#1a1a1a] sm:text-5xl">
                 Be the First to Experience{" "}
-                <span className="text-[#D91A5D]">GlamHere</span>
+                <span className="text-[#E8195A]">GlamHere</span>
               </h1>
               <p className="mt-4 text-lg text-[#6e5e5e]">
                 Join the waitlist and get early access to the platform that&apos;s
@@ -102,7 +102,7 @@ export default function WaitlistPage() {
                     required
                     value={form.name}
                     onChange={handleChange}
-                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#D91A5D] focus:ring-2 focus:ring-[#D91A5D]/20"
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#E8195A] focus:ring-2 focus:ring-[#E8195A]/20"
                     placeholder="Your name"
                   />
                 </div>
@@ -118,7 +118,7 @@ export default function WaitlistPage() {
                     required
                     value={form.email}
                     onChange={handleChange}
-                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#D91A5D] focus:ring-2 focus:ring-[#D91A5D]/20"
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#E8195A] focus:ring-2 focus:ring-[#E8195A]/20"
                     placeholder="you@example.com"
                   />
                 </div>
@@ -133,7 +133,7 @@ export default function WaitlistPage() {
                     required
                     value={form.role}
                     onChange={handleChange}
-                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#D91A5D] focus:ring-2 focus:ring-[#D91A5D]/20"
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#E8195A] focus:ring-2 focus:ring-[#E8195A]/20"
                   >
                     <option value="">Select your role</option>
                     <option value="client">Client looking for beauty services</option>
@@ -151,7 +151,7 @@ export default function WaitlistPage() {
                 <button
                   type="submit"
                   disabled={status === "submitting"}
-                  className="w-full rounded-full bg-[#D91A5D] py-3.5 text-sm font-semibold text-white transition hover:bg-[#B51550] disabled:opacity-60"
+                  className="w-full rounded-full bg-[#E8195A] py-3.5 text-sm font-semibold text-white transition hover:bg-[#C4154C] disabled:opacity-60"
                 >
                   {status === "submitting"
                     ? "Joining..."

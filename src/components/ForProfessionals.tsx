@@ -13,7 +13,7 @@ export default function ForProfessionals() {
     <section className="bg-white py-20">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 lg:grid-cols-2">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-wider text-[#D91A5D]">
+          <p className="text-sm font-semibold uppercase tracking-wider text-[#E8195A]">
             For Professionals
           </p>
           <h2 className="mt-3 font-[var(--font-display)] text-3xl font-bold leading-tight text-[#1a1a1a] sm:text-4xl">

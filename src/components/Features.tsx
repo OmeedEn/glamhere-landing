@@ -28,7 +28,7 @@ export default function Features() {
     <section className="bg-[#f7f7f7] py-20">
       <div className="mx-auto max-w-6xl px-6">
         <h2 className="text-center font-[var(--font-display)] text-3xl font-bold tracking-tight text-[#1a1a1a] sm:text-4xl">
-          <span className="text-[#D91A5D]">GLAMHERE</span> Connects Beauty
+          <span className="text-[#E8195A]">GLAMHERE</span> Connects Beauty
           Professionals and Clients in a Meaningful Way.
         </h2>
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

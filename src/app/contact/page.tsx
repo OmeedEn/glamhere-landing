@@ -44,8 +44,8 @@ export default function ContactPage() {
           </p>
 
           {status === "sent" ? (
-            <div className="mt-10 rounded-2xl bg-[#FDE8EF] p-8 text-center">
-              <h2 className="text-2xl font-semibold text-[#D91A5D]">
+            <div className="mt-10 rounded-2xl bg-[#FFF0F4] p-8 text-center">
+              <h2 className="text-2xl font-semibold text-[#E8195A]">
                 Message Sent
               </h2>
               <p className="mt-2 text-[#413737]">
@@ -53,7 +53,7 @@ export default function ContactPage() {
               </p>
               <button
                 onClick={() => setStatus("idle")}
-                className="mt-6 rounded-full bg-[#D91A5D] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#B51550]"
+                className="mt-6 rounded-full bg-[#E8195A] px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-[#C4154C]"
               >
                 Send Another Message
               </button>
@@ -72,7 +72,7 @@ export default function ContactPage() {
                     required
                     value={form.name}
                     onChange={handleChange}
-                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#D91A5D] focus:ring-2 focus:ring-[#D91A5D]/20"
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#E8195A] focus:ring-2 focus:ring-[#E8195A]/20"
                     placeholder="Your name"
                   />
                 </div>
@@ -87,7 +87,7 @@ export default function ContactPage() {
                     required
                     value={form.email}
                     onChange={handleChange}
-                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#D91A5D] focus:ring-2 focus:ring-[#D91A5D]/20"
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#E8195A] focus:ring-2 focus:ring-[#E8195A]/20"
                     placeholder="you@example.com"
                   />
                 </div>
@@ -103,7 +103,7 @@ export default function ContactPage() {
                   required
                   value={form.subject}
                   onChange={handleChange}
-                  className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#D91A5D] focus:ring-2 focus:ring-[#D91A5D]/20"
+                  className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#E8195A] focus:ring-2 focus:ring-[#E8195A]/20"
                 >
                   <option value="">Select a topic</option>
                   <option value="general">General Inquiry</option>
@@ -125,7 +125,7 @@ export default function ContactPage() {
                   rows={5}
                   value={form.message}
                   onChange={handleChange}
-                  className="mt-1 w-full resize-none rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#D91A5D] focus:ring-2 focus:ring-[#D91A5D]/20"
+                  className="mt-1 w-full resize-none rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none transition focus:border-[#E8195A] focus:ring-2 focus:ring-[#E8195A]/20"
                   placeholder="Tell us what's on your mind..."
                 />
               </div>
@@ -139,7 +139,7 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="rounded-full bg-[#D91A5D] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#B51550] disabled:opacity-60"
+                className="rounded-full bg-[#E8195A] px-8 py-3 text-sm font-semibold text-white transition hover:bg-[#C4154C] disabled:opacity-60"
               >
                 {status === "sending" ? "Sending..." : "Send Message"}
               </button>
@@ -148,7 +148,7 @@ export default function ContactPage() {
 
           <div className="mt-16 grid gap-8 border-t border-gray-100 pt-12 sm:grid-cols-3">
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-[#D91A5D]">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-[#E8195A]">
                 Email
               </h3>
               <p className="mt-2 text-sm text-[#413737]">
@@ -156,7 +156,7 @@ export default function ContactPage() {
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-[#D91A5D]">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-[#E8195A]">
                 Social
               </h3>
               <p className="mt-2 text-sm text-[#413737]">
@@ -164,7 +164,7 @@ export default function ContactPage() {
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-[#D91A5D]">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-[#E8195A]">
                 Response Time
               </h3>
               <p className="mt-2 text-sm text-[#413737]">
