@@ -1,77 +1,512 @@
-const features = [
-  {
-    title: "Authentic Content",
-    desc: "See real work from real professionals — no stock photos, no filters. Every portfolio is genuine.",
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
-      </svg>
-    ),
+"use client";
+
+import type { ReactNode } from "react";
+import { useState } from "react";
+
+const audienceContent = {
+  pros: {
+    label: "Pros",
+    eyebrow: "For professionals",
+    title: "Run your beauty business where clients already discover you.",
+    description:
+      "From showing your latest work to locking in repeat appointments, Glamhere keeps your portfolio, calendar, and client intelligence in one flow.",
+    screens: [
+      {
+        name: "Portfolio page",
+        description:
+          "Show fresh work, signature services, and the profile that turns views into bookings.",
+        kind: "portfolio" as const,
+      },
+      {
+        name: "Booking + calendar",
+        description:
+          "Manage upcoming services, open slots, confirmations, and reschedules in one place.",
+        kind: "calendar" as const,
+      },
+      {
+        name: "Client analytics",
+        description:
+          "Track repeat bookings, busiest weeks, and the clients driving your growth.",
+        kind: "analytics" as const,
+      },
+    ],
   },
-  {
-    title: "Local Discovery",
-    desc: "Find talented beauty pros near you with geo-location powered search. Your next look is closer than you think.",
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-      </svg>
-    ),
+  individuals: {
+    label: "Individuals",
+    eyebrow: "For individuals",
+    title: "Discover, compare, and book beauty without leaving the app.",
+    description:
+      "Browse talent by style, check real work, view service details, and confirm your next appointment in a few taps.",
+    screens: [
+      {
+        name: "Discovery feed",
+        description:
+          "Browse real work by category, location, and the looks you actually want to book.",
+        kind: "feed" as const,
+      },
+      {
+        name: "Pro profile",
+        description:
+          "Review specialties, pricing, portfolio highlights, and availability before you commit.",
+        kind: "profile" as const,
+      },
+      {
+        name: "Booking confirmation",
+        description:
+          "Lock in the appointment, save the details, and stay connected to your pro after booking.",
+        kind: "confirmation" as const,
+      },
+    ],
   },
-  {
-    title: "Build Community",
-    desc: "Follow, engage, and build lasting relationships with your favorite pros through likes, comments, and DMs.",
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Seamless Booking",
-    desc: "Book appointments instantly with transparent pricing, real-time availability, and secure payments.",
-    icon: (
-      <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-      </svg>
-    ),
-  },
-];
+};
+
+type AudienceKey = keyof typeof audienceContent;
+type ScreenKind =
+  (typeof audienceContent)[AudienceKey]["screens"][number]["kind"];
+
+function PhoneFrame({
+  children,
+  accent,
+}: {
+  children: ReactNode;
+  accent: string;
+}) {
+  return (
+    <div className="mx-auto w-full max-w-[280px] overflow-hidden rounded-[36px] border border-[#f2d7e3] bg-white p-3 shadow-[0_34px_90px_-55px_rgba(163,11,69,0.58)]">
+      <div className={`overflow-hidden rounded-[30px] p-4 ${accent}`}>
+        <div className="mx-auto mb-4 h-1.5 w-14 rounded-full bg-[#d5bbc5]" />
+        <div className="overflow-hidden rounded-[24px] bg-white p-4 shadow-sm">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+function PortfolioScreen() {
+  return (
+    <>
+      <div className="flex items-center gap-3">
+        <div className="h-11 w-11 rounded-full bg-[linear-gradient(135deg,#d86295_0%,#a30b45_100%)]" />
+        <div>
+          <p className="text-sm font-semibold text-[#24141c]">Naomi Studio</p>
+          <p className="text-xs text-[#7d6772]">Colorist + extensions</p>
+        </div>
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2 text-[11px] font-semibold text-[#a30b45]">
+        {["Balayage", "Silk press", "Editorial"].map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full bg-[#fff1f7] px-3 py-1"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className="overflow-hidden rounded-[18px] bg-[linear-gradient(180deg,#d45e8e_0%,#a30b45_100%)] p-3 text-white">
+          <p className="truncate text-xs uppercase tracking-[0.22em] text-white/70">
+            Portfolio
+          </p>
+          <div className="mt-5 h-[72px] rounded-[16px] bg-white/18" />
+        </div>
+        <div className="space-y-3">
+          <div className="rounded-[18px] bg-[#fff3f8] p-3">
+            <p className="text-xs font-semibold text-[#a30b45]">112 saves</p>
+            <p className="mt-1 text-xs text-[#7d6772]">This month</p>
+          </div>
+          <div className="rounded-[18px] bg-[#fff3f8] p-3">
+            <p className="text-xs font-semibold text-[#a30b45]">Portfolio DM</p>
+            <p className="mt-1 text-xs text-[#7d6772]">Reply in-app</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 rounded-[18px] border border-[#f6e4ec] bg-[#fffafc] p-3">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7d6772]">
+          Signature service
+        </p>
+        <div className="mt-2 flex items-center justify-between">
+          <div>
+            <p className="text-sm font-semibold text-[#24141c]">
+              Dimensional color
+            </p>
+            <p className="text-xs text-[#7d6772]">2 hr 30 min</p>
+          </div>
+          <span className="text-sm font-semibold text-[#a30b45]">$185</span>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function CalendarScreen() {
+  return (
+    <>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs uppercase tracking-[0.22em] text-[#a30b45]">
+            This week
+          </p>
+          <h3 className="mt-1 text-xl font-semibold text-[#24141c]">Bookings</h3>
+        </div>
+        <span className="rounded-full bg-[#fff1f7] px-3 py-1 text-xs font-semibold text-[#a30b45]">
+          9 open slots
+        </span>
+      </div>
+
+      <div className="mt-4 grid grid-cols-4 gap-2 text-center text-xs">
+        {[
+          ["Mon", "2"],
+          ["Tue", "3"],
+          ["Wed", "4"],
+          ["Thu", "5"],
+        ].map(([day, value], index) => (
+          <div
+            key={day}
+            className={`rounded-[16px] p-2 ${
+              index === 2
+                ? "bg-[#a30b45] text-white"
+                : "bg-[#fff4f8] text-[#6f5a64]"
+            }`}
+          >
+            <p>{day}</p>
+            <p className="mt-1 text-sm font-semibold">{value}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 space-y-3">
+        {[
+          ["10:00", "Silk press", "Confirmed"],
+          ["12:30", "Consultation", "Pending"],
+          ["3:00", "Color refresh", "Confirmed"],
+        ].map(([time, service, state]) => (
+          <div
+            key={time}
+            className="flex items-center gap-3 rounded-[18px] border border-[#f6e4ec] bg-[#fffafc] px-3 py-3"
+          >
+            <div className="rounded-xl bg-[#fff1f7] px-2.5 py-2 text-xs font-semibold text-[#a30b45]">
+              {time}
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-[#24141c]">{service}</p>
+              <p className="text-xs text-[#7d6772]">{state}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function AnalyticsScreen() {
+  return (
+    <>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-xs uppercase tracking-[0.22em] text-[#a30b45]">
+            Client analytics
+          </p>
+          <h3 className="mt-1 text-xl font-semibold text-[#24141c]">This month</h3>
+        </div>
+        <span className="text-sm font-semibold text-[#a30b45]">+18%</span>
+      </div>
+
+      <div className="mt-5 flex h-28 items-end gap-3 rounded-[20px] bg-[#fff4f8] px-4 py-4">
+        {[40, 68, 56, 88, 74].map((height, index) => (
+          <div key={height} className="flex flex-1 flex-col items-center gap-2">
+            <div
+              className={`w-full rounded-t-[12px] ${
+                index === 3 ? "bg-[#a30b45]" : "bg-[#d86b98]"
+              }`}
+              style={{ height: `${height}%` }}
+            />
+            <span className="text-[10px] text-[#7d6772]">
+              {["W1", "W2", "W3", "W4", "W5"][index]}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        {[
+          ["Repeat rate", "64%"],
+          ["Booked clients", "38"],
+          ["Avg. ticket", "$142"],
+          ["Rebooked", "19"],
+        ].map(([label, value]) => (
+          <div
+            key={label}
+            className="rounded-[18px] border border-[#f6e4ec] bg-[#fffafc] p-3"
+          >
+            <p className="text-xs text-[#7d6772]">{label}</p>
+            <p className="mt-2 text-lg font-semibold text-[#24141c]">{value}</p>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function FeedScreen() {
+  return (
+    <>
+      <div className="rounded-full border border-[#f1d8e3] bg-[#fffafc] px-4 py-3 text-sm text-[#7d6772]">
+        Search hair, nails, makeup...
+      </div>
+
+      <div className="mt-4 flex gap-2 text-[11px] font-semibold text-[#a30b45]">
+        {["Nearby", "Braids", "Nails"].map((chip) => (
+          <span key={chip} className="rounded-full bg-[#fff1f7] px-3 py-1">
+            {chip}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-4 space-y-3">
+        {[
+          ["Glossing session", "2.4 mi away"],
+          ["Soft glam", "Book for Friday"],
+        ].map(([title, subtitle], index) => (
+          <div
+            key={title}
+            className={`rounded-[20px] p-3 ${
+              index === 0
+                ? "bg-[linear-gradient(180deg,#d45e8e_0%,#a30b45_100%)] text-white"
+                : "border border-[#f5e2eb] bg-[#fffafc]"
+            }`}
+          >
+            <div
+              className={`h-20 rounded-[16px] ${
+                index === 0 ? "bg-white/18" : "bg-[#fff1f7]"
+              }`}
+            />
+            <p className="mt-3 text-sm font-semibold">{title}</p>
+            <p
+              className={`mt-1 text-xs ${
+                index === 0 ? "text-white/75" : "text-[#7d6772]"
+              }`}
+            >
+              {subtitle}
+            </p>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+function ProfileScreen() {
+  return (
+    <>
+      <div className="flex items-center gap-3">
+        <div className="h-12 w-12 rounded-full bg-[linear-gradient(135deg,#de7aa3_0%,#a30b45_100%)]" />
+        <div>
+          <p className="text-sm font-semibold text-[#24141c]">Sierra MUA</p>
+          <p className="text-xs text-[#7d6772]">Soft glam / bridal / events</p>
+        </div>
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className="h-[88px] rounded-[18px] bg-[linear-gradient(180deg,#d86595_0%,#a30b45_100%)]" />
+        <div className="h-[88px] rounded-[18px] bg-[#fff1f7]" />
+      </div>
+
+      <div className="mt-4 rounded-[18px] border border-[#f6e4ec] bg-[#fffafc] p-3">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs text-[#7d6772]">Signature service</p>
+            <p className="mt-1 text-sm font-semibold text-[#24141c]">
+              Full event glam
+            </p>
+          </div>
+          <span className="text-sm font-semibold text-[#a30b45]">$150</span>
+        </div>
+      </div>
+
+      <button className="mt-4 w-full rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] py-3 text-sm font-semibold text-white">
+        Book appointment
+      </button>
+    </>
+  );
+}
+
+function ConfirmationScreen() {
+  return (
+    <>
+      <div className="flex justify-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#fff1f7] text-[#a30b45]">
+          <svg
+            className="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.8}
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <div className="mt-4 text-center">
+        <p className="text-xs uppercase tracking-[0.24em] text-[#a30b45]">
+          Confirmed
+        </p>
+        <h3 className="mt-2 text-xl font-semibold text-[#24141c]">
+          Appointment booked
+        </h3>
+      </div>
+
+      <div className="mt-5 rounded-[20px] border border-[#f6e4ec] bg-[#fffafc] p-4">
+        <p className="text-sm font-semibold text-[#24141c]">Friday, 2:30 PM</p>
+        <p className="mt-1 text-xs text-[#7d6772]">
+          Sierra MUA / Full event glam
+        </p>
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="rounded-[16px] bg-[#fff1f7] p-3">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-[#7d6772]">
+              Deposit
+            </p>
+            <p className="mt-1 text-sm font-semibold text-[#a30b45]">$35 paid</p>
+          </div>
+          <div className="rounded-[16px] bg-[#fff1f7] p-3">
+            <p className="text-[11px] uppercase tracking-[0.18em] text-[#7d6772]">
+              Reminder
+            </p>
+            <p className="mt-1 text-sm font-semibold text-[#a30b45]">
+              24 hrs before
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-4 flex gap-3">
+        <button className="flex-1 rounded-full border border-[#f1d8e3] px-4 py-3 text-sm font-semibold text-[#5f4a53]">
+          Message
+        </button>
+        <button className="flex-1 rounded-full bg-[#a30b45] px-4 py-3 text-sm font-semibold text-white">
+          Directions
+        </button>
+      </div>
+    </>
+  );
+}
+
+function renderScreen(kind: ScreenKind) {
+  switch (kind) {
+    case "portfolio":
+      return (
+        <PhoneFrame accent="bg-[linear-gradient(180deg,#fff8fc_0%,#fff1f6_100%)]">
+          <PortfolioScreen />
+        </PhoneFrame>
+      );
+    case "calendar":
+      return (
+        <PhoneFrame accent="bg-[linear-gradient(180deg,#fff9fc_0%,#fff3f8_100%)]">
+          <CalendarScreen />
+        </PhoneFrame>
+      );
+    case "analytics":
+      return (
+        <PhoneFrame accent="bg-[linear-gradient(180deg,#fff7fb_0%,#fff0f6_100%)]">
+          <AnalyticsScreen />
+        </PhoneFrame>
+      );
+    case "feed":
+      return (
+        <PhoneFrame accent="bg-[linear-gradient(180deg,#fff8fc_0%,#fff2f7_100%)]">
+          <FeedScreen />
+        </PhoneFrame>
+      );
+    case "profile":
+      return (
+        <PhoneFrame accent="bg-[linear-gradient(180deg,#fff9fc_0%,#fff3f8_100%)]">
+          <ProfileScreen />
+        </PhoneFrame>
+      );
+    case "confirmation":
+      return (
+        <PhoneFrame accent="bg-[linear-gradient(180deg,#fff8fc_0%,#fff1f6_100%)]">
+          <ConfirmationScreen />
+        </PhoneFrame>
+      );
+  }
+}
 
 export default function Features() {
+  const [audience, setAudience] = useState<AudienceKey>("pros");
+  const currentAudience = audienceContent[audience];
+
   return (
-    <section className="bg-white py-20">
-      <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-center font-[var(--font-display)] text-3xl font-bold tracking-tight text-[#1a1a1a] sm:text-4xl">
-          <span className="text-[#a30b45]" style={{ fontFamily: "var(--font-brand)", letterSpacing: "-1px" }}>
-            <span className="font-bold italic">glam</span>
-            <span className="font-normal">here</span>
-          </span>{" "}
-          Connects Beauty
-          <br className="hidden sm:block" />
-          Professionals and Clients
-        </h2>
-        <p className="mx-auto mt-4 max-w-2xl text-center text-[#6e5e5e]">
-          Everything you need to discover, connect with, and book the best beauty talent — in one beautiful platform.
-        </p>
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="group rounded-2xl border border-gray-100 bg-white p-6 transition hover:border-[#a30b45]/20 hover:shadow-lg hover:shadow-[#a30b45]/5"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#a30b45]/10 text-[#a30b45] transition group-hover:bg-[#a30b45] group-hover:text-white">
-                {f.icon}
+    <section id="features" className="bg-[#fff8fb] px-6 py-24">
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#a30b45]">
+            One platform, two experiences
+          </p>
+          <h2 className="mt-4 font-[var(--font-display)] text-4xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-5xl">
+            Beauty discovery and booking, tailored to who&apos;s using it.
+          </h2>
+          <p className="mt-5 text-base leading-8 text-[#6f5a64]">
+            Toggle between both sides of Glamhere to see how the experience
+            shifts for professionals and the people booking them.
+          </p>
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <div className="inline-flex rounded-full border border-[#efd4e0] bg-white p-1.5 shadow-sm">
+            {(Object.keys(audienceContent) as AudienceKey[]).map((key) => {
+              const item = audienceContent[key];
+
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={() => setAudience(key)}
+                  className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                    audience === key
+                      ? "bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-white shadow-[0_14px_28px_-18px_rgba(163,11,69,0.75)]"
+                      : "text-[#6f5a64] hover:text-[#a30b45]"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mt-10 rounded-[36px] border border-[#f0d4e0] bg-white p-7 shadow-[0_30px_90px_-55px_rgba(163,11,69,0.45)] sm:p-8">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#a30b45]">
+              {currentAudience.eyebrow}
+            </p>
+            <h3 className="mt-3 font-[var(--font-display)] text-3xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-4xl">
+              {currentAudience.title}
+            </h3>
+            <p className="mt-4 text-base leading-8 text-[#6f5a64]">
+              {currentAudience.description}
+            </p>
+          </div>
+
+          <div className="mt-12 grid gap-10 lg:grid-cols-3">
+            {currentAudience.screens.map((screen) => (
+              <div key={screen.name} className="text-center">
+                {renderScreen(screen.kind)}
+                <h4 className="mt-6 text-lg font-semibold text-[#24141c]">
+                  {screen.name}
+                </h4>
+                <p className="mx-auto mt-2 max-w-xs text-sm leading-7 text-[#6f5a64]">
+                  {screen.description}
+                </p>
               </div>
-              <h3 className="mt-5 text-lg font-semibold text-[#1a1a1a]">
-                {f.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#6e5e5e]">
-                {f.desc}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

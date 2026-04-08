@@ -3,14 +3,14 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-fuchsia: #a30b45;
-  --color-fuchsia-light: rgba(163, 11, 69, 0.12);
-  --color-fuchsia-dark: #70002D;
-  --color-dark: #1a1a1a;
-  --color-dark-brown: #413737;
-  --color-medium-brown: #6e5e5e;
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-montserrat);
+  --color-fuchsia: #c11a63;
+  --color-fuchsia-deep: #961049;
+  --color-fuchsia-soft: #fff1f7;
+  --color-blush: #fff8fb;
+  --color-ink: #24141c;
+  --color-muted: #6f5a64;
+  --font-sans: var(--font-lato);
+  --font-display: var(--font-playfair);
   --font-brand: var(--font-playfair);
 }
 
@@ -19,7 +19,28 @@ html {
 }
 
 body {
-  background: #ffffff;
-  color: #333333;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 120% 50% at 50% 0%, rgba(193, 26, 99, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 20% 8%, rgba(193, 26, 99, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 35% at 85% 5%, rgba(150, 16, 73, 0.06) 0%, transparent 45%),
+    radial-gradient(ellipse 100% 30% at 50% 30%, rgba(255, 241, 247, 0.6) 0%, transparent 70%),
+    linear-gradient(
+      180deg,
+      #fff0f5 0%,
+      #fff5f9 8%,
+      #fffafc 18%,
+      #ffffff 35%,
+      #fffcfd 55%,
+      #fff8fb 72%,
+      #fff3f8 88%,
+      #ffecf3 100%
+    );
+  color: #24141c;
   font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: rgba(193, 26, 99, 0.18);
+  color: #24141c;
 }

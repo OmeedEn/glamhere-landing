@@ -1,69 +1,74 @@
-const testimonials = [
+const audienceChips = [
+  "Stylists",
+  "Braiders",
+  "Barbers",
+  "Makeup artists",
+  "Nail techs",
+  "Estheticians",
+  "Clients",
+];
+
+const trustCards = [
   {
-    name: "Elena M.",
-    role: "Client",
-    text: "I found my new colorist within minutes! GlamHere is the only platform where I feel like I'm seeing a stylist's true, recent work.",
-    initials: "EM",
+    title: "For beauty pros",
+    description:
+      "Turn social discovery into scheduled business with a profile built around your actual work.",
   },
   {
-    name: "Juliette R.",
-    role: "Client",
-    text: "Finally, a platform that gets it right! I can see the stylist's actual work and book with confidence. No more guesswork!",
-    initials: "JR",
+    title: "For clients",
+    description:
+      "Book with confidence after browsing real portfolios, specialties, pricing, and availability.",
   },
   {
-    name: "Ricardo A.",
-    role: "Professional",
-    text: "I've tried other apps, but GlamHere is the only one that shows me real, unedited portfolios. It's a game-changer for finding the right barber.",
-    initials: "RA",
+    title: "For local beauty scenes",
+    description:
+      "Keep discovery, connection, and repeat appointments inside a single platform built for beauty.",
   },
 ];
 
-function Stars() {
-  return (
-    <div className="flex gap-0.5">
-      {[...Array(5)].map((_, i) => (
-        <svg
-          key={i}
-          className="h-4 w-4 text-[#a30b45]"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      ))}
-    </div>
-  );
-}
-
 export default function Testimonials() {
   return (
-    <section className="bg-[#f7f7f7] py-20">
-      <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-center font-[var(--font-display)] text-3xl font-bold tracking-tight text-[#1a1a1a] sm:text-4xl">
-          What Our Users Say
-        </h2>
-        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-3">
-          {testimonials.map((t) => (
-            <div
-              key={t.name}
-              className="rounded-2xl border border-gray-100 bg-white p-6 transition hover:border-[#a30b45]/20 hover:shadow-lg hover:shadow-[#a30b45]/5"
+    <section className="bg-[#fff8fb] px-6 py-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#a30b45]">
+            Trusted by the beauty community
+          </p>
+          <h2 className="mt-4 font-[var(--font-display)] text-4xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-5xl">
+            Built for every lane in beauty.
+          </h2>
+          <p className="mt-5 text-base leading-8 text-[#6f5a64]">
+            Glamhere brings professionals and clients into one beauty-first
+            ecosystem, from the first scroll to the final booking confirmation.
+          </p>
+        </div>
+
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          {audienceChips.map((chip) => (
+            <span
+              key={chip}
+              className="rounded-full border border-[#efd5e1] bg-white px-4 py-2 text-sm font-medium text-[#5f4a53]"
             >
-              <Stars />
-              <p className="mt-4 text-sm leading-relaxed text-[#413737]">
-                &ldquo;{t.text}&rdquo;
-              </p>
-              <div className="mt-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#a30b45]/10 text-sm font-semibold text-[#a30b45]">
-                  {t.initials}
-                </div>
-                <div>
-                  <span className="text-sm font-semibold text-[#1a1a1a]">
-                    {t.name}
-                  </span>
-                  <p className="text-xs text-[#6e5e5e]">{t.role}</p>
-                </div>
+              {chip}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {trustCards.map((card, index) => (
+            <div
+              key={card.title}
+              className="rounded-[30px] border border-[#efd5e1] bg-white p-7 shadow-[0_26px_80px_-60px_rgba(163,11,69,0.45)]"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-sm font-semibold text-white">
+                0{index + 1}
               </div>
+              <h3 className="mt-5 text-2xl font-semibold text-[#24141c]">
+                {card.title}
+              </h3>
+              <p className="mt-4 text-sm leading-7 text-[#6f5a64]">
+                {card.description}
+              </p>
             </div>
           ))}
         </div>

@@ -6,9 +6,10 @@ const dataDir = path.join(process.cwd(), "data");
 const filePath = path.join(dataDir, "waitlist.json");
 
 interface WaitlistEntry {
-  name: string;
+  name?: string;
   email: string;
-  role: string;
+  role?: string;
+  source?: string;
   position: number;
   timestamp: string;
 }
@@ -24,10 +25,26 @@ async function readWaitlist(): Promise<WaitlistEntry[]> {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { name, email, role } = body;
+  const name =
+    typeof body.name === "string" && body.name.trim().length > 0
+      ? body.name.trim()
+      : undefined;
+  const email =
+    typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+  const role =
+    typeof body.role === "string" && body.role.trim().length > 0
+      ? body.role.trim()
+      : undefined;
+  const source =
+    typeof body.source === "string" && body.source.trim().length > 0
+      ? body.source.trim()
+      : "site";
 
-  if (!name || !email || !role) {
-    return NextResponse.json({ error: "All fields are required" }, { status: 400 });
+  if (!email) {
+    return NextResponse.json(
+      { error: "Email is required" },
+      { status: 400 }
+    );
   }
 
   await fs.mkdir(dataDir, { recursive: true });
@@ -44,6 +61,7 @@ export async function POST(request: Request) {
     name,
     email,
     role,
+    source,
     position,
     timestamp: new Date().toISOString(),
   };

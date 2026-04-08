@@ -1,33 +1,27 @@
 import type { Metadata } from "next";
-import { Inter, Montserrat, Playfair_Display } from "next/font/google";
+import { Lato, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const lato = Lato({
+  variable: "--font-lato",
   subsets: ["latin"],
-});
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  weight: ["400", "700", "900"],
 });
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
-  weight: ["400", "700"],
-  style: ["normal", "italic"],
+  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "GlamHere - Authentic Beauty, Effortless Booking",
+  title: "GlamHere | The beauty industry finally has its own platform",
   description:
-    "The modern social platform and marketplace connecting you directly to top beauty professionals. Discover, connect, and book with confidence.",
+    "GlamHere is a social marketplace for the beauty industry. Discover real portfolios, connect with professionals, and book all in one place.",
   openGraph: {
-    title: "GlamHere - Authentic Beauty, Effortless Booking",
+    title: "GlamHere | The beauty industry finally has its own platform",
     description:
-      "The modern social platform and marketplace connecting you directly to top beauty professionals.",
+      "Discover, connect, and book with GlamHere, the beauty industry’s social marketplace.",
     type: "website",
     url: "https://glamhereapp.com",
   },
@@ -39,8 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${montserrat.variable} ${playfair.variable}`}>
-      <body>{children}</body>
+    <html lang="en" className={`${lato.variable} ${playfair.variable}`}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
