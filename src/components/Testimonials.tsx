@@ -1,20 +1,21 @@
-import Image from "next/image";
-
 const testimonials = [
   {
-    name: "Elena Montoya",
-    avatar: "/images/avatar-elena.png",
+    name: "Elena M.",
+    role: "Client",
     text: "I found my new colorist within minutes! GlamHere is the only platform where I feel like I'm seeing a stylist's true, recent work.",
+    initials: "EM",
   },
   {
-    name: "Juliette Ramos",
-    avatar: "/images/avatar-juliette.png",
+    name: "Juliette R.",
+    role: "Client",
     text: "Finally, a platform that gets it right! I can see the stylist's actual work and book with confidence. No more guesswork!",
+    initials: "JR",
   },
   {
-    name: "Ricardo Alvarez",
-    avatar: "/images/avatar-ricardo.png",
+    name: "Ricardo A.",
+    role: "Professional",
     text: "I've tried other apps, but GlamHere is the only one that shows me real, unedited portfolios. It's a game-changer for finding the right barber.",
+    initials: "RA",
   },
 ];
 
@@ -24,7 +25,7 @@ function Stars() {
       {[...Array(5)].map((_, i) => (
         <svg
           key={i}
-          className={`h-4 w-4 ${i < 4 ? "text-yellow-400" : "text-yellow-400/50"}`}
+          className="h-4 w-4 text-[#a30b45]"
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -46,23 +47,22 @@ export default function Testimonials() {
           {testimonials.map((t) => (
             <div
               key={t.name}
-              className="rounded-2xl bg-white p-6 shadow-sm transition hover:shadow-md"
+              className="rounded-2xl border border-gray-100 bg-white p-6 transition hover:border-[#a30b45]/20 hover:shadow-lg hover:shadow-[#a30b45]/5"
             >
               <Stars />
               <p className="mt-4 text-sm leading-relaxed text-[#413737]">
                 &ldquo;{t.text}&rdquo;
               </p>
               <div className="mt-6 flex items-center gap-3">
-                <Image
-                  src={t.avatar}
-                  alt={t.name}
-                  width={44}
-                  height={44}
-                  className="rounded-full"
-                />
-                <span className="text-sm font-semibold text-[#1a1a1a]">
-                  {t.name}
-                </span>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#a30b45]/10 text-sm font-semibold text-[#a30b45]">
+                  {t.initials}
+                </div>
+                <div>
+                  <span className="text-sm font-semibold text-[#1a1a1a]">
+                    {t.name}
+                  </span>
+                  <p className="text-xs text-[#6e5e5e]">{t.role}</p>
+                </div>
               </div>
             </div>
           ))}

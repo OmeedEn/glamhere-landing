@@ -1,8 +1,6 @@
-import Image from "next/image";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
-import HeroImages from "@/components/HeroImages";
 import Features from "@/components/Features";
 import ForProfessionals from "@/components/ForProfessionals";
 import ForClients from "@/components/ForClients";
@@ -17,7 +15,6 @@ export default function Home() {
       <Header />
       <Hero />
       <Stats />
-      <HeroImages />
       <Features />
       <ForProfessionals />
       <ForClients />

@@ -2,19 +2,29 @@ import StoreBadges from "./StoreBadges";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white px-6 pt-20 pb-16 text-center">
+    <section className="relative overflow-hidden bg-[#1a1a1a] px-6 pt-28 pb-24 text-center">
       {/* Decorative gradient blobs */}
-      <div className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-[#a30b45]/20 blur-[120px]" />
-      <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full bg-[#FDF9F9]/60 blur-[100px]" />
-      <div className="pointer-events-none absolute bottom-0 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[#a30b45]/10 blur-[140px]" />
+      <div className="pointer-events-none absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-[#a30b45]/25 blur-[160px]" />
+      <div className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full bg-[#a30b45]/10 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-0 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#a30b45]/15 blur-[140px]" />
+
+      {/* Subtle pattern overlay */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "40px 40px" }} />
 
       <div className="relative mx-auto max-w-3xl">
-        <h1 className="font-[var(--font-display)] text-4xl font-bold leading-tight tracking-tight text-[#1a1a1a] sm:text-5xl md:text-6xl">
-          Authentic Beauty, Effortless Booking,{" "}
+        <h1 className="font-[var(--font-display)] text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+          Authentic Beauty,{" "}
+          <br className="hidden sm:block" />
+          Effortless Booking,{" "}
+          <br className="hidden sm:block" />
           <span className="text-[#a30b45]">All in One Place.</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#6e5e5e]">
-          <span className="text-[#a30b45]" style={{ fontFamily: "var(--font-brand)", letterSpacing: "-1px" }}><span className="font-bold italic">glam</span><span className="font-normal">here</span></span> is the modern social platform and marketplace connecting you
+        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/60">
+          <span className="text-[#a30b45]" style={{ fontFamily: "var(--font-brand)", letterSpacing: "-1px" }}>
+            <span className="font-bold italic">glam</span>
+            <span className="font-normal">here</span>
+          </span>{" "}
+          is the modern social platform and marketplace connecting you
           directly to the skill, artistry, and real work of top beauty
           professionals &mdash; anytime, anywhere.
         </p>
@@ -28,6 +38,9 @@ export default function Hero() {
           </a>
         </div>
       </div>
+
+      {/* Bottom fade */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
     </section>
   );
 }
