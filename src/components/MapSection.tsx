@@ -3,23 +3,23 @@ import Image from "next/image";
 const cities = [
   {
     name: "Los Angeles",
-    left: "12%",
-    top: "50%",
+    left: "15%",
+    top: "36%",
   },
   {
     name: "Orange County",
-    left: "13%",
-    top: "58%",
+    left: "22%",
+    top: "48%",
   },
   {
     name: "Houston",
-    left: "42%",
+    left: "45%",
     top: "68%",
   },
   {
     name: "San Antonio",
-    left: "36%",
-    top: "72%",
+    left: "35%",
+    top: "56%",
   },
 ];
 
@@ -29,8 +29,8 @@ const proPopups = [
     role: "Braids + color",
     avatar: "/images/avatar-elena.png",
     rating: "4.9",
-    left: "4%",
-    top: "34%",
+    left: "2%",
+    top: "8%",
     rotate: "-2deg",
   },
   {
@@ -38,8 +38,8 @@ const proPopups = [
     role: "Editorial makeup",
     avatar: "/images/avatar-juliette.png",
     rating: "5.0",
-    left: "24%",
-    top: "52%",
+    left: "55%",
+    top: "8%",
     rotate: "1deg",
   },
   {
@@ -47,8 +47,8 @@ const proPopups = [
     role: "Cuts + grooming",
     avatar: "/images/avatar-ricardo.png",
     rating: "4.8",
-    left: "50%",
-    top: "58%",
+    left: "62%",
+    top: "52%",
     rotate: "-1deg",
   },
   {
@@ -56,8 +56,8 @@ const proPopups = [
     role: "Lashes + brows",
     avatar: "/images/avatar-elena.png",
     rating: "4.9",
-    left: "30%",
-    top: "78%",
+    left: "2%",
+    top: "52%",
     rotate: "2deg",
   },
 ];

@@ -54,7 +54,7 @@ export default function WaitlistEmailCapture() {
             onChange={(event) => setEmail(event.target.value)}
             required
             placeholder="Enter your email"
-            className="h-16 w-full flex-1 rounded-full border border-[#f1d4e0] bg-white px-6 text-base text-[#24141c] shadow-[0_16px_40px_-24px_rgba(163,11,69,0.3)] outline-none transition focus:border-[#c11a63] sm:h-14 sm:bg-[#fff7fb] sm:px-5 sm:shadow-none"
+            className="h-24 w-full flex-1 rounded-full border border-[#f1d4e0] bg-white px-6 text-lg text-[#24141c] shadow-[0_16px_40px_-24px_rgba(163,11,69,0.3)] outline-none transition focus:border-[#c11a63] sm:h-14 sm:text-base sm:bg-[#fff7fb] sm:px-5 sm:shadow-none"
           />
           <button
             type="submit"

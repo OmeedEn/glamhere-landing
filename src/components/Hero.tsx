@@ -86,33 +86,6 @@ export default function Hero() {
         <div className="relative mx-auto w-full max-w-[560px]">
           <div className="absolute inset-x-14 top-6 h-60 rounded-full bg-[#f3bfd3]/55 blur-[90px]" />
 
-          <div className="absolute -left-2 top-14 hidden w-56 rounded-[22px] border border-[#f3d7e3] bg-white/95 p-5 shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] backdrop-blur md:block">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
-                <svg className="h-4.5 w-4.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                </svg>
-              </div>
-              <p className="text-sm font-semibold text-[#24141c]">
-                Book directly from a post
-              </p>
-            </div>
-          </div>
-
-          <div className="absolute -right-2 bottom-14 hidden w-60 rounded-[22px] border border-[#f3d7e3] bg-white/95 p-5 shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] backdrop-blur md:block">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
-                <svg className="h-4.5 w-4.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                </svg>
-              </div>
-              <p className="text-sm font-semibold text-[#24141c]">
-                Scroll the feed or explore the map
-              </p>
-            </div>
-          </div>
-
           <div className="relative mx-auto w-[320px] rounded-[42px] border border-[#f4d9e5] bg-white p-3 shadow-[0_45px_90px_-55px_rgba(163,11,69,0.75)]">
             <div className="rounded-[34px] bg-[linear-gradient(180deg,#fff9fc_0%,#fff0f6_100%)] p-4">
               <div className="mx-auto mb-4 h-1.5 w-16 rounded-full bg-[#d9bcc7]" />
@@ -217,6 +190,34 @@ export default function Hero() {
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative mt-6 flex justify-center gap-4">
+            <div className="w-48 rounded-[22px] border border-[#f3d7e3] bg-white/95 p-4 shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] backdrop-blur">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
+                  <svg className="h-4.5 w-4.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                  </svg>
+                </div>
+                <p className="text-sm font-semibold text-[#24141c]">
+                  Book directly from a post
+                </p>
+              </div>
+            </div>
+            <div className="w-48 rounded-[22px] border border-[#f3d7e3] bg-white/95 p-4 shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] backdrop-blur">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
+                  <svg className="h-4.5 w-4.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                </div>
+                <p className="text-sm font-semibold text-[#24141c]">
+                  Explore the map
+                </p>
               </div>
             </div>
           </div>
