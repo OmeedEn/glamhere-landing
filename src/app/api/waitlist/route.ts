@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
+
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -12,6 +14,8 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
+
+  const supabase = getSupabase();
 
   // Check for duplicate
   const { data: existing } = await supabase
@@ -41,6 +45,8 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+  const supabase = getSupabase();
+
   const { count, error } = await supabase
     .from("waitlist")
     .select("*", { count: "exact", head: true });
