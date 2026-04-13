@@ -4,22 +4,22 @@ const cities = [
   {
     name: "Los Angeles",
     left: "15%",
-    top: "36%",
+    top: "28%",
   },
   {
     name: "Orange County",
-    left: "22%",
-    top: "48%",
+    left: "55%",
+    top: "28%",
   },
   {
     name: "Houston",
-    left: "45%",
-    top: "68%",
+    left: "55%",
+    top: "58%",
   },
   {
     name: "San Antonio",
-    left: "35%",
-    top: "56%",
+    left: "15%",
+    top: "58%",
   },
 ];
 
@@ -76,7 +76,7 @@ export default function MapSection() {
         </div>
 
         {/* Map */}
-        <div className="relative mx-auto mt-14 min-h-[560px] overflow-hidden rounded-[38px] border border-[#efd3df] bg-[linear-gradient(180deg,#fff9fc_0%,#fff1f6_100%)] shadow-[0_40px_100px_-60px_rgba(163,11,69,0.5)] sm:min-h-[620px] lg:min-h-[680px]">
+        <div className="relative mx-auto mt-14 min-h-[420px] overflow-hidden rounded-[38px] border border-[#efd3df] bg-[linear-gradient(180deg,#fff9fc_0%,#fff1f6_100%)] shadow-[0_40px_100px_-60px_rgba(163,11,69,0.5)] sm:min-h-[620px] lg:min-h-[680px]">
           {/* Background radial accents */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_55%,rgba(193,26,99,0.10),transparent_28%),radial-gradient(circle_at_45%_70%,rgba(193,26,99,0.08),transparent_22%)]" />
 
