@@ -5,21 +5,25 @@ const cities = [
     name: "Los Angeles",
     left: "15%",
     top: "28%",
+    region: "california",
   },
   {
     name: "Orange County",
-    left: "55%",
+    left: "38%",
     top: "28%",
+    region: "california",
   },
   {
     name: "Houston",
-    left: "55%",
+    left: "62%",
     top: "58%",
+    region: "texas",
   },
   {
     name: "San Antonio",
-    left: "15%",
+    left: "40%",
     top: "58%",
+    region: "texas",
   },
 ];
 
@@ -30,7 +34,7 @@ const proPopups = [
     avatar: "/images/avatar-elena.png",
     rating: "4.9",
     left: "2%",
-    top: "8%",
+    top: "6%",
     rotate: "-2deg",
   },
   {
@@ -38,8 +42,8 @@ const proPopups = [
     role: "Editorial makeup",
     avatar: "/images/avatar-juliette.png",
     rating: "5.0",
-    left: "55%",
-    top: "8%",
+    left: "52%",
+    top: "6%",
     rotate: "1deg",
   },
   {
@@ -47,8 +51,8 @@ const proPopups = [
     role: "Cuts + grooming",
     avatar: "/images/avatar-ricardo.png",
     rating: "4.8",
-    left: "62%",
-    top: "52%",
+    left: "65%",
+    top: "40%",
     rotate: "-1deg",
   },
   {
@@ -57,7 +61,7 @@ const proPopups = [
     avatar: "/images/avatar-elena.png",
     rating: "4.9",
     left: "2%",
-    top: "52%",
+    top: "44%",
     rotate: "2deg",
   },
 ];
@@ -80,80 +84,78 @@ export default function MapSection() {
           {/* Background radial accents */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_55%,rgba(193,26,99,0.10),transparent_28%),radial-gradient(circle_at_45%_70%,rgba(193,26,99,0.08),transparent_22%)]" />
 
-          {/* US outline SVG */}
+          {/* Dotted trails */}
           <svg
             className="absolute inset-0 h-full w-full"
             viewBox="0 0 900 560"
             aria-hidden="true"
             preserveAspectRatio="xMidYMid meet"
           >
-            {/* Continental US simplified outline */}
+            {/* Trail: LA to Orange County */}
             <path
-              d="M120 180C135 165 170 145 210 135C255 123 300 128 345 125C390 120 420 110 465 108C510 104 555 108 590 120C630 134 660 155 685 180C710 208 720 235 718 265C714 300 695 330 670 350C640 375 605 388 565 395C525 400 490 398 450 400C405 403 365 410 325 408C280 406 245 395 210 385C175 374 145 358 128 338C112 318 108 295 112 272C117 248 118 225 120 200Z"
-              fill="rgba(255,255,255,0.7)"
-              stroke="rgba(163,11,69,0.10)"
-              strokeWidth="2"
-            />
-            {/* Florida peninsula */}
-            <path
-              d="M620 350C635 370 650 395 660 420C665 438 662 450 652 455C642 458 632 450 625 435C618 418 610 395 605 375"
-              fill="rgba(255,255,255,0.6)"
-              stroke="rgba(163,11,69,0.10)"
-              strokeWidth="2"
-            />
-            {/* West coast detail */}
-            <path
-              d="M120 180C108 200 95 230 90 260C86 285 88 310 98 330C108 348 120 340 128 338"
-              fill="rgba(255,255,255,0.5)"
-              stroke="rgba(163,11,69,0.10)"
-              strokeWidth="2"
-            />
-            {/* Texas outline highlight */}
-            <path
-              d="M310 340C325 335 345 338 365 345C385 352 400 365 408 382C412 395 410 410 402 420C390 432 372 435 355 430C338 425 325 415 318 400C312 385 310 365 310 340Z"
-              fill="rgba(193,26,99,0.06)"
-              stroke="rgba(163,11,69,0.15)"
-              strokeWidth="2"
-            />
-            {/* SoCal highlight */}
-            <path
-              d="M95 280C100 272 108 268 118 270C128 274 132 285 130 298C126 310 118 316 108 314C98 312 92 300 95 280Z"
-              fill="rgba(193,26,99,0.06)"
-              stroke="rgba(163,11,69,0.15)"
-              strokeWidth="2"
-            />
-            {/* Dashed connection line between SoCal and Texas */}
-            <path
-              d="M130 290C200 310 270 340 340 370"
+              d="M180 180C240 170 280 170 360 180"
               fill="none"
-              stroke="rgba(163,11,69,0.12)"
+              stroke="rgba(163,11,69,0.18)"
               strokeWidth="2"
-              strokeDasharray="8 12"
+              strokeDasharray="6 10"
               strokeLinecap="round"
             />
-            {/* Grid lines for map feel */}
-            {[140, 220, 300, 380, 460].map((y) => (
-              <line
-                key={`h-${y}`}
-                x1="40"
-                y1={y}
-                x2="860"
-                y2={y}
-                stroke="rgba(163,11,69,0.04)"
-                strokeWidth="1"
+            {/* Trail: California cluster to Texas cluster (curved) */}
+            <path
+              d="M300 200C380 260 420 300 420 340"
+              fill="none"
+              stroke="rgba(163,11,69,0.14)"
+              strokeWidth="2"
+              strokeDasharray="6 10"
+              strokeLinecap="round"
+            />
+            {/* Trail: San Antonio to Houston */}
+            <path
+              d="M400 350C460 340 500 340 580 350"
+              fill="none"
+              stroke="rgba(163,11,69,0.18)"
+              strokeWidth="2"
+              strokeDasharray="6 10"
+              strokeLinecap="round"
+            />
+            {/* Decorative scattered dots */}
+            {[
+              [120, 120], [700, 140], [80, 400], [750, 420],
+              [450, 100], [200, 450], [650, 260], [340, 460],
+              [560, 130], [150, 300], [600, 450], [480, 250],
+            ].map(([cx, cy], i) => (
+              <circle
+                key={`dot-${i}`}
+                cx={cx}
+                cy={cy}
+                r="2"
+                fill={`rgba(163,11,69,${0.06 + (i % 3) * 0.03})`}
               />
             ))}
-            {[180, 320, 460, 600, 740].map((x) => (
-              <line
-                key={`v-${x}`}
-                x1={x}
-                y1="60"
-                x2={x}
-                y2="520"
-                stroke="rgba(163,11,69,0.04)"
-                strokeWidth="1"
-              />
-            ))}
+            {/* California region label */}
+            <text
+              x="220"
+              y="140"
+              fill="rgba(163,11,69,0.12)"
+              fontSize="14"
+              fontWeight="600"
+              letterSpacing="0.15em"
+              textAnchor="middle"
+            >
+              CALIFORNIA
+            </text>
+            {/* Texas region label */}
+            <text
+              x="490"
+              y="420"
+              fill="rgba(163,11,69,0.12)"
+              fontSize="14"
+              fontWeight="600"
+              letterSpacing="0.15em"
+              textAnchor="middle"
+            >
+              TEXAS
+            </text>
           </svg>
 
           {/* City pins */}

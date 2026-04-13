@@ -446,7 +446,7 @@ export default function Features() {
     <section id="features" className="bg-white px-6 py-24">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a30b45]">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#a30b45]">
             One platform, two experiences
           </p>
           <h2 className="mt-4 font-[var(--font-display)] text-4xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-5xl">
@@ -483,7 +483,7 @@ export default function Features() {
 
         <div className="mt-10 rounded-[36px] border border-[#f0d4e0] bg-white p-7 shadow-[0_30px_90px_-55px_rgba(163,11,69,0.45)] sm:p-8">
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a30b45]">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a30b45]">
               {currentAudience.eyebrow}
             </p>
             <h3 className="mt-3 font-[var(--font-display)] text-3xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-4xl">

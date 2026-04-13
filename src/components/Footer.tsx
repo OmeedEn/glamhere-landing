@@ -20,17 +20,17 @@ export default function Footer() {
 
           {/* GlamHere */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-[#24141c]">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a30b45]">
               GlamHere
             </h4>
-            <ul className="mt-4 space-y-2 text-sm">
+            <ul className="mt-4 space-y-2.5 text-sm">
               <li>
-                <a href="/#features" className="text-[#6f5a64] transition hover:text-[#c11a63]">
+                <a href="/#features" className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]">
                   For Professionals
                 </a>
               </li>
               <li>
-                <a href="/#features" className="text-[#6f5a64] transition hover:text-[#c11a63]">
+                <a href="/#features" className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]">
                   For Clients
                 </a>
               </li>
@@ -39,7 +39,7 @@ export default function Footer() {
                   href={APP_STORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#6f5a64] transition hover:text-[#c11a63]"
+                  className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]"
                 >
                   Download App
                 </a>
@@ -49,14 +49,14 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-[#24141c]">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a30b45]">
               Legal
             </h4>
-            <ul className="mt-4 space-y-2 text-sm">
+            <ul className="mt-4 space-y-2.5 text-sm">
               <li>
                 <a
                   href="/privacy-policy"
-                  className="text-[#6f5a64] transition hover:text-[#c11a63]"
+                  className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]"
                 >
                   Privacy Policy
                 </a>
@@ -64,18 +64,18 @@ export default function Footer() {
               <li>
                 <a
                   href="/terms-and-condition"
-                  className="text-[#6f5a64] transition hover:text-[#c11a63]"
+                  className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]"
                 >
                   Terms of Service
                 </a>
               </li>
               <li>
-                <a href="/contact" className="text-[#6f5a64] transition hover:text-[#c11a63]">
+                <a href="/contact" className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]">
                   Contact Us
                 </a>
               </li>
               <li>
-                <a href="/waitlist" className="text-[#6f5a64] transition hover:text-[#c11a63]">
+                <a href="/waitlist" className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]">
                   Join Waitlist
                 </a>
               </li>
@@ -84,7 +84,7 @@ export default function Footer() {
 
           {/* Download */}
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wider text-[#24141c]">
+            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a30b45]">
               Get the App
             </h4>
             <div className="mt-4 space-y-3">
