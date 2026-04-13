@@ -9,7 +9,7 @@ const audienceContent = {
     eyebrow: "For professionals",
     title: "Run your beauty business where clients already discover you.",
     description:
-      "From showing your latest work to locking in repeat appointments, Glamhere keeps your portfolio, calendar, and client intelligence in one flow.",
+      "From showing your latest work to locking in repeat appointments, Glamhere keeps your portfolio, calendar, and clients in one flow.",
     screens: [
       {
         name: "Portfolio page",
@@ -31,29 +31,29 @@ const audienceContent = {
       },
     ],
   },
-  individuals: {
-    label: "Individuals",
-    eyebrow: "For individuals",
-    title: "Discover, compare, and book beauty without leaving the app.",
+  clients: {
+    label: "Clients",
+    eyebrow: "For clients",
+    title: "Discover, review, and book beauty without leaving the app.",
     description:
-      "Browse talent by style, check real work, view service details, and confirm your next appointment in a few taps.",
+      "Glamhere is your beauty feed, your inspo board, and your booking app all in one place. Follow pros you love, save looks for later, and book when you\u2019re ready.",
     screens: [
       {
-        name: "Discovery feed",
+        name: "Discover",
         description:
-          "Browse real work by category, location, and the looks you actually want to book.",
+          "Scroll the feed or explore the map. Browse real work by category, location, and the looks you want to book.",
         kind: "feed" as const,
       },
       {
-        name: "Pro profile",
+        name: "View their profile",
         description:
-          "Review specialties, pricing, portfolio highlights, and availability before you commit.",
+          "See each specialist\u2019s real work, signature services, and availability all before you commit to anything.",
         kind: "profile" as const,
       },
       {
-        name: "Booking confirmation",
+        name: "Book",
         description:
-          "Lock in the appointment, save the details, and stay connected to your pro after booking.",
+          "Book directly from a post or a profile. Your appointment is confirmed, saved to your calendar, and ready in your bookings section.",
         kind: "confirmation" as const,
       },
     ],
@@ -105,7 +105,7 @@ function PortfolioScreen() {
 
       <div className="mt-4 grid grid-cols-2 gap-3">
         <div className="overflow-hidden rounded-[18px] bg-[linear-gradient(180deg,#d45e8e_0%,#a30b45_100%)] p-3 text-white">
-          <p className="truncate text-xs uppercase tracking-[0.22em] text-white/70">
+          <p className="truncate text-xs uppercase tracking-[0.18em] text-white/70">
             Portfolio
           </p>
           <div className="mt-5 h-[72px] rounded-[16px] bg-white/18" />
@@ -123,7 +123,7 @@ function PortfolioScreen() {
       </div>
 
       <div className="mt-4 rounded-[18px] border border-[#f6e4ec] bg-[#fffafc] p-3">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7d6772]">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#7d6772]">
           Signature service
         </p>
         <div className="mt-2 flex items-center justify-between">
@@ -145,7 +145,7 @@ function CalendarScreen() {
     <>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.22em] text-[#a30b45]">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#a30b45]">
             This week
           </p>
           <h3 className="mt-1 text-xl font-semibold text-[#24141c]">Bookings</h3>
@@ -205,7 +205,7 @@ function AnalyticsScreen() {
     <>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.22em] text-[#a30b45]">
+          <p className="text-xs uppercase tracking-[0.18em] text-[#a30b45]">
             Client analytics
           </p>
           <h3 className="mt-1 text-xl font-semibold text-[#24141c]">This month</h3>
@@ -354,7 +354,7 @@ function ConfirmationScreen() {
       </div>
 
       <div className="mt-4 text-center">
-        <p className="text-xs uppercase tracking-[0.24em] text-[#a30b45]">
+        <p className="text-xs uppercase tracking-[0.18em] text-[#a30b45]">
           Confirmed
         </p>
         <h3 className="mt-2 text-xl font-semibold text-[#24141c]">
@@ -369,13 +369,13 @@ function ConfirmationScreen() {
         </p>
         <div className="mt-4 grid grid-cols-2 gap-3">
           <div className="rounded-[16px] bg-[#fff1f7] p-3">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-[#7d6772]">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[#7d6772]">
               Deposit
             </p>
             <p className="mt-1 text-sm font-semibold text-[#a30b45]">$35 paid</p>
           </div>
           <div className="rounded-[16px] bg-[#fff1f7] p-3">
-            <p className="text-[11px] uppercase tracking-[0.18em] text-[#7d6772]">
+            <p className="text-[11px] uppercase tracking-[0.14em] text-[#7d6772]">
               Reminder
             </p>
             <p className="mt-1 text-sm font-semibold text-[#a30b45]">
@@ -443,10 +443,10 @@ export default function Features() {
   const currentAudience = audienceContent[audience];
 
   return (
-    <section id="features" className="bg-[#fff8fb] px-6 py-24">
+    <section id="features" className="bg-white px-6 py-24">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#a30b45]">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#a30b45]">
             One platform, two experiences
           </p>
           <h2 className="mt-4 font-[var(--font-display)] text-4xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-5xl">
@@ -482,8 +482,8 @@ export default function Features() {
         </div>
 
         <div className="mt-10 rounded-[36px] border border-[#f0d4e0] bg-white p-7 shadow-[0_30px_90px_-55px_rgba(163,11,69,0.45)] sm:p-8">
-          <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#a30b45]">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a30b45]">
               {currentAudience.eyebrow}
             </p>
             <h3 className="mt-3 font-[var(--font-display)] text-3xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-4xl">
@@ -494,11 +494,11 @@ export default function Features() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-10 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {currentAudience.screens.map((screen) => (
               <div key={screen.name} className="text-center">
                 {renderScreen(screen.kind)}
-                <h4 className="mt-6 text-lg font-semibold text-[#24141c]">
+                <h4 className="mt-6 font-[var(--font-display)] text-lg font-semibold text-[#24141c]">
                   {screen.name}
                 </h4>
                 <p className="mx-auto mt-2 max-w-xs text-sm leading-7 text-[#6f5a64]">

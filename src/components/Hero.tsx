@@ -1,7 +1,6 @@
 import Image from "next/image";
+import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/constants";
 import WaitlistEmailCapture from "./WaitlistEmailCapture";
-
-const heroTags = ["Free to join", "Real portfolios", "Social discovery"];
 
 const featuredPros = [
   {
@@ -24,67 +23,94 @@ const featuredPros = [
 export default function Hero() {
   return (
     <section className="relative overflow-hidden px-6 pb-[88px] pt-[120px] sm:pt-36 lg:pb-[104px]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_140%_60%_at_50%_-10%,rgba(193,26,99,0.22),transparent_55%),radial-gradient(circle_at_10%_20%,rgba(193,26,99,0.16),transparent_35%),radial-gradient(circle_at_90%_15%,rgba(150,16,73,0.12),transparent_30%),linear-gradient(180deg,#ffebf2_0%,#fff4f9_30%,#ffffff_60%,#fff8fb_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_140%_60%_at_50%_-10%,rgba(193,26,99,0.22),transparent_55%),radial-gradient(circle_at_10%_20%,rgba(193,26,99,0.16),transparent_35%),radial-gradient(circle_at_90%_15%,rgba(150,16,73,0.12),transparent_30%),linear-gradient(180deg,#ffebf2_0%,#fff4f9_20%,#ffffff_60%,#ffffff_100%)]" />
       <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-[#f0c4d8] blur-[140px] opacity-50" />
       <div className="pointer-events-none absolute -left-20 top-10 h-60 w-60 rounded-full bg-[#e8a0c0] blur-[120px] opacity-30" />
       <div className="pointer-events-none absolute -right-10 top-20 h-48 w-48 rounded-full bg-[#d98bb0] blur-[100px] opacity-20" />
 
       <div className="relative mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
         <div>
-          <p className="inline-flex items-center rounded-full border border-[#f2d6e2] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.28em] text-[#a30b45] shadow-sm">
+          <p className="inline-flex items-center rounded-full border border-[#f2d6e2] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#a30b45] shadow-sm">
             The beauty industry&apos;s first social platform
           </p>
 
           <h1 className="mt-6 max-w-3xl font-[var(--font-display)] text-5xl leading-[0.95] font-semibold tracking-[-0.04em] text-[#24141c] sm:text-6xl lg:text-7xl">
-            The beauty industry finally has its own platform
+            The Beauty Industry&apos;s <em className="italic">First</em> Social Booking Platform
           </h1>
 
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-[#5f4a53]">
-            Glamhere connects clients and professionals through real
-            portfolios, social discovery, and instant in-app booking.
-          </p>
-          <p className="mt-3 max-w-xl text-base leading-7 text-[#7d6772]">
+          <p className="mt-6 max-w-xl text-base leading-7 text-[#5f4a53]">
             A social marketplace for the beauty industry. Discover, connect,
             and book all in one place.
+          </p>
+
+          <p className="mt-5 font-[var(--font-display)] text-xl font-semibold text-[#24141c]">
+            No subscription. No catch. Free to join.
           </p>
 
           <div id="hero-waitlist" className="mt-8 max-w-xl">
             <WaitlistEmailCapture />
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-3">
-            {heroTags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-[#eed2df] bg-white px-4 py-2 text-sm font-medium text-[#5f4a53]"
-              >
-                {tag}
-              </span>
-            ))}
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl border border-[#f3d7e3] bg-white px-5 py-3 text-[#24141c] shadow-sm transition hover:border-[#c11a63]/30 hover:shadow-md"
+            >
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+              </svg>
+              <div className="text-left">
+                <div className="text-[10px] leading-none text-[#6f5a64]">Download on the</div>
+                <div className="text-sm font-semibold leading-tight">App Store</div>
+              </div>
+            </a>
+            <a
+              href={GOOGLE_PLAY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-2xl border border-[#f3d7e3] bg-white px-5 py-3 text-[#24141c] shadow-sm transition hover:border-[#c11a63]/30 hover:shadow-md"
+            >
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
+              </svg>
+              <div className="text-left">
+                <div className="text-[10px] leading-none text-[#6f5a64]">Get it on</div>
+                <div className="text-sm font-semibold leading-tight">Google Play</div>
+              </div>
+            </a>
           </div>
         </div>
 
         <div className="relative mx-auto w-full max-w-[560px]">
           <div className="absolute inset-x-14 top-6 h-60 rounded-full bg-[#f3bfd3]/55 blur-[90px]" />
 
-          <div className="absolute -left-2 top-14 hidden w-52 rounded-[28px] border border-[#f3d7e3] bg-white/92 p-5 shadow-[0_30px_70px_-40px_rgba(163,11,69,0.45)] backdrop-blur md:block">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#a30b45]">
-              Real portfolios
-            </p>
-            <p className="mt-3 text-sm leading-6 text-[#5f4a53]">
-              Scroll current work, verify style fit, and book the artist you
-              actually want.
-            </p>
+          <div className="absolute -left-2 top-14 hidden w-56 rounded-[22px] border border-[#f3d7e3] bg-white/95 p-5 shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] backdrop-blur md:block">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
+                <svg className="h-4.5 w-4.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                </svg>
+              </div>
+              <p className="text-sm font-semibold text-[#24141c]">
+                Book directly from a post
+              </p>
+            </div>
           </div>
 
-          <div className="absolute -right-2 bottom-10 hidden w-56 rounded-[28px] border border-[#f3d7e3] bg-white/92 p-5 shadow-[0_30px_70px_-40px_rgba(163,11,69,0.45)] backdrop-blur md:block">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#a30b45]">
-              Social + booking
-            </p>
-            <p className="mt-3 text-sm leading-6 text-[#5f4a53]">
-              Follow pros, message directly, and confirm appointments without
-              bouncing between apps.
-            </p>
+          <div className="absolute -right-2 bottom-14 hidden w-60 rounded-[22px] border border-[#f3d7e3] bg-white/95 p-5 shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] backdrop-blur md:block">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
+                <svg className="h-4.5 w-4.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+              </div>
+              <p className="text-sm font-semibold text-[#24141c]">
+                Scroll the feed or explore the map
+              </p>
+            </div>
           </div>
 
           <div className="relative mx-auto w-[320px] rounded-[42px] border border-[#f4d9e5] bg-white p-3 shadow-[0_45px_90px_-55px_rgba(163,11,69,0.75)]">
@@ -94,7 +120,7 @@ export default function Hero() {
               <div className="rounded-[28px] bg-white p-4 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.24em] text-[#a30b45]">
+                    <p className="text-xs uppercase tracking-[0.18em] text-[#a30b45]">
                       Discover nearby
                     </p>
                     <h2 className="mt-1 font-[var(--font-display)] text-2xl font-semibold text-[#24141c]">
@@ -130,7 +156,7 @@ export default function Hero() {
 
                   <div className="mt-4 grid grid-cols-2 gap-3">
                     <div className="rounded-[18px] bg-[linear-gradient(180deg,#cf5d8d_0%,#a30b45_100%)] p-3 text-white">
-                      <p className="text-xs uppercase tracking-[0.22em] text-white/70">
+                      <p className="text-xs uppercase tracking-[0.18em] text-white/70">
                         Portfolio
                       </p>
                       <div className="mt-6 h-16 rounded-[16px] bg-white/18" />

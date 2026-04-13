@@ -3,22 +3,22 @@ import Image from "next/image";
 const cities = [
   {
     name: "Los Angeles",
-    left: "14%",
-    top: "52%",
+    left: "12%",
+    top: "50%",
   },
   {
-    name: "Atlanta",
-    left: "62%",
-    top: "52%",
+    name: "Orange County",
+    left: "13%",
+    top: "58%",
   },
   {
-    name: "New York City",
-    left: "76%",
-    top: "28%",
+    name: "Houston",
+    left: "42%",
+    top: "68%",
   },
   {
-    name: "Miami",
-    left: "72%",
+    name: "San Antonio",
+    left: "36%",
     top: "72%",
   },
 ];
@@ -29,8 +29,8 @@ const proPopups = [
     role: "Braids + color",
     avatar: "/images/avatar-elena.png",
     rating: "4.9",
-    left: "8%",
-    top: "38%",
+    left: "4%",
+    top: "34%",
     rotate: "-2deg",
   },
   {
@@ -38,8 +38,8 @@ const proPopups = [
     role: "Editorial makeup",
     avatar: "/images/avatar-juliette.png",
     rating: "5.0",
-    left: "54%",
-    top: "32%",
+    left: "24%",
+    top: "52%",
     rotate: "1deg",
   },
   {
@@ -47,7 +47,7 @@ const proPopups = [
     role: "Cuts + grooming",
     avatar: "/images/avatar-ricardo.png",
     rating: "4.8",
-    left: "68%",
+    left: "50%",
     top: "58%",
     rotate: "-1deg",
   },
@@ -57,33 +57,28 @@ const proPopups = [
     avatar: "/images/avatar-elena.png",
     rating: "4.9",
     left: "30%",
-    top: "62%",
+    top: "78%",
     rotate: "2deg",
   },
 ];
 
 export default function MapSection() {
   return (
-    <section className="px-6 py-24">
+    <section className="bg-white px-6 py-24">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#a30b45]">
-            Launch markets
-          </p>
-          <h2 className="mt-4 font-[var(--font-display)] text-4xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-5xl">
-            Starting where beauty never stops.
+          <h2 className="font-[var(--font-display)] text-4xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-5xl">
+            Launching in Southern California and Texas
           </h2>
-          <p className="mt-5 text-base leading-8 text-[#6f5a64]">
-            Glamhere launches first in high-energy beauty hubs where discovery
-            and repeat booking already shape how clients find their next
-            appointment.
+          <p className="mt-4 text-base italic leading-8 text-[#6f5a64]">
+            More markets coming soon
           </p>
         </div>
 
         {/* Map */}
         <div className="relative mx-auto mt-14 min-h-[560px] overflow-hidden rounded-[38px] border border-[#efd3df] bg-[linear-gradient(180deg,#fff9fc_0%,#fff1f6_100%)] shadow-[0_40px_100px_-60px_rgba(163,11,69,0.5)] sm:min-h-[620px] lg:min-h-[680px]">
           {/* Background radial accents */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_40%,rgba(193,26,99,0.10),transparent_28%),radial-gradient(circle_at_80%_35%,rgba(193,26,99,0.08),transparent_22%),radial-gradient(circle_at_70%_70%,rgba(193,26,99,0.12),transparent_26%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_18%_55%,rgba(193,26,99,0.10),transparent_28%),radial-gradient(circle_at_45%_70%,rgba(193,26,99,0.08),transparent_22%)]" />
 
           {/* US outline SVG */}
           <svg
@@ -113,25 +108,23 @@ export default function MapSection() {
               stroke="rgba(163,11,69,0.10)"
               strokeWidth="2"
             />
-            {/* Dashed connection lines between cities */}
+            {/* Texas outline highlight */}
             <path
-              d="M155 310C250 280 380 270 520 270"
-              fill="none"
-              stroke="rgba(163,11,69,0.12)"
+              d="M310 340C325 335 345 338 365 345C385 352 400 365 408 382C412 395 410 410 402 420C390 432 372 435 355 430C338 425 325 415 318 400C312 385 310 365 310 340Z"
+              fill="rgba(193,26,99,0.06)"
+              stroke="rgba(163,11,69,0.15)"
               strokeWidth="2"
-              strokeDasharray="8 12"
-              strokeLinecap="round"
             />
+            {/* SoCal highlight */}
             <path
-              d="M520 270C580 255 640 230 665 195"
-              fill="none"
-              stroke="rgba(163,11,69,0.12)"
+              d="M95 280C100 272 108 268 118 270C128 274 132 285 130 298C126 310 118 316 108 314C98 312 92 300 95 280Z"
+              fill="rgba(193,26,99,0.06)"
+              stroke="rgba(163,11,69,0.15)"
               strokeWidth="2"
-              strokeDasharray="8 12"
-              strokeLinecap="round"
             />
+            {/* Dashed connection line between SoCal and Texas */}
             <path
-              d="M520 270C560 310 610 370 640 420"
+              d="M130 290C200 310 270 340 340 370"
               fill="none"
               stroke="rgba(163,11,69,0.12)"
               strokeWidth="2"

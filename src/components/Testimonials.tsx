@@ -28,7 +28,7 @@ const trustCards = [
 
 export default function Testimonials() {
   return (
-    <section className="bg-[#fff8fb] px-6 py-24">
+    <section className="bg-white px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#a30b45]">

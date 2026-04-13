@@ -1,4 +1,4 @@
-import { APP_STORE_URL } from "@/lib/constants";
+import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/constants";
 import BrandLogo from "./BrandLogo";
 
 export default function Footer() {
@@ -100,6 +100,20 @@ export default function Footer() {
                 <div className="text-left">
                   <div className="text-[10px] leading-none text-[#6f5a64]">Download on the</div>
                   <div className="text-sm font-semibold leading-tight">App Store</div>
+                </div>
+              </a>
+              <a
+                href={GOOGLE_PLAY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-2xl border border-[#f3d7e3] bg-white px-5 py-3 text-[#24141c] shadow-sm transition hover:border-[#c11a63]/30 hover:shadow-md"
+              >
+                <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.807 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
+                </svg>
+                <div className="text-left">
+                  <div className="text-[10px] leading-none text-[#6f5a64]">Get it on</div>
+                  <div className="text-sm font-semibold leading-tight">Google Play</div>
                 </div>
               </a>
             </div>
