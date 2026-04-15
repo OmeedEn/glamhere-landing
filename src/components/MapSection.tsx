@@ -3,26 +3,26 @@ import Image from "next/image";
 const cities = [
   {
     name: "Los Angeles",
-    left: "15%",
-    top: "28%",
+    left: "14%",
+    top: "38%",
     region: "california",
   },
   {
     name: "Orange County",
-    left: "38%",
-    top: "28%",
+    left: "18%",
+    top: "48%",
     region: "california",
   },
   {
-    name: "Houston",
-    left: "62%",
-    top: "58%",
+    name: "San Antonio",
+    left: "58%",
+    top: "55%",
     region: "texas",
   },
   {
-    name: "San Antonio",
-    left: "40%",
-    top: "58%",
+    name: "Houston",
+    left: "72%",
+    top: "50%",
     region: "texas",
   },
 ];
@@ -34,7 +34,7 @@ const proPopups = [
     avatar: "/images/avatar-elena.png",
     rating: "4.9",
     left: "2%",
-    top: "6%",
+    top: "8%",
     rotate: "-2deg",
   },
   {
@@ -43,7 +43,7 @@ const proPopups = [
     avatar: "/images/avatar-juliette.png",
     rating: "5.0",
     left: "52%",
-    top: "6%",
+    top: "8%",
     rotate: "1deg",
   },
   {
@@ -51,8 +51,8 @@ const proPopups = [
     role: "Cuts + grooming",
     avatar: "/images/avatar-ricardo.png",
     rating: "4.8",
-    left: "65%",
-    top: "40%",
+    left: "72%",
+    top: "28%",
     rotate: "-1deg",
   },
   {
@@ -60,8 +60,8 @@ const proPopups = [
     role: "Lashes + brows",
     avatar: "/images/avatar-elena.png",
     rating: "4.9",
-    left: "2%",
-    top: "44%",
+    left: "30%",
+    top: "30%",
     rotate: "2deg",
   },
 ];
@@ -93,7 +93,7 @@ export default function MapSection() {
           >
             {/* Trail: LA to Orange County */}
             <path
-              d="M180 180C240 170 280 170 360 180"
+              d="M145 220C155 240 160 255 175 275"
               fill="none"
               stroke="rgba(163,11,69,0.18)"
               strokeWidth="2"
@@ -102,7 +102,7 @@ export default function MapSection() {
             />
             {/* Trail: California cluster to Texas cluster (curved) */}
             <path
-              d="M300 200C380 260 420 300 420 340"
+              d="M175 275C280 320 380 330 530 315"
               fill="none"
               stroke="rgba(163,11,69,0.14)"
               strokeWidth="2"
@@ -111,7 +111,7 @@ export default function MapSection() {
             />
             {/* Trail: San Antonio to Houston */}
             <path
-              d="M400 350C460 340 500 340 580 350"
+              d="M530 315C580 305 610 295 660 290"
               fill="none"
               stroke="rgba(163,11,69,0.18)"
               strokeWidth="2"
@@ -134,8 +134,8 @@ export default function MapSection() {
             ))}
             {/* California region label */}
             <text
-              x="220"
-              y="140"
+              x="160"
+              y="195"
               fill="rgba(163,11,69,0.12)"
               fontSize="14"
               fontWeight="600"
@@ -146,8 +146,8 @@ export default function MapSection() {
             </text>
             {/* Texas region label */}
             <text
-              x="490"
-              y="420"
+              x="600"
+              y="365"
               fill="rgba(163,11,69,0.12)"
               fontSize="14"
               fontWeight="600"

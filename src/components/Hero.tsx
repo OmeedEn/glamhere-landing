@@ -30,11 +30,7 @@ export default function Hero() {
 
       <div className="relative mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
         <div>
-          <p className="inline-flex items-center rounded-full border border-[#f2d6e2] bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#a30b45] shadow-sm">
-            The beauty industry&apos;s first social platform
-          </p>
-
-          <h1 className="mt-6 max-w-3xl font-[var(--font-display)] text-5xl leading-[0.95] font-semibold tracking-[-0.04em] text-[#24141c] sm:text-6xl lg:text-7xl">
+          <h1 className="max-w-3xl font-[var(--font-display)] text-5xl leading-[0.95] font-semibold tracking-[-0.04em] text-[#24141c] sm:text-6xl lg:text-7xl">
             The Beauty Industry&apos;s <em className="italic">First</em> Social Booking Platform
           </h1>
 
