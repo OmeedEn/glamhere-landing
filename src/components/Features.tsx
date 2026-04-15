@@ -2,11 +2,10 @@
 
 import type { ReactNode } from "react";
 import { useState } from "react";
+import { LANDING_CATEGORIES } from "@/lib/constants";
 
 const audienceContent = {
-  pros: {
-    label: "Pros",
-    eyebrow: "For professionals",
+  professionals: {
     title: "Run your beauty business where clients already discover you.",
     description:
       "From showing your latest work to locking in repeat appointments, Glamhere keeps your portfolio, calendar, and clients in one flow.",
@@ -32,8 +31,6 @@ const audienceContent = {
     ],
   },
   clients: {
-    label: "Clients",
-    eyebrow: "For clients",
     title: "Discover, review, and book beauty without leaving the app.",
     description:
       "Glamhere is your beauty feed, your inspo board, and your booking app all in one place. Follow pros you love, save looks for later, and book when you\u2019re ready.",
@@ -61,8 +58,17 @@ const audienceContent = {
 };
 
 type AudienceKey = keyof typeof audienceContent;
+type CategoryLabel = (typeof LANDING_CATEGORIES)[number];
 type ScreenKind =
   (typeof audienceContent)[AudienceKey]["screens"][number]["kind"];
+
+function getAudienceKey(category: CategoryLabel): AudienceKey {
+  return category === "Clients" ? "clients" : "professionals";
+}
+
+function getCategoryEyebrow(category: CategoryLabel) {
+  return category === "Clients" ? "For clients" : `For ${category.toLowerCase()}`;
+}
 
 function PhoneFrame({
   children,
@@ -439,52 +445,50 @@ function renderScreen(kind: ScreenKind) {
 }
 
 export default function Features() {
-  const [audience, setAudience] = useState<AudienceKey>("pros");
-  const currentAudience = audienceContent[audience];
+  const [selectedCategory, setSelectedCategory] = useState<CategoryLabel>(
+    LANDING_CATEGORIES[0],
+  );
+  const currentAudience = audienceContent[getAudienceKey(selectedCategory)];
 
   return (
     <section id="features" className="bg-white px-6 py-24">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#a30b45]">
-            One platform, two experiences
+            One platform, every beauty lane
           </p>
           <h2 className="mt-4 font-[var(--font-display)] text-4xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-5xl">
-            Beauty discovery and booking, tailored to who&apos;s using it.
+            Beauty discovery and booking, tailored to every role on Glamhere.
           </h2>
           <p className="mt-5 text-base leading-8 text-[#6f5a64]">
-            Toggle between both sides of Glamhere to see how the experience
-            shifts for professionals and the people booking them.
+            Browse the categories Glamhere is built for, from beauty pros
+            growing their business to the clients booking them.
           </p>
         </div>
 
         <div className="mt-10 flex justify-center">
-          <div className="inline-flex rounded-full border border-[#efd4e0] bg-white p-1.5 shadow-sm">
-            {(Object.keys(audienceContent) as AudienceKey[]).map((key) => {
-              const item = audienceContent[key];
-
-              return (
-                <button
-                  key={item.label}
-                  type="button"
-                  onClick={() => setAudience(key)}
-                  className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
-                    audience === key
-                      ? "bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-white shadow-[0_14px_28px_-18px_rgba(163,11,69,0.75)]"
-                      : "text-[#6f5a64] hover:text-[#a30b45]"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
+          <div className="inline-flex max-w-4xl flex-wrap justify-center gap-2 rounded-[28px] border border-[#efd4e0] bg-white p-2 shadow-sm">
+            {LANDING_CATEGORIES.map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setSelectedCategory(category)}
+                className={`rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                  selectedCategory === category
+                    ? "bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-white shadow-[0_14px_28px_-18px_rgba(163,11,69,0.75)]"
+                    : "text-[#6f5a64] hover:text-[#a30b45]"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </div>
         </div>
 
         <div className="mt-10 rounded-[36px] border border-[#f0d4e0] bg-white p-7 shadow-[0_30px_90px_-55px_rgba(163,11,69,0.45)] sm:p-8">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a30b45]">
-              {currentAudience.eyebrow}
+              {getCategoryEyebrow(selectedCategory)}
             </p>
             <h3 className="mt-3 font-[var(--font-display)] text-3xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-4xl">
               {currentAudience.title}

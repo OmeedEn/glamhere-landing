@@ -1,12 +1,4 @@
-const audienceChips = [
-  "Stylists",
-  "Braiders",
-  "Barbers",
-  "Makeup artists",
-  "Nail techs",
-  "Estheticians",
-  "Clients",
-];
+import { LANDING_CATEGORIES } from "@/lib/constants";
 
 const trustCards = [
   {
@@ -44,7 +36,7 @@ export default function Testimonials() {
         </div>
 
         <div className="mt-10 flex flex-wrap justify-center gap-3">
-          {audienceChips.map((chip) => (
+          {LANDING_CATEGORIES.map((chip) => (
             <span
               key={chip}
               className="rounded-full border border-[#efd5e1] bg-white px-4 py-2 text-sm font-medium text-[#5f4a53]"
