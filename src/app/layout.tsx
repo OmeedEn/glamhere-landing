@@ -15,7 +15,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "GlamHere | The beauty industry finally has its own platform",
+  title: "glamhere | The beauty industry finally has its own platform",
   description:
     "GlamHere is a social marketplace for the beauty industry. Discover real portfolios, connect with professionals, and book all in one place.",
 openGraph: {
