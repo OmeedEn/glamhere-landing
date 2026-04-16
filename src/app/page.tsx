@@ -13,8 +13,8 @@ export default function Home() {
       <Hero />
       <Stats />
       <Features />
-      <MapSection />
       <Testimonials />
+      <MapSection />
       <Footer />
     </main>
   );

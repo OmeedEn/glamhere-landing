@@ -1,5 +1,3 @@
-import { LANDING_CATEGORIES } from "@/lib/constants";
-
 const trustCards = [
   {
     title: "For beauty pros",
@@ -33,17 +31,6 @@ export default function Testimonials() {
             Glamhere brings professionals and clients into one beauty-first
             ecosystem, from the first scroll to the final booking confirmation.
           </p>
-        </div>
-
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
-          {LANDING_CATEGORIES.map((chip) => (
-            <span
-              key={chip}
-              className="rounded-full border border-[#efd5e1] bg-white px-4 py-2 text-sm font-medium text-[#5f4a53]"
-            >
-              {chip}
-            </span>
-          ))}
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
