@@ -54,12 +54,12 @@ export default function WaitlistEmailCapture() {
             onChange={(event) => setEmail(event.target.value)}
             required
             placeholder="Enter your email"
-            className="h-24 w-full flex-1 rounded-full border border-[#f1d4e0] bg-white px-6 text-lg text-[#24141c] shadow-[0_16px_40px_-24px_rgba(163,11,69,0.3)] outline-none transition focus:border-[#c11a63] sm:h-14 sm:text-base sm:bg-[#fff7fb] sm:px-5 sm:shadow-none"
+            className="h-20 w-full flex-1 rounded-2xl border border-[#f1d4e0] bg-white px-6 text-xl text-[#24141c] shadow-[0_16px_40px_-24px_rgba(163,11,69,0.3)] outline-none transition focus:border-[#c11a63] sm:h-14 sm:rounded-full sm:text-base sm:bg-[#fff7fb] sm:px-5 sm:shadow-none"
           />
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="inline-flex h-14 w-full items-center justify-center rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] px-7 text-sm font-semibold text-white shadow-[0_18px_35px_-18px_rgba(163,11,69,0.65)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+            className="inline-flex h-16 w-full items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] px-7 text-base font-semibold text-white shadow-[0_18px_35px_-18px_rgba(163,11,69,0.65)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70 sm:h-14 sm:rounded-full sm:text-sm sm:w-auto"
           >
             {status === "submitting" ? "Joining..." : "Join waitlist"}
           </button>

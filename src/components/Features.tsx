@@ -67,7 +67,7 @@ function getAudienceKey(category: CategoryLabel): AudienceKey {
 }
 
 function getCategoryEyebrow(category: CategoryLabel) {
-  return category === "Clients" ? "For clients" : `For ${category.toLowerCase()}`;
+  return category === "Clients" ? "For clients" : "For artists";
 }
 
 function PhoneFrame({

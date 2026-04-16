@@ -23,10 +23,8 @@ const featuredPros = [
 export default function Hero() {
   return (
     <section className="relative overflow-hidden px-6 pb-[88px] pt-[120px] sm:pt-36 lg:pb-[104px]">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_140%_60%_at_50%_-10%,rgba(193,26,99,0.22),transparent_55%),radial-gradient(circle_at_10%_20%,rgba(193,26,99,0.16),transparent_35%),radial-gradient(circle_at_90%_15%,rgba(150,16,73,0.12),transparent_30%),linear-gradient(180deg,#ffebf2_0%,#fff4f9_20%,#ffffff_60%,#ffffff_100%)]" />
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[600px] -translate-x-1/2 rounded-full bg-[#f0c4d8] blur-[140px] opacity-50" />
-      <div className="pointer-events-none absolute -left-20 top-10 h-60 w-60 rounded-full bg-[#e8a0c0] blur-[120px] opacity-30" />
-      <div className="pointer-events-none absolute -right-10 top-20 h-48 w-48 rounded-full bg-[#d98bb0] blur-[100px] opacity-20" />
+      <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(135deg, #fff1f7 0%, #f9d5e5 18%, #e8a0bf 38%, rgba(193,26,99,0.35) 55%, rgba(163,11,69,0.25) 70%, transparent 85%)" }} />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,#ffffff_90%,#ffffff_100%)]" />
 
       <div className="relative mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
         <div>

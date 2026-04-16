@@ -4,11 +4,6 @@ export const GOOGLE_PLAY_URL =
   "https://play.google.com/store/apps/details?id=com.glamhere";
 
 export const LANDING_CATEGORIES = [
-  "Stylists",
-  "Braiders",
-  "Barbers",
-  "Makeup artists",
-  "Nail techs",
-  "Estheticians",
+  "Artists",
   "Clients",
 ] as const;
