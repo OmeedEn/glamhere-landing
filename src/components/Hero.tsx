@@ -1,7 +1,8 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/constants";
-import type { HomePageContent } from "@/lib/sanity/queries";
+import { imageUrl } from "@/lib/sanity/image";
+import type { HomePageContent, SiteSettings } from "@/lib/sanity/queries";
 import WaitlistEmailCapture from "./WaitlistEmailCapture";
 
 const DEFAULT_HERO_TITLE =
@@ -12,22 +13,7 @@ const DEFAULT_HERO_TAGLINE = "No subscription. No catch. Free to join.";
 const DEFAULT_HERO_CARD_1 = "Book directly from a post";
 const DEFAULT_HERO_CARD_2 = "Explore the map";
 
-function renderTitleWithEmphasis(title: string): ReactNode {
-  const parts = title.split(/(\{em\}.*?\{\/em\})/g);
-  return parts.map((part, i) => {
-    const match = part.match(/^\{em\}(.*?)\{\/em\}$/);
-    if (match) {
-      return (
-        <em key={i} className="italic">
-          {match[1]}
-        </em>
-      );
-    }
-    return <span key={i}>{part}</span>;
-  });
-}
-
-const featuredPros = [
+const DEFAULT_PROS = [
   {
     name: "Sabrina L.",
     role: "Braids + color",
@@ -45,19 +31,54 @@ const featuredPros = [
   },
 ];
 
+function renderTitleWithEmphasis(title: string): ReactNode {
+  const parts = title.split(/(\{em\}.*?\{\/em\})/g);
+  return parts.map((part, i) => {
+    const match = part.match(/^\{em\}(.*?)\{\/em\}$/);
+    if (match) {
+      return (
+        <em key={i} className="italic">
+          {match[1]}
+        </em>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 type HeroProps = {
   content?: Pick<
     HomePageContent,
-    "heroTitle" | "heroDescription" | "heroTagline" | "heroCard1" | "heroCard2"
+    | "heroTitle"
+    | "heroDescription"
+    | "heroTagline"
+    | "heroCard1"
+    | "heroCard2"
+    | "featuredPros"
   > | null;
+  settings?: Pick<SiteSettings, "appStoreUrl" | "googlePlayUrl"> | null;
 };
 
-export default function Hero({ content }: HeroProps = {}) {
+export default function Hero({ content, settings }: HeroProps = {}) {
   const title = content?.heroTitle || DEFAULT_HERO_TITLE;
   const description = content?.heroDescription || DEFAULT_HERO_DESCRIPTION;
   const tagline = content?.heroTagline || DEFAULT_HERO_TAGLINE;
   const card1 = content?.heroCard1 || DEFAULT_HERO_CARD_1;
   const card2 = content?.heroCard2 || DEFAULT_HERO_CARD_2;
+  const appStoreHref = settings?.appStoreUrl || APP_STORE_URL;
+  const googlePlayHref = settings?.googlePlayUrl || GOOGLE_PLAY_URL;
+
+  const pros =
+    content?.featuredPros && content.featuredPros.length > 0
+      ? content.featuredPros.map((p) => ({
+          name: p.name ?? "",
+          role: p.role ?? "",
+          avatar: imageUrl(p.avatar, { width: 200 }) ?? "",
+        }))
+      : DEFAULT_PROS;
+
+  const primaryPro = pros[0];
+  const secondaryPros = pros.slice(1);
 
   return (
     <section className="relative overflow-hidden px-6 pb-[88px] pt-[120px] sm:pt-36 lg:pb-[104px]">
@@ -86,7 +107,7 @@ export default function Hero({ content }: HeroProps = {}) {
 
           <div className="mt-6 flex flex-wrap gap-3">
             <a
-              href={APP_STORE_URL}
+              href={appStoreHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-2xl border border-[#f3d7e3] bg-white px-5 py-3 text-[#24141c] shadow-sm transition hover:border-[#c11a63]/30 hover:shadow-md"
@@ -100,7 +121,7 @@ export default function Hero({ content }: HeroProps = {}) {
               </div>
             </a>
             <a
-              href={GOOGLE_PLAY_URL}
+              href={googlePlayHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-2xl border border-[#f3d7e3] bg-white px-5 py-3 text-[#24141c] shadow-sm transition hover:border-[#c11a63]/30 hover:shadow-md"
@@ -138,69 +159,75 @@ export default function Hero({ content }: HeroProps = {}) {
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-[24px] border border-[#f4d9e5] bg-[linear-gradient(180deg,#fff7fb_0%,#ffffff_100%)] p-4">
-                  <div className="flex items-center gap-3">
-                    <Image
-                      src={featuredPros[0].avatar}
-                      alt={featuredPros[0].name}
-                      width={44}
-                      height={44}
-                      className="h-11 w-11 rounded-full object-cover"
-                    />
-                    <div>
-                      <p className="text-sm font-semibold text-[#24141c]">
-                        {featuredPros[0].name}
-                      </p>
-                      <p className="text-xs text-[#7d6772]">
-                        {featuredPros[0].role}
-                      </p>
+                {primaryPro && (
+                  <div className="mt-4 rounded-[24px] border border-[#f4d9e5] bg-[linear-gradient(180deg,#fff7fb_0%,#ffffff_100%)] p-4">
+                    <div className="flex items-center gap-3">
+                      {primaryPro.avatar && (
+                        <Image
+                          src={primaryPro.avatar}
+                          alt={primaryPro.name}
+                          width={44}
+                          height={44}
+                          className="h-11 w-11 rounded-full object-cover"
+                        />
+                      )}
+                      <div>
+                        <p className="text-sm font-semibold text-[#24141c]">
+                          {primaryPro.name}
+                        </p>
+                        <p className="text-xs text-[#7d6772]">
+                          {primaryPro.role}
+                        </p>
+                      </div>
+                      <span className="ml-auto rounded-full bg-[#a30b45] px-3 py-1 text-xs font-semibold text-white">
+                        Book
+                      </span>
                     </div>
-                    <span className="ml-auto rounded-full bg-[#a30b45] px-3 py-1 text-xs font-semibold text-white">
-                      Book
-                    </span>
-                  </div>
 
-                  <div className="mt-4 grid grid-cols-2 gap-3">
-                    <div className="rounded-[18px] bg-[linear-gradient(180deg,#cf5d8d_0%,#a30b45_100%)] p-3 text-white">
-                      <p className="text-xs uppercase tracking-[0.18em] text-white/70">
-                        Portfolio
-                      </p>
-                      <div className="mt-6 h-16 rounded-[16px] bg-white/18" />
-                    </div>
-                    <div className="space-y-3">
-                      <div className="rounded-[18px] bg-[#fff1f7] p-3">
-                        <p className="text-xs font-semibold text-[#a30b45]">
-                          4.9 rating
+                    <div className="mt-4 grid grid-cols-2 gap-3">
+                      <div className="rounded-[18px] bg-[linear-gradient(180deg,#cf5d8d_0%,#a30b45_100%)] p-3 text-white">
+                        <p className="text-xs uppercase tracking-[0.18em] text-white/70">
+                          Portfolio
                         </p>
-                        <p className="mt-1 text-xs text-[#7d6772]">
-                          132 recent bookings
-                        </p>
+                        <div className="mt-6 h-16 rounded-[16px] bg-white/18" />
                       </div>
-                      <div className="rounded-[18px] bg-[#fff1f7] p-3">
-                        <p className="text-xs font-semibold text-[#a30b45]">
-                          This week
-                        </p>
-                        <p className="mt-1 text-xs text-[#7d6772]">
-                          9 slots left
-                        </p>
+                      <div className="space-y-3">
+                        <div className="rounded-[18px] bg-[#fff1f7] p-3">
+                          <p className="text-xs font-semibold text-[#a30b45]">
+                            4.9 rating
+                          </p>
+                          <p className="mt-1 text-xs text-[#7d6772]">
+                            132 recent bookings
+                          </p>
+                        </div>
+                        <div className="rounded-[18px] bg-[#fff1f7] p-3">
+                          <p className="text-xs font-semibold text-[#a30b45]">
+                            This week
+                          </p>
+                          <p className="mt-1 text-xs text-[#7d6772]">
+                            9 slots left
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 <div className="mt-4 space-y-3">
-                  {featuredPros.slice(1).map((pro) => (
+                  {secondaryPros.map((pro, i) => (
                     <div
-                      key={pro.name}
+                      key={`${pro.name}-${i}`}
                       className="flex items-center gap-3 rounded-[20px] border border-[#f5e2eb] bg-[#fff9fc] px-3 py-3"
                     >
-                      <Image
-                        src={pro.avatar}
-                        alt={pro.name}
-                        width={36}
-                        height={36}
-                        className="h-9 w-9 rounded-full object-cover"
-                      />
+                      {pro.avatar && (
+                        <Image
+                          src={pro.avatar}
+                          alt={pro.name}
+                          width={36}
+                          height={36}
+                          className="h-9 w-9 rounded-full object-cover"
+                        />
+                      )}
                       <div>
                         <p className="text-sm font-semibold text-[#24141c]">
                           {pro.name}

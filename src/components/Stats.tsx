@@ -1,4 +1,6 @@
-const highlights = [
+import type { HomePageContent } from "@/lib/sanity/queries";
+
+const DEFAULT_HIGHLIGHTS = [
   {
     title: "Your work, front and center",
     description:
@@ -16,13 +18,22 @@ const highlights = [
   },
 ];
 
-export default function Stats() {
+type StatsProps = {
+  content?: Pick<HomePageContent, "highlights"> | null;
+};
+
+export default function Stats({ content }: StatsProps = {}) {
+  const highlights =
+    content?.highlights && content.highlights.length > 0
+      ? content.highlights
+      : DEFAULT_HIGHLIGHTS;
+
   return (
     <section id="discover" className="px-6 py-8 sm:py-12">
       <div className="mx-auto grid max-w-6xl gap-4 md:grid-cols-3">
         {highlights.map((highlight, index) => (
           <div
-            key={highlight.title}
+            key={`${highlight.title ?? "highlight"}-${index}`}
             className="rounded-[28px] border border-[#f3d9e4] bg-white/90 p-6 shadow-[0_30px_80px_-55px_rgba(163,11,69,0.35)]"
           >
             <div className="flex items-center gap-3">

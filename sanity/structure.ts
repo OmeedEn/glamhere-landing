@@ -7,7 +7,11 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Home Page")
         .id("homePage")
+        .child(S.document().schemaType("homePage").documentId("homePage")),
+      S.listItem()
+        .title("Site Settings")
+        .id("siteSettings")
         .child(
-          S.document().schemaType("homePage").documentId("homePage")
+          S.document().schemaType("siteSettings").documentId("siteSettings")
         ),
     ]);

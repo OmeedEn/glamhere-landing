@@ -1,24 +1,37 @@
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/constants";
+import type { SiteSettings } from "@/lib/sanity/queries";
 import BrandLogo from "./BrandLogo";
 
-export default function Footer() {
+const DEFAULT_TAGLINE =
+  "Where beauty meets authentic connection. Discover, connect, and book with confidence.";
+const DEFAULT_COPYRIGHT_NAME = "glamhere";
+
+type FooterProps = {
+  settings?: SiteSettings | null;
+};
+
+export default function Footer({ settings }: FooterProps = {}) {
+  const tagline = settings?.footerTagline || DEFAULT_TAGLINE;
+  const copyrightName = settings?.copyrightName || DEFAULT_COPYRIGHT_NAME;
+  const appStoreHref = settings?.appStoreUrl || APP_STORE_URL;
+  const googlePlayHref = settings?.googlePlayUrl || GOOGLE_PLAY_URL;
+  const instagramHref = settings?.instagramUrl || "#";
+  const tiktokHref = settings?.tiktokUrl || "#";
+  const facebookHref = settings?.facebookUrl || "#";
+
   return (
     <footer className="relative overflow-hidden border-t border-[#f3d7e3] bg-[linear-gradient(180deg,#fff8fb_0%,#ffecf3_100%)] py-16">
-      {/* Subtle background glow */}
       <div className="pointer-events-none absolute -bottom-20 left-1/2 h-60 w-[500px] -translate-x-1/2 rounded-full bg-[#c11a63]/8 blur-[120px]" />
 
       <div className="relative mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
           <div>
             <BrandLogo size="md" />
             <p className="mt-4 text-sm leading-relaxed text-[#6f5a64]">
-              Where beauty meets authentic connection. Discover, connect, and
-              book with confidence.
+              {tagline}
             </p>
           </div>
 
-          {/* glamhere */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a30b45]">
               glamhere
@@ -36,7 +49,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={APP_STORE_URL}
+                  href={appStoreHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]"
@@ -47,7 +60,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a30b45]">
               Legal
@@ -82,14 +94,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Download */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a30b45]">
               Get the App
             </h4>
             <div className="mt-4 space-y-3">
               <a
-                href={APP_STORE_URL}
+                href={appStoreHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-2xl border border-[#f3d7e3] bg-white px-5 py-3 text-[#24141c] shadow-sm transition hover:border-[#c11a63]/30 hover:shadow-md"
@@ -103,7 +114,7 @@ export default function Footer() {
                 </div>
               </a>
               <a
-                href={GOOGLE_PLAY_URL}
+                href={googlePlayHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-2xl border border-[#f3d7e3] bg-white px-5 py-3 text-[#24141c] shadow-sm transition hover:border-[#c11a63]/30 hover:shadow-md"
@@ -120,14 +131,15 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Social + copyright */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#f3d7e3] pt-8 sm:flex-row">
           <p className="text-xs text-[#9a8690]">
-            &copy; {new Date().getFullYear()} glamhere. All rights reserved.
+            &copy; {new Date().getFullYear()} {copyrightName}. All rights reserved.
           </p>
           <div className="flex gap-4">
             <a
-              href="#"
+              href={facebookHref}
+              target={facebookHref === "#" ? undefined : "_blank"}
+              rel={facebookHref === "#" ? undefined : "noopener noreferrer"}
               aria-label="Facebook"
               className="text-[#9a8690] transition hover:text-[#c11a63]"
             >
@@ -136,7 +148,9 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href={instagramHref}
+              target={instagramHref === "#" ? undefined : "_blank"}
+              rel={instagramHref === "#" ? undefined : "noopener noreferrer"}
               aria-label="Instagram"
               className="text-[#9a8690] transition hover:text-[#c11a63]"
             >
@@ -145,7 +159,9 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="#"
+              href={tiktokHref}
+              target={tiktokHref === "#" ? undefined : "_blank"}
+              rel={tiktokHref === "#" ? undefined : "noopener noreferrer"}
               aria-label="TikTok"
               className="text-[#9a8690] transition hover:text-[#c11a63]"
             >

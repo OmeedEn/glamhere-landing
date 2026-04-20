@@ -1,15 +1,17 @@
 import Image from "next/image";
 import type { HomePageContent } from "@/lib/sanity/queries";
+import { imageUrl } from "@/lib/sanity/image";
 
 const DEFAULT_EYEBROW = "Coming soon";
 const DEFAULT_HEADING = "Launching in your area soon";
 const DEFAULT_DESCRIPTION =
   "We're rolling out city by city. Join the waitlist to be first in line when we arrive near you.";
+const DEFAULT_MAP_SRC = "/images/us-map.png";
 
 type MapSectionProps = {
   content?: Pick<
     HomePageContent,
-    "mapEyebrow" | "mapHeading" | "mapDescription"
+    "mapEyebrow" | "mapHeading" | "mapDescription" | "mapImage"
   > | null;
 };
 
@@ -17,6 +19,7 @@ export default function MapSection({ content }: MapSectionProps = {}) {
   const eyebrow = content?.mapEyebrow || DEFAULT_EYEBROW;
   const heading = content?.mapHeading || DEFAULT_HEADING;
   const description = content?.mapDescription || DEFAULT_DESCRIPTION;
+  const mapSrc = imageUrl(content?.mapImage, { width: 1600 }) || DEFAULT_MAP_SRC;
 
   return (
     <section className="bg-white px-6 py-16">
@@ -34,7 +37,7 @@ export default function MapSection({ content }: MapSectionProps = {}) {
 
       <div className="mx-auto mt-10 flex max-w-4xl items-center justify-center px-4 sm:px-8">
         <Image
-          src="/images/us-map.png"
+          src={mapSrc}
           alt="glamhere US coverage map"
           width={1200}
           height={800}
