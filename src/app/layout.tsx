@@ -18,7 +18,17 @@ export const metadata: Metadata = {
   title: "glamhere | The beauty industry finally has its own platform",
   description:
     "glamhere is a social marketplace for the beauty industry. Discover real portfolios, connect with professionals, and book all in one place.",
-openGraph: {
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "none",
+    },
+  },
+  openGraph: {
+    siteName: "glamhere",
     title: "glamhere | The beauty industry finally has its own platform",
     description:
       "Discover, connect, and book with glamhere, the beauty industry’s social marketplace.",
