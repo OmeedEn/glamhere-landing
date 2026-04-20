@@ -8,7 +8,7 @@ const audienceContent = {
   professionals: {
     title: "Run your beauty business where clients already discover you.",
     description:
-      "From showing your latest work to locking in repeat appointments, Glamhere keeps your portfolio, calendar, and clients in one flow.",
+      "From showing your latest work to locking in repeat appointments, glamhere keeps your portfolio, calendar, and clients in one flow.",
     screens: [
       {
         name: "Portfolio page",
@@ -33,7 +33,7 @@ const audienceContent = {
   clients: {
     title: "Discover, review, and book beauty without leaving the app.",
     description:
-      "Glamhere is your beauty feed, your inspo board, and your booking app all in one place. Follow pros you love, save looks for later, and book when you\u2019re ready.",
+      "glamhere is your beauty feed, your inspo board, and your booking app all in one place. Follow pros you love, save looks for later, and book when you\u2019re ready.",
     screens: [
       {
         name: "Discover",
@@ -458,10 +458,10 @@ export default function Features() {
             One platform, every beauty lane
           </p>
           <h2 className="mt-4 font-[var(--font-display)] text-4xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-5xl">
-            Beauty discovery and booking, tailored to every role on Glamhere.
+            Beauty discovery and booking, tailored to every role on glamhere.
           </h2>
           <p className="mt-5 text-base leading-8 text-[#6f5a64]">
-            Browse the categories Glamhere is built for, from beauty pros
+            Browse the categories glamhere is built for, from beauty pros
             growing their business to the clients booking them.
           </p>
         </div>

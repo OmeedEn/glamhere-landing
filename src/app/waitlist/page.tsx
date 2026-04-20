@@ -59,7 +59,7 @@ export default function WaitlistPage() {
                   Want to move up the list?
                 </p>
                 <p className="mt-1 text-sm text-[#6e5e5e]">
-                  Share GlamHere with friends and climb the waitlist.
+                  Share glamhere with friends and climb the waitlist.
                 </p>
                 <button
                   onClick={() => {

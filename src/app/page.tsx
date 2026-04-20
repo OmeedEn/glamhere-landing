@@ -5,16 +5,19 @@ import Hero from "@/components/Hero";
 import MapSection from "@/components/MapSection";
 import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
+import { getHomePageContent } from "@/lib/sanity/queries";
 
-export default function Home() {
+export default async function Home() {
+  const content = await getHomePageContent();
+
   return (
     <main className="min-h-screen overflow-x-hidden bg-white">
       <Header />
-      <Hero />
+      <Hero content={content} />
       <Stats />
       <Features />
-      <Testimonials />
-      <MapSection />
+      <Testimonials content={content} />
+      <MapSection content={content} />
       <Footer />
     </main>
   );

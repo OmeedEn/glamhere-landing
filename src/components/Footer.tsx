@@ -18,10 +18,10 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* GlamHere */}
+          {/* glamhere */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#a30b45]">
-              GlamHere
+              glamhere
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
@@ -123,7 +123,7 @@ export default function Footer() {
         {/* Social + copyright */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-[#f3d7e3] pt-8 sm:flex-row">
           <p className="text-xs text-[#9a8690]">
-            &copy; {new Date().getFullYear()} GLAMHERE. All rights reserved.
+            &copy; {new Date().getFullYear()} glamhere. All rights reserved.
           </p>
           <div className="flex gap-4">
             <a

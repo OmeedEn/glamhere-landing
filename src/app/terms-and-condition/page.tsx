@@ -3,8 +3,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | GlamHere",
-  description: "GlamHere Terms and Conditions — the rules governing your use of the GlamHere platform.",
+  title: "Terms of Service | glamhere",
+  description: "glamhere Terms and Conditions — the rules governing your use of the glamhere platform.",
 };
 
 export default function TermsAndConditionPage() {
@@ -29,7 +29,7 @@ export default function TermsAndConditionPage() {
           {/* Intro */}
           <div className="mt-10 space-y-10 text-[15px] leading-7 text-[#5f4a53]">
             <p>
-              Welcome to GLAMHERE (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;). These Terms and Conditions (&ldquo;Terms&rdquo;) govern your access to and use of our mobile application (the &ldquo;App&rdquo;), a social platform for influencers and creators to upload tutorials, link products, offer services, manage bookings, and interact with users.
+              Welcome to glamhere (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;). These Terms and Conditions (&ldquo;Terms&rdquo;) govern your access to and use of our mobile application (the &ldquo;App&rdquo;), a social platform for influencers and creators to upload tutorials, link products, offer services, manage bookings, and interact with users.
             </p>
             <p>
               By accessing or using the App, you agree to be bound by these Terms, our{" "}
@@ -137,7 +137,7 @@ export default function TermsAndConditionPage() {
                 Influencers/creators may offer services with clear listings of prices, durations, availability, and terms. Users may book services directly through the App.
               </p>
               <p className="mt-3">
-                GLAMHERE facilitates bookings but is not a party to them. We do not guarantee service quality, availability, or outcomes and are not responsible for disputes, cancellations, refunds, payments, or liabilities arising from bookings.
+                glamhere facilitates bookings but is not a party to them. We do not guarantee service quality, availability, or outcomes and are not responsible for disputes, cancellations, refunds, payments, or liabilities arising from bookings.
               </p>
             </div>
 
@@ -147,7 +147,7 @@ export default function TermsAndConditionPage() {
                 5A. Service Provider Status and Requirements
               </h2>
               <p className="mt-4">
-                All beauty professionals, stylists, makeup artists, and service providers using GLAMHERE (&ldquo;Service Providers&rdquo;) are independent contractors, not employees, agents, or partners of GLAMHERE.
+                All beauty professionals, stylists, makeup artists, and service providers using glamhere (&ldquo;Service Providers&rdquo;) are independent contractors, not employees, agents, or partners of glamhere.
               </p>
               <p className="mt-3">Service Providers are solely responsible for:</p>
               <ul className="mt-3 list-none space-y-2.5">
@@ -184,7 +184,7 @@ export default function TermsAndConditionPage() {
                 5B. Payment Processing and Fees
               </h2>
               <p className="mt-4">
-                All payments are processed through third-party payment processors integrated with the App. GLAMHERE collects a service fee from each transaction as displayed at the time of booking.
+                All payments are processed through third-party payment processors integrated with the App. glamhere collects a service fee from each transaction as displayed at the time of booking.
               </p>
               <ul className="mt-3 list-none space-y-2.5">
                 <li className="flex gap-2.5">
@@ -201,7 +201,7 @@ export default function TermsAndConditionPage() {
                 </li>
                 <li className="flex gap-2.5">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#a30b45]" />
-                  GLAMHERE is not responsible for payment processing failures, unauthorized charges, or refund disputes.
+                  glamhere is not responsible for payment processing failures, unauthorized charges, or refund disputes.
                 </li>
               </ul>
               <p className="mt-4">Users agree to pay all applicable taxes on services received.</p>
@@ -276,13 +276,13 @@ export default function TermsAndConditionPage() {
               <div className="mt-4 rounded-2xl border border-[#f3d7e3] bg-[#fff9fc] p-5">
                 <p className="text-sm font-semibold text-[#a30b45]">Important</p>
                 <p className="mt-2 text-sm">
-                  GLAMHERE is a technology platform that connects users with independent service providers. We do not provide beauty, styling, or wellness services directly.
+                  glamhere is a technology platform that connects users with independent service providers. We do not provide beauty, styling, or wellness services directly.
                 </p>
               </div>
               <p className="mt-4">
                 The App is provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo; without warranties of any kind, express or implied.
               </p>
-              <p className="mt-3 font-semibold text-[#24141c]">GLAMHERE specifically disclaims all liability for:</p>
+              <p className="mt-3 font-semibold text-[#24141c]">glamhere specifically disclaims all liability for:</p>
               <ul className="mt-3 list-none space-y-2.5">
                 <li className="flex gap-2.5">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#a30b45]" />

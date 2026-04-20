@@ -1,6 +1,31 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/constants";
+import type { HomePageContent } from "@/lib/sanity/queries";
 import WaitlistEmailCapture from "./WaitlistEmailCapture";
+
+const DEFAULT_HERO_TITLE =
+  "The Beauty Industry's {em}First{/em} Social Booking Platform";
+const DEFAULT_HERO_DESCRIPTION =
+  "A social marketplace for the beauty industry. Discover, connect, and book all in one place.";
+const DEFAULT_HERO_TAGLINE = "No subscription. No catch. Free to join.";
+const DEFAULT_HERO_CARD_1 = "Book directly from a post";
+const DEFAULT_HERO_CARD_2 = "Explore the map";
+
+function renderTitleWithEmphasis(title: string): ReactNode {
+  const parts = title.split(/(\{em\}.*?\{\/em\})/g);
+  return parts.map((part, i) => {
+    const match = part.match(/^\{em\}(.*?)\{\/em\}$/);
+    if (match) {
+      return (
+        <em key={i} className="italic">
+          {match[1]}
+        </em>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
 
 const featuredPros = [
   {
@@ -20,7 +45,20 @@ const featuredPros = [
   },
 ];
 
-export default function Hero() {
+type HeroProps = {
+  content?: Pick<
+    HomePageContent,
+    "heroTitle" | "heroDescription" | "heroTagline" | "heroCard1" | "heroCard2"
+  > | null;
+};
+
+export default function Hero({ content }: HeroProps = {}) {
+  const title = content?.heroTitle || DEFAULT_HERO_TITLE;
+  const description = content?.heroDescription || DEFAULT_HERO_DESCRIPTION;
+  const tagline = content?.heroTagline || DEFAULT_HERO_TAGLINE;
+  const card1 = content?.heroCard1 || DEFAULT_HERO_CARD_1;
+  const card2 = content?.heroCard2 || DEFAULT_HERO_CARD_2;
+
   return (
     <section className="relative overflow-hidden px-6 pb-[88px] pt-[120px] sm:pt-36 lg:pb-[104px]">
       <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(135deg, #fff1f7 0%, #f9d5e5 18%, #e8a0bf 38%, rgba(193,26,99,0.35) 55%, rgba(163,11,69,0.25) 70%, transparent 85%)" }} />
@@ -29,17 +67,18 @@ export default function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
         <div>
           <h1 className="max-w-3xl font-[var(--font-display)] text-5xl leading-[0.95] font-semibold tracking-[-0.04em] text-[#24141c] sm:text-6xl lg:text-7xl">
-            The Beauty Industry&apos;s <em className="italic">First</em> Social Booking Platform
+            {renderTitleWithEmphasis(title)}
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-7 text-[#5f4a53]">
-            A social marketplace for the beauty industry. Discover, connect,
-            and book all in one place.
+            {description}
           </p>
 
-          <p className="mt-5 font-[var(--font-display)] text-xl font-semibold text-[#24141c]">
-            No subscription. No catch. Free to join.
-          </p>
+          {tagline ? (
+            <p className="mt-5 font-[var(--font-display)] text-xl font-semibold text-[#24141c]">
+              {tagline}
+            </p>
+          ) : null}
 
           <div id="hero-waitlist" className="mt-8 max-w-xl">
             <WaitlistEmailCapture />
@@ -197,7 +236,7 @@ export default function Hero() {
                   </svg>
                 </div>
                 <p className="text-sm font-semibold text-[#24141c]">
-                  Book directly from a post
+                  {card1}
                 </p>
               </div>
             </div>
@@ -210,7 +249,7 @@ export default function Hero() {
                   </svg>
                 </div>
                 <p className="text-sm font-semibold text-[#24141c]">
-                  Explore the map
+                  {card2}
                 </p>
               </div>
             </div>
