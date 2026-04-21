@@ -15,7 +15,7 @@ const audienceContent = {
         description:
           "Track repeat bookings, busiest weeks, and the clients driving your growth from one dashboard.",
         imageSrc:
-          "/screens/professional/WhatsApp Image 2026-04-20 at 10.18.27 PM.jpeg",
+          "/screens/professional/WhatsApp Image 2026-04-21 at 11.43.27 AM.jpeg",
       },
       {
         name: "Booking + calendar",

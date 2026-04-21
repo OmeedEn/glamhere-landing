@@ -115,12 +115,12 @@ export default function Hero({ content, settings }: HeroProps = {}) {
 
             <div className="relative w-[280px] shrink-0 drop-shadow-[0_45px_90px_rgba(163,11,69,0.45)] sm:w-[320px]">
               <Image
-                src="/screens/WhatsApp Image 2026-04-21 at 9.26.25 AM.jpeg"
+                src="/screens/WhatsApp Image 2026-04-21 at 9.26.25 AM.png"
                 alt="glamhere app feed"
-                width={760}
-                height={1578}
+                width={900}
+                height={1600}
                 priority
-                className="h-auto w-full rounded-[46px]"
+                className="h-auto w-full"
               />
             </div>
 
