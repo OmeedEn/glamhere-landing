@@ -105,17 +105,19 @@ export default function Hero({ content, settings }: HeroProps = {}) {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[680px]">
-          <div className="pointer-events-none absolute inset-x-14 top-6 h-60 rounded-full bg-[#f3bfd3]/55 blur-[90px]" />
+        <div className="relative mx-auto w-full max-w-[760px]">
+          <div className="pointer-events-none absolute inset-x-14 top-6 h-72 rounded-full bg-[#f3bfd3]/55 blur-[100px]" />
 
-          <div className="relative flex items-center justify-center gap-4 sm:gap-8">
-            <p className="hidden max-w-[150px] flex-1 text-right font-[var(--font-display)] text-base font-semibold tracking-[-0.01em] text-[#24141c] sm:block md:text-lg">
-              {card1}
-            </p>
+          <div className="relative flex items-center justify-center gap-4 sm:gap-6">
+            <div className="hidden max-w-[180px] flex-1 text-right sm:block">
+              <span className="inline-block rounded-3xl border border-[#f3d7e3] bg-white px-5 py-3 font-[var(--font-display)] text-sm font-semibold leading-snug text-[#24141c] shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] md:text-base">
+                {card1}
+              </span>
+            </div>
 
-            <div className="relative w-[280px] shrink-0 drop-shadow-[0_45px_90px_rgba(163,11,69,0.45)] sm:w-[320px]">
+            <div className="relative w-[320px] shrink-0 drop-shadow-[0_50px_100px_rgba(163,11,69,0.45)] sm:w-[380px] lg:w-[400px]">
               <Image
-                src="/screens/WhatsApp Image 2026-04-21 at 9.26.25 AM.png"
+                src="/screens/hero-feed.png"
                 alt="glamhere app feed"
                 width={900}
                 height={1600}
@@ -124,18 +126,20 @@ export default function Hero({ content, settings }: HeroProps = {}) {
               />
             </div>
 
-            <p className="hidden max-w-[150px] flex-1 text-left font-[var(--font-display)] text-base font-semibold tracking-[-0.01em] text-[#24141c] sm:block md:text-lg">
-              {card2}
-            </p>
+            <div className="hidden max-w-[180px] flex-1 text-left sm:block">
+              <span className="inline-block rounded-3xl border border-[#f3d7e3] bg-white px-5 py-3 font-[var(--font-display)] text-sm font-semibold leading-snug text-[#24141c] shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] md:text-base">
+                {card2}
+              </span>
+            </div>
           </div>
 
-          <div className="mt-6 flex justify-center gap-6 px-2 sm:hidden">
-            <p className="flex-1 text-center font-[var(--font-display)] text-base font-semibold text-[#24141c]">
+          <div className="mt-6 flex flex-wrap justify-center gap-3 sm:hidden">
+            <span className="rounded-3xl border border-[#f3d7e3] bg-white px-5 py-3 font-[var(--font-display)] text-sm font-semibold leading-snug text-[#24141c] shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)]">
               {card1}
-            </p>
-            <p className="flex-1 text-center font-[var(--font-display)] text-base font-semibold text-[#24141c]">
+            </span>
+            <span className="rounded-3xl border border-[#f3d7e3] bg-white px-5 py-3 font-[var(--font-display)] text-sm font-semibold leading-snug text-[#24141c] shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)]">
               {card2}
-            </p>
+            </span>
           </div>
         </div>
       </div>

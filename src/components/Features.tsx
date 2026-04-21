@@ -50,7 +50,7 @@ const audienceContent = {
         description:
           "See each specialist’s real work, signature services, and availability all before you commit to anything.",
         imageSrc:
-          "/screens/client/WhatsApp Image 2026-04-20 at 10.18.27 PM (3).jpeg",
+          "/screens/client/WhatsApp Image 2026-04-21 at 12.02.28 PM.jpeg",
       },
       {
         name: "See real results",
