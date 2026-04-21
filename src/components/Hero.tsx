@@ -105,41 +105,30 @@ export default function Hero({ content, settings }: HeroProps = {}) {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[760px]">
-          <div className="pointer-events-none absolute inset-x-14 top-6 h-72 rounded-full bg-[#f3bfd3]/55 blur-[100px]" />
+        <div className="relative mx-auto w-full">
+          <div className="pointer-events-none absolute inset-x-10 top-10 h-72 rounded-full bg-[#f3bfd3]/55 blur-[100px]" />
 
-          <div className="relative flex items-center justify-center gap-4 sm:gap-6">
-            <div className="hidden max-w-[180px] flex-1 text-right sm:block">
-              <span className="inline-block rounded-3xl border border-[#f3d7e3] bg-white px-5 py-3 font-[var(--font-display)] text-sm font-semibold leading-snug text-[#24141c] shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] md:text-base">
+          <div className="relative mx-auto w-[260px] drop-shadow-[0_50px_100px_rgba(163,11,69,0.45)] sm:w-[340px] lg:w-[400px]">
+            <Image
+              src="/screens/hero-feed.png"
+              alt="glamhere app feed"
+              width={557}
+              height={1054}
+              priority
+              className="h-auto w-full"
+            />
+
+            <div className="absolute left-0 top-[12%] z-10 -translate-x-2 sm:-translate-x-1/3 lg:-translate-x-1/2">
+              <div className="max-w-[130px] rounded-2xl border border-[#f3d7e3] bg-white px-3 py-2 font-[var(--font-display)] text-[11px] font-semibold leading-snug text-[#24141c] shadow-[0_18px_40px_-12px_rgba(163,11,69,0.45)] sm:max-w-[170px] sm:px-4 sm:py-2.5 sm:text-sm md:max-w-[190px] md:px-5 md:py-3 md:text-base">
                 {card1}
-              </span>
+              </div>
             </div>
 
-            <div className="relative w-[320px] shrink-0 drop-shadow-[0_50px_100px_rgba(163,11,69,0.45)] sm:w-[380px] lg:w-[400px]">
-              <Image
-                src="/screens/hero-feed.png"
-                alt="glamhere app feed"
-                width={900}
-                height={1600}
-                priority
-                className="h-auto w-full"
-              />
-            </div>
-
-            <div className="hidden max-w-[180px] flex-1 text-left sm:block">
-              <span className="inline-block rounded-3xl border border-[#f3d7e3] bg-white px-5 py-3 font-[var(--font-display)] text-sm font-semibold leading-snug text-[#24141c] shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] md:text-base">
+            <div className="absolute bottom-[18%] right-0 z-10 translate-x-2 sm:translate-x-1/3 lg:translate-x-1/2">
+              <div className="max-w-[130px] rounded-2xl border border-[#f3d7e3] bg-white px-3 py-2 font-[var(--font-display)] text-[11px] font-semibold leading-snug text-[#24141c] shadow-[0_18px_40px_-12px_rgba(163,11,69,0.45)] sm:max-w-[170px] sm:px-4 sm:py-2.5 sm:text-sm md:max-w-[190px] md:px-5 md:py-3 md:text-base">
                 {card2}
-              </span>
+              </div>
             </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap justify-center gap-3 sm:hidden">
-            <span className="rounded-3xl border border-[#f3d7e3] bg-white px-5 py-3 font-[var(--font-display)] text-sm font-semibold leading-snug text-[#24141c] shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)]">
-              {card1}
-            </span>
-            <span className="rounded-3xl border border-[#f3d7e3] bg-white px-5 py-3 font-[var(--font-display)] text-sm font-semibold leading-snug text-[#24141c] shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)]">
-              {card2}
-            </span>
           </div>
         </div>
       </div>

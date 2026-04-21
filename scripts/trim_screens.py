@@ -58,9 +58,19 @@ def trim_white(img: Image.Image) -> Image.Image:
 
 def main() -> None:
     BACKUP.mkdir(exist_ok=True)
-    jpegs = sorted(p for p in SRC.iterdir() if p.is_file() and p.suffix.lower() in {".jpg", ".jpeg", ".png"})
-    for src_path in jpegs:
-        backup_path = BACKUP / src_path.name
+    # Walk the whole tree, skipping the backup dir itself.
+    images = sorted(
+        p for p in SRC.rglob("*")
+        if p.is_file()
+        and p.suffix.lower() in {".jpg", ".jpeg", ".png"}
+        and BACKUP not in p.parents
+        and p.parent != BACKUP
+    )
+    for src_path in images:
+        # Preserve subfolder layout under _original/
+        rel = src_path.relative_to(SRC)
+        backup_path = BACKUP / rel
+        backup_path.parent.mkdir(parents=True, exist_ok=True)
         if not backup_path.exists():
             shutil.copy2(src_path, backup_path)
             source_for_read = src_path
@@ -72,7 +82,7 @@ def main() -> None:
             cropped = trim_white(img)
             save_kwargs = {"quality": 92, "optimize": True} if src_path.suffix.lower() in {".jpg", ".jpeg"} else {}
             cropped.save(src_path, **save_kwargs)
-            print(f"{src_path.name}: {img.size} -> {cropped.size}")
+            print(f"{rel}: {img.size} -> {cropped.size}")
 
 
 if __name__ == "__main__":
