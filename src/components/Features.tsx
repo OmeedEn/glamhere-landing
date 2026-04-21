@@ -11,18 +11,25 @@ const audienceContent = {
       "From showing your latest work to locking in repeat appointments, glamhere keeps your portfolio, calendar, and clients in one flow.",
     screens: [
       {
+        name: "Business overview",
+        description:
+          "Track repeat bookings, busiest weeks, and the clients driving your growth from one dashboard.",
+        imageSrc:
+          "/screens/professional/WhatsApp Image 2026-04-20 at 10.18.27 PM.jpeg",
+      },
+      {
         name: "Booking + calendar",
         description:
           "Manage upcoming services, open slots, confirmations, and reschedules in one place.",
         imageSrc:
-          "/screens/WhatsApp Image 2026-04-20 at 10.18.27 PM (1).jpeg",
+          "/screens/professional/WhatsApp Image 2026-04-20 at 10.18.27 PM (1).jpeg",
       },
       {
-        name: "Client analytics",
+        name: "Confirmed appointments",
         description:
-          "Track repeat bookings, busiest weeks, and the clients driving your growth.",
+          "New bookings show up instantly with service, date, time, and location ready for your day.",
         imageSrc:
-          "/screens/WhatsApp Image 2026-04-20 at 10.18.27 PM.jpeg",
+          "/screens/professional/WhatsApp Image 2026-04-20 at 10.18.27 PM (4).jpeg",
       },
     ],
   },
@@ -32,25 +39,25 @@ const audienceContent = {
       "glamhere is your beauty feed, your inspo board, and your booking app all in one place. Follow pros you love, save looks for later, and book when you’re ready.",
     screens: [
       {
-        name: "Discover",
+        name: "Explore the map",
         description:
-          "Scroll the feed or explore the map. Browse real work by category, location, and the looks you want to book.",
+          "Browse beauty pros near you by category and location. Filter by service and find the looks you want to book.",
         imageSrc:
-          "/screens/WhatsApp Image 2026-04-20 at 10.18.27 PM (2).jpeg",
+          "/screens/client/WhatsApp Image 2026-04-21 at 9.26.25 AM (1).jpeg",
       },
       {
         name: "View their profile",
         description:
           "See each specialist’s real work, signature services, and availability all before you commit to anything.",
         imageSrc:
-          "/screens/WhatsApp Image 2026-04-20 at 10.18.27 PM (3).jpeg",
+          "/screens/client/WhatsApp Image 2026-04-20 at 10.18.27 PM (3).jpeg",
       },
       {
-        name: "Book",
+        name: "See real results",
         description:
-          "Book directly from a post or a profile. Your appointment is confirmed, saved to your calendar, and ready in your bookings section.",
+          "Before-and-after posts show the real transformations each pro delivers, so you know what to expect.",
         imageSrc:
-          "/screens/WhatsApp Image 2026-04-20 at 10.18.27 PM (4).jpeg",
+          "/screens/client/WhatsApp Image 2026-04-21 at 9.26.25 AM (2).jpeg",
       },
     ],
   },
