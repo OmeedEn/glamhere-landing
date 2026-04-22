@@ -1,18 +1,75 @@
-const trustCards = [
+import Image from "next/image";
+import type { ReactNode } from "react";
+
+function CalendarIcon() {
+  return (
+    <svg
+      className="h-8 w-8"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="3" y="4.5" width="18" height="16" rx="3" />
+      <path d="M3 9h18" />
+      <path d="M8 3v3" />
+      <path d="M16 3v3" />
+      <path d="M8 13h3" />
+      <path d="M13 13h3" />
+      <path d="M8 17h3" />
+    </svg>
+  );
+}
+
+function MapPinIcon() {
+  return (
+    <svg
+      className="h-8 w-8"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 21s-7-6.35-7-11a7 7 0 1 1 14 0c0 4.65-7 11-7 11Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
+const trustCards: {
+  title: string;
+  description: string;
+  icon: ReactNode;
+}[] = [
   {
     title: "For beauty pros",
     description:
       "Turn social discovery into scheduled business with a profile built around your actual work.",
+    icon: <CalendarIcon />,
   },
   {
     title: "For clients",
     description:
       "Book with confidence after browsing real portfolios, specialties, pricing, and availability.",
+    icon: <MapPinIcon />,
   },
   {
     title: "For local beauty scenes",
     description:
       "Keep discovery, connection, and repeat appointments inside a single platform built for beauty.",
+    icon: (
+      <Image
+        src="/images/icon-messy-bun.png"
+        alt="Line-art illustration of a woman with a messy bun"
+        width={64}
+        height={64}
+        className="h-10 w-auto object-contain"
+      />
+    ),
   },
 ];
 
@@ -34,13 +91,13 @@ export default function Testimonials() {
         </div>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {trustCards.map((card, index) => (
+          {trustCards.map((card) => (
             <div
               key={card.title}
               className="rounded-[30px] border border-[#efd5e1] bg-white p-7 shadow-[0_26px_80px_-60px_rgba(163,11,69,0.45)]"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-sm font-semibold text-white">
-                0{index + 1}
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff1f7] text-[#a30b45]">
+                {card.icon}
               </div>
               <h3 className="mt-5 text-2xl font-semibold text-[#24141c]">
                 {card.title}
