@@ -3,8 +3,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | GlamHere",
-  description: "GlamHere Privacy Policy — how we collect, use, and protect your personal information.",
+  title: "Privacy Policy | glamhere",
+  description: "glamhere Privacy Policy — how we collect, use, and protect your personal information.",
 };
 
 export default function PrivacyPolicyPage() {
@@ -29,7 +29,7 @@ export default function PrivacyPolicyPage() {
           {/* Content */}
           <div className="prose-glamhere mt-10 space-y-10 text-[15px] leading-7 text-[#5f4a53]">
             <p>
-              At GLAMHERE (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), your privacy is of paramount importance. This Privacy Policy (&ldquo;Policy&rdquo;) describes how we collect, use, disclose, transfer, and protect your personal information when you access or use our mobile application (the &ldquo;App&rdquo;). The App is a social media platform designed for influencers and creators to share tutorials, link products, offer services, interact with users, and manage bookings.
+              At glamhere (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;), your privacy is of paramount importance. This Privacy Policy (&ldquo;Policy&rdquo;) describes how we collect, use, disclose, transfer, and protect your personal information when you access or use our mobile application (the &ldquo;App&rdquo;). The App is a social media platform designed for influencers and creators to share tutorials, link products, offer services, interact with users, and manage bookings.
             </p>
             <p>
               By downloading, installing, or using the App, you consent to the practices described in this Policy. If you do not agree with this Policy, please do not use the App. We encourage you to review this Policy periodically, as it may be updated. This Policy applies only to information collected through the App and does not apply to information collected offline or through third-party websites or services linked from the App.
@@ -154,13 +154,13 @@ export default function PrivacyPolicyPage() {
                 2A. Professional Services Disclaimer
               </h2>
               <p className="mt-4">
-                GLAMHERE facilitates connections between users and independent service providers but does not verify professional licenses, certifications, or qualifications. We do not conduct background checks or verify the accuracy of service provider credentials.
+                glamhere facilitates connections between users and independent service providers but does not verify professional licenses, certifications, or qualifications. We do not conduct background checks or verify the accuracy of service provider credentials.
               </p>
               <p className="mt-3">
                 Users should independently verify service provider qualifications and ensure all providers maintain appropriate licensing and insurance as required by local regulations.
               </p>
               <p className="mt-3">
-                Any information provided by service providers regarding their qualifications, experience, or credentials is provided by the service providers themselves and has not been verified by GLAMHERE.
+                Any information provided by service providers regarding their qualifications, experience, or credentials is provided by the service providers themselves and has not been verified by glamhere.
               </p>
             </div>
 

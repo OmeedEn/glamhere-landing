@@ -1,26 +1,53 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/constants";
+import type { HomePageContent, SiteSettings } from "@/lib/sanity/queries";
 import WaitlistEmailCapture from "./WaitlistEmailCapture";
 
-const featuredPros = [
-  {
-    name: "Sabrina L.",
-    role: "Braids + color",
-    avatar: "/images/avatar-elena.png",
-  },
-  {
-    name: "Maya T.",
-    role: "Editorial makeup",
-    avatar: "/images/avatar-juliette.png",
-  },
-  {
-    name: "Rico A.",
-    role: "Cuts + grooming",
-    avatar: "/images/avatar-ricardo.png",
-  },
-];
+const DEFAULT_HERO_TITLE =
+  "The Beauty Industry's {em}First{/em} Social Booking Platform";
+const DEFAULT_HERO_DESCRIPTION =
+  "A social marketplace for the beauty industry. Discover, connect, and book all in one place.";
+const DEFAULT_HERO_TAGLINE = "No subscription. No catch. Free to join.";
+const DEFAULT_HERO_CARD_1 = "Book directly from a post";
+const DEFAULT_HERO_CARD_2 = "Explore from the map";
 
-export default function Hero() {
+function renderTitleWithEmphasis(title: string): ReactNode {
+  const parts = title.split(/(\{em\}.*?\{\/em\})/g);
+  return parts.map((part, i) => {
+    const match = part.match(/^\{em\}(.*?)\{\/em\}$/);
+    if (match) {
+      return (
+        <em key={i} className="italic">
+          {match[1]}
+        </em>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
+type HeroProps = {
+  content?: Pick<
+    HomePageContent,
+    | "heroTitle"
+    | "heroDescription"
+    | "heroTagline"
+    | "heroCard1"
+    | "heroCard2"
+  > | null;
+  settings?: Pick<SiteSettings, "appStoreUrl" | "googlePlayUrl"> | null;
+};
+
+export default function Hero({ content, settings }: HeroProps = {}) {
+  const title = content?.heroTitle || DEFAULT_HERO_TITLE;
+  const description = content?.heroDescription || DEFAULT_HERO_DESCRIPTION;
+  const tagline = content?.heroTagline || DEFAULT_HERO_TAGLINE;
+  const card1 = content?.heroCard1 || DEFAULT_HERO_CARD_1;
+  const card2 = content?.heroCard2 || DEFAULT_HERO_CARD_2;
+  const appStoreHref = settings?.appStoreUrl || APP_STORE_URL;
+  const googlePlayHref = settings?.googlePlayUrl || GOOGLE_PLAY_URL;
+
   return (
     <section className="relative overflow-hidden px-6 pb-[88px] pt-[120px] sm:pt-36 lg:pb-[104px]">
       <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(135deg, #fff1f7 0%, #f9d5e5 18%, #e8a0bf 38%, rgba(193,26,99,0.35) 55%, rgba(163,11,69,0.25) 70%, transparent 85%)" }} />
@@ -29,17 +56,18 @@ export default function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
         <div>
           <h1 className="max-w-3xl font-[var(--font-display)] text-5xl leading-[0.95] font-semibold tracking-[-0.04em] text-[#24141c] sm:text-6xl lg:text-7xl">
-            The Beauty Industry&apos;s <em className="italic">First</em> Social Booking Platform
+            {renderTitleWithEmphasis(title)}
           </h1>
 
           <p className="mt-6 max-w-xl text-base leading-7 text-[#5f4a53]">
-            A social marketplace for the beauty industry. Discover, connect,
-            and book all in one place.
+            {description}
           </p>
 
-          <p className="mt-5 font-[var(--font-display)] text-xl font-semibold text-[#24141c]">
-            No subscription. No catch. Free to join.
-          </p>
+          {tagline ? (
+            <p className="mt-5 font-[var(--font-display)] text-xl font-semibold text-[#24141c]">
+              {tagline}
+            </p>
+          ) : null}
 
           <div id="hero-waitlist" className="mt-8 max-w-xl">
             <WaitlistEmailCapture />
@@ -47,7 +75,7 @@ export default function Hero() {
 
           <div className="mt-6 flex flex-wrap gap-3">
             <a
-              href={APP_STORE_URL}
+              href={appStoreHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-2xl border border-[#f3d7e3] bg-white px-5 py-3 text-[#24141c] shadow-sm transition hover:border-[#c11a63]/30 hover:shadow-md"
@@ -61,7 +89,7 @@ export default function Hero() {
               </div>
             </a>
             <a
-              href={GOOGLE_PLAY_URL}
+              href={googlePlayHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-2xl border border-[#f3d7e3] bg-white px-5 py-3 text-[#24141c] shadow-sm transition hover:border-[#c11a63]/30 hover:shadow-md"
@@ -77,141 +105,28 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[560px]">
-          <div className="absolute inset-x-14 top-6 h-60 rounded-full bg-[#f3bfd3]/55 blur-[90px]" />
+        <div className="relative mx-auto w-full">
+          <div className="pointer-events-none absolute inset-x-10 top-10 h-72 rounded-full bg-[#f3bfd3]/55 blur-[100px]" />
 
-          <div className="relative mx-auto w-[320px] rounded-[42px] border border-[#f4d9e5] bg-white p-3 shadow-[0_45px_90px_-55px_rgba(163,11,69,0.75)]">
-            <div className="rounded-[34px] bg-[linear-gradient(180deg,#fff9fc_0%,#fff0f6_100%)] p-4">
-              <div className="mx-auto mb-4 h-1.5 w-16 rounded-full bg-[#d9bcc7]" />
+          <div className="relative mx-auto w-[260px] drop-shadow-[0_50px_100px_rgba(163,11,69,0.45)] sm:w-[340px] lg:w-[400px]">
+            <Image
+              src="/screens/hero-feed.png"
+              alt="glamhere app feed"
+              width={557}
+              height={1054}
+              priority
+              className="h-auto w-full"
+            />
 
-              <div className="rounded-[28px] bg-white p-4 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.18em] text-[#a30b45]">
-                      Discover nearby
-                    </p>
-                    <h2 className="mt-1 font-[var(--font-display)] text-2xl font-semibold text-[#24141c]">
-                      Beauty feed
-                    </h2>
-                  </div>
-                  <div className="rounded-full bg-[#fff1f7] px-3 py-1 text-xs font-semibold text-[#a30b45]">
-                    Los Angeles
-                  </div>
-                </div>
-
-                <div className="mt-4 rounded-[24px] border border-[#f4d9e5] bg-[linear-gradient(180deg,#fff7fb_0%,#ffffff_100%)] p-4">
-                  <div className="flex items-center gap-3">
-                    <Image
-                      src={featuredPros[0].avatar}
-                      alt={featuredPros[0].name}
-                      width={44}
-                      height={44}
-                      className="h-11 w-11 rounded-full object-cover"
-                    />
-                    <div>
-                      <p className="text-sm font-semibold text-[#24141c]">
-                        {featuredPros[0].name}
-                      </p>
-                      <p className="text-xs text-[#7d6772]">
-                        {featuredPros[0].role}
-                      </p>
-                    </div>
-                    <span className="ml-auto rounded-full bg-[#a30b45] px-3 py-1 text-xs font-semibold text-white">
-                      Book
-                    </span>
-                  </div>
-
-                  <div className="mt-4 grid grid-cols-2 gap-3">
-                    <div className="rounded-[18px] bg-[linear-gradient(180deg,#cf5d8d_0%,#a30b45_100%)] p-3 text-white">
-                      <p className="text-xs uppercase tracking-[0.18em] text-white/70">
-                        Portfolio
-                      </p>
-                      <div className="mt-6 h-16 rounded-[16px] bg-white/18" />
-                    </div>
-                    <div className="space-y-3">
-                      <div className="rounded-[18px] bg-[#fff1f7] p-3">
-                        <p className="text-xs font-semibold text-[#a30b45]">
-                          4.9 rating
-                        </p>
-                        <p className="mt-1 text-xs text-[#7d6772]">
-                          132 recent bookings
-                        </p>
-                      </div>
-                      <div className="rounded-[18px] bg-[#fff1f7] p-3">
-                        <p className="text-xs font-semibold text-[#a30b45]">
-                          This week
-                        </p>
-                        <p className="mt-1 text-xs text-[#7d6772]">
-                          9 slots left
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-4 space-y-3">
-                  {featuredPros.slice(1).map((pro) => (
-                    <div
-                      key={pro.name}
-                      className="flex items-center gap-3 rounded-[20px] border border-[#f5e2eb] bg-[#fff9fc] px-3 py-3"
-                    >
-                      <Image
-                        src={pro.avatar}
-                        alt={pro.name}
-                        width={36}
-                        height={36}
-                        className="h-9 w-9 rounded-full object-cover"
-                      />
-                      <div>
-                        <p className="text-sm font-semibold text-[#24141c]">
-                          {pro.name}
-                        </p>
-                        <p className="text-xs text-[#7d6772]">{pro.role}</p>
-                      </div>
-                      <svg
-                        className="ml-auto h-5 w-5 text-[#a30b45]"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.8}
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="m9 5 7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-                  ))}
-                </div>
+            <div className="absolute left-0 top-[12%] z-10 -translate-x-2 sm:-translate-x-1/3 lg:-translate-x-1/2">
+              <div className="max-w-[130px] rounded-2xl border border-[#f3d7e3] bg-white px-3 py-2 font-[var(--font-display)] text-[11px] font-semibold leading-snug text-[#24141c] shadow-[0_18px_40px_-12px_rgba(163,11,69,0.45)] sm:max-w-[170px] sm:px-4 sm:py-2.5 sm:text-sm md:max-w-[190px] md:px-5 md:py-3 md:text-base">
+                {card1}
               </div>
             </div>
-          </div>
 
-          <div className="relative mt-6 flex justify-center gap-4">
-            <div className="w-48 rounded-[22px] border border-[#f3d7e3] bg-white/95 p-4 shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] backdrop-blur">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
-                  <svg className="h-4.5 w-4.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
-                  </svg>
-                </div>
-                <p className="text-sm font-semibold text-[#24141c]">
-                  Book directly from a post
-                </p>
-              </div>
-            </div>
-            <div className="w-48 rounded-[22px] border border-[#f3d7e3] bg-white/95 p-4 shadow-[0_20px_50px_-30px_rgba(163,11,69,0.4)] backdrop-blur">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
-                  <svg className="h-4.5 w-4.5 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                  </svg>
-                </div>
-                <p className="text-sm font-semibold text-[#24141c]">
-                  Explore the map
-                </p>
+            <div className="absolute bottom-[18%] right-0 z-10 translate-x-2 sm:translate-x-1/3 lg:translate-x-1/2">
+              <div className="max-w-[130px] rounded-2xl border border-[#f3d7e3] bg-white px-3 py-2 font-[var(--font-display)] text-[11px] font-semibold leading-snug text-[#24141c] shadow-[0_18px_40px_-12px_rgba(163,11,69,0.45)] sm:max-w-[170px] sm:px-4 sm:py-2.5 sm:text-sm md:max-w-[190px] md:px-5 md:py-3 md:text-base">
+                {card2}
               </div>
             </div>
           </div>
