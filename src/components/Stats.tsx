@@ -23,14 +23,17 @@ const HIGHLIGHT_IMAGES = [
   {
     src: "/images/highlight-portfolio.png",
     alt: "Illustration of a hand holding a phone showing a booking page",
+    className: "h-28 w-28 object-contain",
   },
   {
     src: "/images/highlight-discover.png",
     alt: "Illustration of a magnifying glass over a person with two others nearby",
+    className: "h-40 w-40 object-contain",
   },
   {
     src: "/images/highlight-beauty.png",
     alt: "Illustration of a phone with beauty icons and cash next to it",
+    className: "h-40 w-40 object-contain",
   },
 ];
 
@@ -54,13 +57,17 @@ export default function Stats({ content }: StatsProps = {}) {
               key={`${highlight.title ?? "highlight"}-${index}`}
               className="rounded-[28px] border border-[#f3d9e4] bg-white/90 p-6 shadow-[0_30px_80px_-55px_rgba(163,11,69,0.35)]"
             >
-              <div className="flex items-center justify-center rounded-[20px] bg-[#fff4f8] p-4">
+              <div className="flex h-40 items-center justify-center rounded-[20px] border border-[#c11a63] bg-[#fff4f8] p-4">
                 <Image
                   src={image.src}
                   alt={image.alt}
                   width={160}
                   height={160}
-                  className="h-32 w-auto object-contain"
+                  className={image.className}
+                  style={{
+                    filter:
+                      "brightness(0) saturate(100%) invert(10%) sepia(90%) saturate(5000%) hue-rotate(330deg) brightness(70%)",
+                  }}
                 />
               </div>
               <h2 className="mt-5 font-[var(--font-display)] text-xl font-semibold text-[#24141c]">

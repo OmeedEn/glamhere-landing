@@ -5,7 +5,7 @@ import type { HomePageContent } from "@/lib/sanity/queries";
 function CalendarIcon() {
   return (
     <svg
-      className="h-8 w-8"
+      className="h-32 w-32"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -27,7 +27,7 @@ function CalendarIcon() {
 function MapPinIcon() {
   return (
     <svg
-      className="h-8 w-8"
+      className="h-32 w-32"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -50,7 +50,7 @@ const CARD_ICONS: ReactNode[] = [
     alt="Line-art illustration of a woman with a messy bun"
     width={64}
     height={64}
-    className="h-10 w-auto object-contain"
+    className="h-32 w-auto object-contain"
   />,
 ];
 
@@ -119,7 +119,7 @@ export default function Testimonials({ content }: TestimonialsProps = {}) {
                 key={`${card.title ?? "card"}-${index}`}
                 className="rounded-[30px] border border-[#efd5e1] bg-white p-7 shadow-[0_26px_80px_-60px_rgba(163,11,69,0.45)]"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fff1f7] text-[#a30b45]">
+                <div className="flex items-center justify-center rounded-[20px] bg-[#fff4f8] p-4 text-[#a30b45]">
                   {icon}
                 </div>
                 <h3 className="mt-5 text-2xl font-semibold text-[#24141c]">

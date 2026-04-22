@@ -5,11 +5,6 @@ import Link from "next/link";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/constants";
 import BrandLogo from "./BrandLogo";
 
-const navLinks = [
-  { href: "/#discover", label: "Discover" },
-  { href: "/#features", label: "Features" },
-];
-
 export default function Header() {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -30,18 +25,6 @@ export default function Header() {
         <Link href="/" className="shrink-0">
           <BrandLogo size="md" />
         </Link>
-
-        <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-[#5f4a53] transition hover:text-[#a30b45]"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
 
         <div ref={ref} className="relative">
           <button
