@@ -11,7 +11,15 @@ const avatars = [
 
 type Status = "idle" | "submitting" | "joined" | "error";
 
-export default function WaitlistEmailCapture() {
+type WaitlistEmailCaptureProps = {
+  inputId?: string;
+  source?: string;
+};
+
+export default function WaitlistEmailCapture({
+  inputId = "hero-email",
+  source = "hero",
+}: WaitlistEmailCaptureProps = {}) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
 
@@ -23,7 +31,7 @@ export default function WaitlistEmailCapture() {
       const response = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, source: "hero" }),
+        body: JSON.stringify({ email, source }),
       });
 
       if (!response.ok) {
@@ -42,24 +50,24 @@ export default function WaitlistEmailCapture() {
         onSubmit={handleSubmit}
         className="sm:rounded-full sm:border sm:border-[#f3d8e4] sm:bg-white/90 sm:p-2 sm:shadow-[0_30px_70px_-45px_rgba(163,11,69,0.45)] sm:backdrop-blur"
       >
-        <label htmlFor="hero-email" className="sr-only">
+        <label htmlFor={inputId} className="sr-only">
           Email address
         </label>
-        <div className="flex flex-col gap-3 sm:flex-row sm:gap-2">
+        <div className="space-y-3 sm:flex sm:flex-row sm:items-center sm:gap-2 sm:space-y-0">
           <input
-            id="hero-email"
+            id={inputId}
             type="email"
             name="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             required
             placeholder="Enter your email"
-            className="h-[60px] w-full flex-1 rounded-full border-2 border-[#f3d8e4] bg-white px-6 text-base text-[#24141c] shadow-[0_18px_40px_-24px_rgba(163,11,69,0.4)] outline-none transition placeholder:text-[#b59aa4] focus:border-[#c11a63] sm:h-12 sm:border sm:bg-[#fff7fb] sm:px-5 sm:text-sm sm:shadow-none"
+            className="block h-[60px] w-full rounded-full border-2 border-[#f3d8e4] bg-white px-6 text-base text-[#24141c] shadow-[0_18px_40px_-24px_rgba(163,11,69,0.4)] outline-none transition placeholder:text-[#b59aa4] focus:border-[#c11a63] sm:h-12 sm:min-w-0 sm:flex-1 sm:border sm:bg-[#fff7fb] sm:px-5 sm:text-sm sm:shadow-none"
           />
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="group inline-flex h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] px-7 text-base font-semibold text-white shadow-[0_22px_40px_-18px_rgba(163,11,69,0.7)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70 sm:h-12 sm:w-auto sm:text-sm sm:shadow-none"
+            className="group inline-flex h-[60px] w-full items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] px-7 text-base font-semibold text-white shadow-[0_22px_40px_-18px_rgba(163,11,69,0.7)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-70 sm:h-12 sm:w-auto sm:flex-shrink-0 sm:text-sm sm:shadow-none"
           >
             <span>{status === "submitting" ? "Joining..." : "Join waitlist"}</span>
             <svg

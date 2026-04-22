@@ -5,7 +5,7 @@ import type { HomePageContent, SiteSettings } from "@/lib/sanity/queries";
 import WaitlistEmailCapture from "./WaitlistEmailCapture";
 
 const DEFAULT_HERO_TITLE =
-  "The Beauty Industry's {em}First{/em} Social Booking Platform";
+  "The Beauty Industry's {br}{em}First{/em} Social Booking Platform";
 const DEFAULT_HERO_DESCRIPTION =
   "A social marketplace for the beauty industry. Discover, connect, and book all in one place.";
 const DEFAULT_HERO_TAGLINE = "No subscription. No catch. Free to join.";
@@ -13,12 +13,15 @@ const DEFAULT_HERO_CARD_1 = "Book directly from a post";
 const DEFAULT_HERO_CARD_2 = "Explore from the map";
 
 function renderTitleWithEmphasis(title: string): ReactNode {
-  const parts = title.split(/(\{em\}.*?\{\/em\})/g);
+  const parts = title.split(/(\{em\}.*?\{\/em\}|\{br\})/g);
   return parts.map((part, i) => {
+    if (part === "{br}") {
+      return <br key={i} />;
+    }
     const match = part.match(/^\{em\}(.*?)\{\/em\}$/);
     if (match) {
       return (
-        <em key={i} className="italic">
+        <em key={i} className="italic pr-2">
           {match[1]}
         </em>
       );
@@ -55,7 +58,7 @@ export default function Hero({ content, settings }: HeroProps = {}) {
 
       <div className="relative mx-auto grid max-w-7xl gap-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center">
         <div>
-          <h1 className="max-w-3xl font-[var(--font-display)] text-5xl leading-[0.95] font-semibold tracking-[-0.04em] text-[#24141c] sm:text-6xl lg:text-7xl">
+          <h1 className="max-w-3xl font-[var(--font-display)] text-5xl leading-[0.95] font-semibold tracking-[-0.04em] text-[#24141c] sm:text-6xl lg:text-5xl">
             {renderTitleWithEmphasis(title)}
           </h1>
 
@@ -119,14 +122,22 @@ export default function Hero({ content, settings }: HeroProps = {}) {
             />
 
             <div className="absolute left-0 top-[12%] z-10 -translate-x-2 sm:-translate-x-1/3 lg:-translate-x-1/2">
-              <div className="max-w-[130px] rounded-2xl border border-[#f3d7e3] bg-white px-3 py-2 font-[var(--font-display)] text-[11px] font-semibold leading-snug text-[#24141c] shadow-[0_18px_40px_-12px_rgba(163,11,69,0.45)] sm:max-w-[170px] sm:px-4 sm:py-2.5 sm:text-sm md:max-w-[190px] md:px-5 md:py-3 md:text-base">
+              <div className="relative max-w-[130px] rounded-2xl border border-[#f3d7e3] bg-white px-3 py-2 font-[var(--font-display)] text-[11px] font-semibold leading-snug text-[#24141c] shadow-[0_18px_40px_-12px_rgba(163,11,69,0.45)] sm:max-w-[170px] sm:px-4 sm:py-2.5 sm:text-sm md:max-w-[190px] md:px-5 md:py-3 md:text-base">
                 {card1}
+                <span
+                  aria-hidden
+                  className="absolute right-[-5px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rotate-45 border-r border-t border-[#f3d7e3] bg-white"
+                />
               </div>
             </div>
 
             <div className="absolute bottom-[18%] right-0 z-10 translate-x-2 sm:translate-x-1/3 lg:translate-x-1/2">
-              <div className="max-w-[130px] rounded-2xl border border-[#f3d7e3] bg-white px-3 py-2 font-[var(--font-display)] text-[11px] font-semibold leading-snug text-[#24141c] shadow-[0_18px_40px_-12px_rgba(163,11,69,0.45)] sm:max-w-[170px] sm:px-4 sm:py-2.5 sm:text-sm md:max-w-[190px] md:px-5 md:py-3 md:text-base">
+              <div className="relative max-w-[130px] rounded-2xl border border-[#f3d7e3] bg-white px-3 py-2 font-[var(--font-display)] text-[11px] font-semibold leading-snug text-[#24141c] shadow-[0_18px_40px_-12px_rgba(163,11,69,0.45)] sm:max-w-[170px] sm:px-4 sm:py-2.5 sm:text-sm md:max-w-[190px] md:px-5 md:py-3 md:text-base">
                 {card2}
+                <span
+                  aria-hidden
+                  className="absolute left-[-5px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rotate-45 border-b border-l border-[#f3d7e3] bg-white"
+                />
               </div>
             </div>
           </div>
