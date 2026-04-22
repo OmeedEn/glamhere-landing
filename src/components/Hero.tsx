@@ -126,8 +126,8 @@ export default function Hero({ content, settings }: HeroProps = {}) {
               <Image
                 src="/screens/hero-feed.png"
                 alt="glamhere app feed"
-                width={557}
-                height={1054}
+                width={590}
+                height={1080}
                 priority
                 className="h-auto w-full"
               />
