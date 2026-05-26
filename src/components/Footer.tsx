@@ -38,16 +38,6 @@ export default function Footer({ settings }: FooterProps = {}) {
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li>
-                <a href="/#features" className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]">
-                  For Professionals
-                </a>
-              </li>
-              <li>
-                <a href="/#features" className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 -ml-2 text-[#5f4a53] transition hover:bg-[#fff1f7] hover:text-[#a30b45]">
-                  For Clients
-                </a>
-              </li>
-              <li>
                 <a
                   href={appStoreHref}
                   target="_blank"

@@ -1,7 +1,5 @@
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
-import ForClients from "@/components/ForClients";
-import ForProfessionals from "@/components/ForProfessionals";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import MapSection from "@/components/MapSection";
@@ -30,8 +28,6 @@ export default async function Home() {
       <Hero content={content} settings={settings} />
       {showHighlights && <Stats content={content} />}
       {showFeatures && <Features />}
-      <ForProfessionals />
-      <ForClients />
       {showTestimonials && <Testimonials content={content} />}
       {showMap && <MapSection content={content} />}
       <section className="relative overflow-hidden px-6 py-20">
