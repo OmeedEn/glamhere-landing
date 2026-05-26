@@ -7,6 +7,7 @@ export async function POST(request: Request) {
   const body = await request.json();
   const email =
     typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+  const is_provider = body.is_provider === true;
 
   if (!email) {
     return NextResponse.json(
@@ -31,7 +32,7 @@ export async function POST(request: Request) {
   // Insert new entry
   const { error } = await supabase
     .from("waitlist")
-    .insert({ email });
+    .insert({ email, is_provider });
 
   if (error) {
     console.error("Supabase insert error:", error);
