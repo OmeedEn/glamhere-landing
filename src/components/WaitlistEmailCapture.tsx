@@ -40,6 +40,13 @@ export default function WaitlistEmailCapture({
       }
 
       setStatus("joined");
+
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "waitlist_signup", {
+          role: isProvider ? "beauty_pro" : "client",
+          source,
+        });
+      }
     } catch {
       setStatus("error");
     }
@@ -47,6 +54,50 @@ export default function WaitlistEmailCapture({
 
   return (
     <div className="space-y-4">
+      <div className="flex items-center gap-3">
+        <span className="text-sm text-[#6f5a64]">I&apos;m a</span>
+        <div className="inline-flex rounded-full border border-[#f3d8e4] bg-white/90 p-1">
+          <button
+            type="button"
+            onClick={() => {
+              setIsProvider(false);
+              if (typeof window !== "undefined" && typeof window.gtag === "function") {
+                window.gtag("event", "select_role", {
+                  role: "client",
+                  source,
+                });
+              }
+            }}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
+              !isProvider
+                ? "bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-white shadow-sm"
+                : "text-[#6f5a64] hover:text-[#a30b45]"
+            }`}
+          >
+            Client
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setIsProvider(true);
+              if (typeof window !== "undefined" && typeof window.gtag === "function") {
+                window.gtag("event", "select_role", {
+                  role: "beauty_pro",
+                  source,
+                });
+              }
+            }}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
+              isProvider
+                ? "bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-white shadow-sm"
+                : "text-[#6f5a64] hover:text-[#a30b45]"
+            }`}
+          >
+            Beauty Pro
+          </button>
+        </div>
+      </div>
+
       <form
         onSubmit={handleSubmit}
         className="sm:rounded-full sm:border sm:border-[#f3d8e4] sm:bg-white/90 sm:p-2 sm:shadow-[0_30px_70px_-45px_rgba(163,11,69,0.45)] sm:backdrop-blur"
@@ -83,34 +134,6 @@ export default function WaitlistEmailCapture({
           </button>
         </div>
       </form>
-
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-[#6f5a64]">I&apos;m a</span>
-        <div className="inline-flex rounded-full border border-[#f3d8e4] bg-white/90 p-1">
-          <button
-            type="button"
-            onClick={() => setIsProvider(false)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
-              !isProvider
-                ? "bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-white shadow-sm"
-                : "text-[#6f5a64] hover:text-[#a30b45]"
-            }`}
-          >
-            Client
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsProvider(true)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
-              isProvider
-                ? "bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-white shadow-sm"
-                : "text-[#6f5a64] hover:text-[#a30b45]"
-            }`}
-          >
-            Beauty Pro
-          </button>
-        </div>
-      </div>
 
       <div className="flex flex-wrap items-center gap-3 text-sm text-[#6f5a64]">
         <div className="flex -space-x-3">
