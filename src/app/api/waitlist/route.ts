@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     .insert({ email, is_provider });
 
   if (error) {
-    console.error("Supabase insert error:", error);
+    console.error("waitlist insert failed", { email, error });
     return NextResponse.json(
       { error: "Failed to join waitlist" },
       { status: 500 }

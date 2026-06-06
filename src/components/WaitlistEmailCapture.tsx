@@ -43,12 +43,21 @@ export default function WaitlistEmailCapture({
 
       if (typeof window !== "undefined" && typeof window.gtag === "function") {
         window.gtag("event", "waitlist_signup", {
+          status: "success",
           role: isProvider ? "beauty_pro" : "client",
           source,
         });
       }
     } catch {
       setStatus("error");
+
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "waitlist_signup", {
+          status: "failed",
+          role: isProvider ? "beauty_pro" : "client",
+          source,
+        });
+      }
     }
   }
 
