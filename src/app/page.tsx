@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -40,12 +41,36 @@ export default async function Home() {
         />
         <div className="relative mx-auto max-w-2xl text-center">
           <h2 className="font-[var(--font-display)] text-3xl font-semibold tracking-[-0.03em] text-[#24141c] sm:text-4xl">
-            Be first in line when we launch
+            Ready to book your glam?
           </h2>
           <p className="mt-4 text-base leading-7 text-[#5f4a53]">
-            No subscription. No catch. Free to join.
+            Browse real pros and request an appointment in under a minute. No
+            payment until it&apos;s confirmed.
           </p>
-          <div id="bottom-waitlist" className="mx-auto mt-8 max-w-xl text-left">
+          <div className="mt-8 flex justify-center">
+            <Link
+              href="/book"
+              className="group inline-flex h-[60px] items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] px-8 text-base font-semibold text-white shadow-[0_22px_40px_-18px_rgba(163,11,69,0.7)] transition hover:brightness-105"
+            >
+              Book an appointment
+              <svg
+                className="h-5 w-5 transition-transform group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.2}
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+          </div>
+          <div
+            id="bottom-waitlist"
+            className="mx-auto mt-10 max-w-xl border-t border-white/40 pt-8 text-left"
+          >
+            <p className="mb-3 text-center text-sm font-medium text-[#5f4a53]">
+              Or join the launch waitlist for updates.
+            </p>
             <WaitlistEmailCapture inputId="bottom-email" source="bottom" />
           </div>
         </div>

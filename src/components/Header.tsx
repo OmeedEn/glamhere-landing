@@ -26,12 +26,20 @@ export default function Header() {
           <BrandLogo size="md" />
         </Link>
 
-        <div ref={ref} className="relative">
+        <div className="flex items-center gap-2.5">
+          <Link
+            href="/book"
+            className="inline-flex items-center justify-center rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_32px_-20px_rgba(163,11,69,0.75)] transition hover:brightness-105"
+          >
+            Book now
+          </Link>
+
+          <div ref={ref} className="relative">
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_32px_-20px_rgba(163,11,69,0.75)] transition hover:brightness-105"
+            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#f3d7e3] bg-white px-5 py-2.5 text-sm font-semibold text-[#24141c] shadow-sm transition hover:border-[#c11a63]/40"
           >
-            Download now
+            Download
             <svg
               className={`h-3.5 w-3.5 transition-transform ${open ? "rotate-180" : ""}`}
               fill="none"
@@ -77,6 +85,7 @@ export default function Header() {
               </a>
             </div>
           )}
+          </div>
         </div>
       </div>
     </header>

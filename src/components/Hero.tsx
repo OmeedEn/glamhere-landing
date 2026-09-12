@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/constants";
 import type { HomePageContent, SiteSettings } from "@/lib/sanity/queries";
@@ -72,7 +73,34 @@ export default function Hero({ content, settings }: HeroProps = {}) {
             </p>
           ) : null}
 
-          <div id="hero-waitlist" className="mt-8 max-w-xl">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Link
+              href="/book"
+              className="group inline-flex h-[60px] items-center justify-center gap-2 rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] px-8 text-base font-semibold text-white shadow-[0_22px_40px_-18px_rgba(163,11,69,0.7)] transition hover:brightness-105"
+            >
+              Book an appointment
+              <svg
+                className="h-5 w-5 transition-transform group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2.2}
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+            <span className="text-sm text-[#6f5a64]">
+              Real pros. No payment until confirmed.
+            </span>
+          </div>
+
+          <div
+            id="hero-waitlist"
+            className="mt-8 max-w-xl border-t border-[#f3d8e4]/70 pt-6"
+          >
+            <p className="mb-3 text-sm font-medium text-[#6f5a64]">
+              Not ready to book? Join the launch waitlist.
+            </p>
             <WaitlistEmailCapture />
           </div>
 
