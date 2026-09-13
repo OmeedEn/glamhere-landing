@@ -9,20 +9,39 @@ import type { BookableProvider } from "@/lib/booking";
 const money = (n: number) =>
   n === 0 ? "Free" : `$${n % 1 === 0 ? n.toFixed(0) : n.toFixed(2)}`;
 
-// On-brand teardrop pin as an inline HTML icon (avoids Leaflet's broken default
-// marker asset paths under bundlers).
-const pinIcon = L.divIcon({
-  className: "",
-  html: `<div style="
-      width:26px;height:26px;border-radius:50% 50% 50% 0;
-      transform:rotate(-45deg);
-      background:linear-gradient(135deg,#c11a63 0%,#961049 100%);
-      border:2px solid #fff;
-      box-shadow:0 6px 14px -4px rgba(163,11,69,0.7);"></div>`,
-  iconSize: [26, 26],
-  iconAnchor: [13, 24],
-  popupAnchor: [0, -22],
-});
+const initial = (name: string) => (name.trim()[0] || "?").toUpperCase();
+
+// Escape for safe interpolation into the divIcon HTML string.
+function esc(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+// A circular profile-photo pin (falls back to the pro's initial on a pink chip).
+function avatarIcon(p: BookableProvider): L.DivIcon {
+  const ring =
+    "border:3px solid #fff;box-shadow:0 6px 16px -4px rgba(163,11,69,0.7),0 0 0 2px #c11a63;";
+  const inner = p.avatarUrl
+    ? `<div style="width:46px;height:46px;border-radius:9999px;${ring}
+         background:#eee center/cover no-repeat url('${esc(encodeURI(p.avatarUrl))}');"></div>`
+    : `<div style="width:46px;height:46px;border-radius:9999px;${ring}
+         display:flex;align-items:center;justify-content:center;
+         background:linear-gradient(135deg,#c11a63 0%,#961049 100%);
+         color:#fff;font-weight:700;font-size:18px;font-family:sans-serif;">${esc(initial(p.name))}</div>`;
+  return L.divIcon({
+    className: "",
+    html: `<div style="position:relative;">${inner}
+      <div style="position:absolute;left:50%;bottom:-6px;width:10px;height:10px;
+        transform:translateX(-50%) rotate(45deg);background:#fff;
+        box-shadow:2px 2px 3px -1px rgba(163,11,69,0.4);"></div></div>`,
+    iconSize: [46, 52],
+    iconAnchor: [23, 52],
+    popupAnchor: [0, -50],
+  });
+}
 
 function priceRange(p: BookableProvider): string {
   if (p.services.length === 0) return "";
@@ -39,7 +58,7 @@ function FitBounds({ points }: { points: [number, number][] }) {
     if (points.length === 1) {
       map.setView(points[0], 11);
     } else {
-      map.fitBounds(points, { padding: [40, 40] });
+      map.fitBounds(points, { padding: [50, 50] });
     }
   }, [map, points]);
   return null;
@@ -74,21 +93,82 @@ export default function ProviderMap({
       />
       <FitBounds points={points} />
       {located.map((p) => (
-        <Marker key={p.id} position={[p.lat as number, p.lng as number]} icon={pinIcon}>
+        <Marker
+          key={p.id}
+          position={[p.lat as number, p.lng as number]}
+          icon={avatarIcon(p)}
+        >
           <Popup>
-            <div style={{ minWidth: 180 }}>
-              <div style={{ fontWeight: 700, color: "#24141c", fontSize: 14 }}>
-                {p.name}
-              </div>
-              {p.city && (
-                <div style={{ color: "#6f5a64", fontSize: 12, marginTop: 2 }}>
-                  {p.city}
+            <div style={{ minWidth: 200, maxWidth: 240 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                {p.avatarUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={p.avatarUrl}
+                    alt={p.name}
+                    width={40}
+                    height={40}
+                    style={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: 9999,
+                      objectFit: "cover",
+                      flexShrink: 0,
+                    }}
+                  />
+                ) : null}
+                <div>
+                  <div style={{ fontWeight: 700, color: "#24141c", fontSize: 14 }}>
+                    {p.name}
+                  </div>
+                  {p.city && (
+                    <div style={{ color: "#6f5a64", fontSize: 12 }}>{p.city}</div>
+                  )}
                 </div>
-              )}
-              <div style={{ color: "#a30b45", fontSize: 12, marginTop: 4 }}>
-                {p.services.length} service{p.services.length === 1 ? "" : "s"}
-                {priceRange(p) ? ` · ${priceRange(p)}` : ""}
               </div>
+
+              <div
+                style={{
+                  marginTop: 8,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  color: "#a30b45",
+                }}
+              >
+                Services{priceRange(p) ? ` · ${priceRange(p)}` : ""}
+              </div>
+              <ul
+                style={{
+                  margin: "4px 0 0",
+                  padding: 0,
+                  listStyle: "none",
+                  maxHeight: 132,
+                  overflowY: "auto",
+                }}
+              >
+                {p.services.map((s) => (
+                  <li
+                    key={s.id}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: 8,
+                      fontSize: 12.5,
+                      color: "#4a3640",
+                      padding: "3px 0",
+                      borderBottom: "1px solid #f6e6ee",
+                    }}
+                  >
+                    <span>{s.title}</span>
+                    <span style={{ color: "#6f5a64", whiteSpace: "nowrap" }}>
+                      {money(s.price)}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
               <button
                 type="button"
                 onClick={() => onBook(p.id)}
@@ -98,7 +178,7 @@ export default function ProviderMap({
                   border: "none",
                   cursor: "pointer",
                   borderRadius: 9999,
-                  padding: "8px 14px",
+                  padding: "9px 14px",
                   fontSize: 13,
                   fontWeight: 600,
                   color: "#fff",

@@ -42,7 +42,9 @@ export default function BookingExperience({
           <p className="mt-2 text-[15px] text-[#6f5a64]">
             Tap a pin to see a pro&apos;s services and book straight from the map.
           </p>
-          <div className="mt-6 overflow-hidden rounded-3xl border border-[#f3d7e3] shadow-[0_30px_70px_-45px_rgba(163,11,69,0.45)]">
+          {/* `isolate` keeps Leaflet's internal z-index (panes/controls go up to
+              1000) contained so it never paints over the fixed header on scroll. */}
+          <div className="isolate mt-6 overflow-hidden rounded-3xl border border-[#f3d7e3] shadow-[0_30px_70px_-45px_rgba(163,11,69,0.45)]">
             <div className="h-[420px] w-full sm:h-[520px]">
               <ProviderMap providers={providers} onBook={handleBook} />
             </div>
