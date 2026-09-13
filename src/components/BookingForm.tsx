@@ -17,11 +17,13 @@ function track(event: string, params: Record<string, string>) {
 
 export default function BookingForm({
   providers,
+  initialProviderId = "",
 }: {
   providers: BookableProvider[];
+  initialProviderId?: string;
 }) {
-  const [mode, setMode] = useState<Mode>("service");
-  const [providerId, setProviderId] = useState("");
+  const [mode, setMode] = useState<Mode>(initialProviderId ? "artist" : "service");
+  const [providerId, setProviderId] = useState(initialProviderId);
   const [serviceId, setServiceId] = useState("");
   const [requestedService, setRequestedService] = useState("");
 
@@ -43,6 +45,19 @@ export default function BookingForm({
       d.getDate()
     ).padStart(2, "0")}`;
   }, []);
+
+  // When a provider is picked from the map (initialProviderId changes), switch to
+  // artist mode and select them. Adjusting state during render per React's
+  // "storing information from previous renders" pattern (avoids effect churn).
+  const [lastInitProvider, setLastInitProvider] = useState(initialProviderId);
+  if (initialProviderId && initialProviderId !== lastInitProvider) {
+    setLastInitProvider(initialProviderId);
+    setMode("artist");
+    setProviderId(initialProviderId);
+    setServiceId("");
+    const p = providers.find((x) => x.id === initialProviderId);
+    if (p?.city && !city) setCity(p.city);
+  }
 
   const selectedProvider = providers.find((p) => p.id === providerId) ?? null;
 

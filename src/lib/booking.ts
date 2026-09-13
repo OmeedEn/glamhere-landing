@@ -14,6 +14,8 @@ export type BookableProvider = {
   username: string | null;
   city: string | null;
   avatarUrl: string | null;
+  lat: number | null;
+  lng: number | null;
   services: BookableService[];
 };
 
@@ -59,6 +61,8 @@ type ServiceRow = {
     city: string | null;
     avatar_url: string | null;
     role: string | null;
+    latitude: number | string | null;
+    longitude: number | string | null;
   } | null;
 };
 
@@ -76,7 +80,7 @@ export async function getBookableProviders(): Promise<BookableProvider[]> {
       .select(
         `id, title, price, duration_minutes, category_id, provider_id,
          service_categories ( name ),
-         profiles!services_provider_id_fkey ( id, business_name, first_name, last_name, preferred_username, city, avatar_url, role )`
+         profiles!services_provider_id_fkey ( id, business_name, first_name, last_name, preferred_username, city, avatar_url, role, latitude, longitude )`
       )
       .eq("is_active", true);
 
@@ -101,12 +105,16 @@ export async function getBookableProviders(): Promise<BookableProvider[]> {
 
     let entry = byProvider.get(provider.id);
     if (!entry) {
+      const lat = provider.latitude != null ? Number(provider.latitude) : null;
+      const lng = provider.longitude != null ? Number(provider.longitude) : null;
       entry = {
         id: provider.id,
         name: displayName(provider),
         username: provider.preferred_username?.trim() || null,
         city: provider.city?.trim() || null,
         avatarUrl: provider.avatar_url || null,
+        lat: lat != null && Number.isFinite(lat) ? lat : null,
+        lng: lng != null && Number.isFinite(lng) ? lng : null,
         services: [],
       };
       byProvider.set(provider.id, entry);
