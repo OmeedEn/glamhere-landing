@@ -43,6 +43,13 @@ function avatarIcon(p: BookableProvider): L.DivIcon {
   });
 }
 
+// Best available location text: full street address, else "City, State".
+function locationLine(p: BookableProvider): string | null {
+  if (p.address) return p.address;
+  const cityState = [p.city, p.state].filter(Boolean).join(", ");
+  return cityState || p.city || null;
+}
+
 function priceRange(p: BookableProvider): string {
   if (p.services.length === 0) return "";
   const prices = p.services.map((s) => s.price);
@@ -121,11 +128,36 @@ export default function ProviderMap({
                   <div style={{ fontWeight: 700, color: "#24141c", fontSize: 14 }}>
                     {p.name}
                   </div>
-                  {p.city && (
-                    <div style={{ color: "#6f5a64", fontSize: 12 }}>{p.city}</div>
-                  )}
                 </div>
               </div>
+
+              {locationLine(p) && (
+                <div style={{ marginTop: 8, display: "flex", gap: 6 }}>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#a30b45"
+                    strokeWidth={2}
+                    style={{ flexShrink: 0, marginTop: 2 }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                  </svg>
+                  <div style={{ fontSize: 12, color: "#4a3640", lineHeight: 1.35 }}>
+                    <div>{locationLine(p)}</div>
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: "#c11a63", fontWeight: 600, textDecoration: "none" }}
+                    >
+                      Get directions →
+                    </a>
+                  </div>
+                </div>
+              )}
 
               <div
                 style={{

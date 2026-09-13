@@ -30,6 +30,7 @@ export async function POST(request: Request) {
 
   const customer_name = str(body.name, 120);
   const customer_email = str(body.email, 200)?.toLowerCase() ?? null;
+  const customer_phone = str(body.phone, 40);
   const requested_service = str(body.requestedService, 300);
 
   if (!customer_name) {
@@ -38,6 +39,12 @@ export async function POST(request: Request) {
   if (!customer_email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customer_email)) {
     return NextResponse.json(
       { error: "A valid email is required" },
+      { status: 400 }
+    );
+  }
+  if (!customer_phone) {
+    return NextResponse.json(
+      { error: "A phone number is required" },
       { status: 400 }
     );
   }
@@ -54,7 +61,7 @@ export async function POST(request: Request) {
   const row = {
     customer_name,
     customer_email,
-    customer_phone: str(body.phone, 40),
+    customer_phone,
     service_id,
     provider_id,
     requested_service,

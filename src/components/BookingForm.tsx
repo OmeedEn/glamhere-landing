@@ -3,7 +3,6 @@
 import { FormEvent, useMemo, useState } from "react";
 import type { BookableProvider } from "@/lib/booking";
 
-type Mode = "artist" | "service";
 type Status = "idle" | "submitting" | "done" | "error";
 
 const money = (n: number) =>
@@ -22,19 +21,16 @@ export default function BookingForm({
   providers: BookableProvider[];
   initialProviderId?: string;
 }) {
-  const [mode, setMode] = useState<Mode>(initialProviderId ? "artist" : "service");
-  const [providerId, setProviderId] = useState(initialProviderId);
+  // A specific provider can be scoped in from the map ("Book with X").
+  const [providerScopeId, setProviderScopeId] = useState(initialProviderId);
   const [serviceId, setServiceId] = useState("");
-  const [requestedService, setRequestedService] = useState("");
+  const [city, setCity] = useState("");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("");
   const [preferredDate, setPreferredDate] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
-  const [altDate, setAltDate] = useState("");
-  const [notes, setNotes] = useState("");
 
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -46,32 +42,18 @@ export default function BookingForm({
     ).padStart(2, "0")}`;
   }, []);
 
-  // When a provider is picked from the map (initialProviderId changes), switch to
-  // artist mode and select them. Adjusting state during render per React's
-  // "storing information from previous renders" pattern (avoids effect churn).
-  const [lastInitProvider, setLastInitProvider] = useState(initialProviderId);
-  if (initialProviderId && initialProviderId !== lastInitProvider) {
-    setLastInitProvider(initialProviderId);
-    setMode("artist");
-    setProviderId(initialProviderId);
-    setServiceId("");
-    const p = providers.find((x) => x.id === initialProviderId);
-    if (p?.city && !city) setCity(p.city);
-  }
-
-  const selectedProvider = providers.find((p) => p.id === providerId) ?? null;
-
-  // Flat lookup for service-mode: serviceId -> provider + service info.
+  // serviceId -> provider + service info.
   const serviceLookup = useMemo(() => {
     const map = new Map<
       string,
-      { providerId: string; providerName: string; title: string; price: number }
+      { providerId: string; providerName: string; city: string | null; title: string; price: number }
     >();
     for (const p of providers) {
       for (const s of p.services) {
         map.set(s.id, {
           providerId: p.id,
           providerName: p.name,
+          city: p.city,
           title: s.title,
           price: s.price,
         });
@@ -80,20 +62,25 @@ export default function BookingForm({
     return map;
   }, [providers]);
 
-  // Services grouped by category for the service-mode dropdown.
+  // Distinct cities the professionals are in — powers the location dropdown.
+  const cities = useMemo(() => {
+    const set = new Set<string>();
+    for (const p of providers) {
+      if (p.services.length > 0 && p.city) set.add(p.city);
+    }
+    return [...set].sort((a, b) => a.localeCompare(b));
+  }, [providers]);
+
+  // All services grouped by category (for the default, unscoped flow).
   const servicesByCategory = useMemo(() => {
-    const groups = new Map<
-      string,
-      { id: string; label: string; price: number }[]
-    >();
+    const groups = new Map<string, { id: string; label: string }[]>();
     for (const p of providers) {
       for (const s of p.services) {
         const cat = s.category || "Other services";
         if (!groups.has(cat)) groups.set(cat, []);
         groups.get(cat)!.push({
           id: s.id,
-          label: `${s.title} · ${p.name} — ${money(s.price)}`,
-          price: s.price,
+          label: `${s.title} · ${p.name}${p.city ? ` (${p.city})` : ""} — ${money(s.price)}`,
         });
       }
     }
@@ -102,30 +89,61 @@ export default function BookingForm({
     return [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
   }, [providers]);
 
-  function switchMode(next: Mode) {
-    setMode(next);
+  // React to a provider being chosen from the map (initialProviderId change).
+  const [lastInitProvider, setLastInitProvider] = useState(initialProviderId);
+  if (initialProviderId && initialProviderId !== lastInitProvider) {
+    setLastInitProvider(initialProviderId);
+    setProviderScopeId(initialProviderId);
     setServiceId("");
-    setRequestedService("");
-    if (next === "service") setProviderId("");
-    track("booking_mode", { mode: next });
+    const p = providers.find((x) => x.id === initialProviderId);
+    setCity(p?.city || "");
+  }
+
+  const scopedProvider =
+    providers.find((p) => p.id === providerScopeId) ?? null;
+
+  function clearScope() {
+    setProviderScopeId("");
+    setServiceId("");
+    setCity("");
+  }
+
+  function onServiceChange(id: string) {
+    setServiceId(id);
+    // Auto-fill the location to the chosen service's pro city (still editable).
+    if (!scopedProvider) {
+      const info = serviceLookup.get(id);
+      if (info?.city) setCity(info.city);
+    }
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    // Resolve provider + service.
+    let payloadProviderId: string | null = null;
+    let payloadServiceId: string | null = null;
+    if (scopedProvider) {
+      payloadProviderId = scopedProvider.id;
+      payloadServiceId = serviceId || null;
+    } else {
+      if (!serviceId) {
+        setErrorMsg("Please choose a service.");
+        setStatus("error");
+        return;
+      }
+      payloadServiceId = serviceId;
+      payloadProviderId = serviceLookup.get(serviceId)?.providerId ?? null;
+    }
+
+    if (!city) {
+      setErrorMsg("Please choose a location.");
+      setStatus("error");
+      return;
+    }
+
     setStatus("submitting");
     setErrorMsg("");
-
-    // Resolve provider/service depending on mode.
-    let payloadServiceId: string | null = null;
-    let payloadProviderId: string | null = null;
-    if (mode === "artist") {
-      payloadProviderId = providerId || null;
-      payloadServiceId = serviceId || null;
-    } else if (serviceId) {
-      const s = serviceLookup.get(serviceId);
-      payloadServiceId = serviceId;
-      payloadProviderId = s?.providerId ?? null;
-    }
 
     try {
       const res = await fetch("/api/book", {
@@ -138,12 +156,9 @@ export default function BookingForm({
           city,
           serviceId: payloadServiceId,
           providerId: payloadProviderId,
-          requestedService,
           preferredDate,
           preferredTime,
-          altDate,
-          notes,
-          source: `book_page_${mode}`,
+          source: "book_page",
         }),
       });
 
@@ -151,21 +166,20 @@ export default function BookingForm({
       if (!res.ok) {
         setErrorMsg(data?.error || "Something went wrong. Please try again.");
         setStatus("error");
-        track("booking_request", { status: "failed", mode });
+        track("booking_request", { status: "failed" });
         return;
       }
 
       setStatus("done");
       track("booking_request", {
         status: "success",
-        mode,
         has_provider: payloadProviderId ? "yes" : "no",
         has_service: payloadServiceId ? "yes" : "no",
       });
     } catch {
       setErrorMsg("Something went wrong. Please try again.");
       setStatus("error");
-      track("booking_request", { status: "failed", mode });
+      track("booking_request", { status: "failed" });
     }
   }
 
@@ -190,7 +204,7 @@ export default function BookingForm({
   }
 
   const inputClass =
-    "block w-full rounded-xl border border-[#f3d8e4] bg-[#fff7fb] px-4 py-3 text-[15px] text-[#24141c] outline-none transition placeholder:text-[#b59aa4] focus:border-[#c11a63] focus:bg-white";
+    "block w-full rounded-xl border border-[#f3d8e4] bg-[#fff7fb] px-4 py-3 text-[15px] text-[#24141c] outline-none transition placeholder:text-[#b59aa4] focus:border-[#c11a63] focus:bg-white disabled:opacity-70";
   const labelClass = "mb-1.5 block text-sm font-medium text-[#4a3640]";
 
   return (
@@ -198,109 +212,74 @@ export default function BookingForm({
       onSubmit={handleSubmit}
       className="space-y-6 rounded-3xl border border-[#f3d7e3] bg-white p-6 shadow-[0_30px_70px_-45px_rgba(163,11,69,0.45)] sm:p-8"
     >
-      {/* Mode toggle */}
-      <div className="inline-flex rounded-full border border-[#f3d8e4] bg-[#fff7fb] p-1">
-        {(["service", "artist"] as Mode[]).map((m) => (
+      {scopedProvider && (
+        <div className="flex items-center justify-between gap-3 rounded-xl border border-[#f3d8e4] bg-[#fff7fb] px-4 py-2.5">
+          <span className="text-sm text-[#4a3640]">
+            Booking with{" "}
+            <span className="font-semibold text-[#a30b45]">{scopedProvider.name}</span>
+          </span>
           <button
-            key={m}
             type="button"
-            onClick={() => switchMode(m)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
-              mode === m
-                ? "bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] text-white shadow-sm"
-                : "text-[#6f5a64] hover:text-[#a30b45]"
-            }`}
+            onClick={clearScope}
+            className="text-sm font-medium text-[#c11a63] hover:underline"
           >
-            {m === "service" ? "Pick a service" : "Choose an artist"}
+            Change
           </button>
-        ))}
-      </div>
-
-      {mode === "service" ? (
-        <div>
-          <label htmlFor="service" className={labelClass}>
-            What would you like booked?
-          </label>
-          <select
-            id="service"
-            value={serviceId}
-            onChange={(e) => setServiceId(e.target.value)}
-            className={inputClass}
-          >
-            <option value="">Select a service…</option>
-            {servicesByCategory.map(([cat, list]) => (
-              <optgroup key={cat} label={cat}>
-                {list.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.label}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
-          </select>
-          <p className="mt-2 text-sm text-[#6f5a64]">
-            Not seeing it? Describe what you&apos;re after and we&apos;ll match you
-            with an available pro.
-          </p>
-          <input
-            type="text"
-            value={requestedService}
-            onChange={(e) => setRequestedService(e.target.value)}
-            placeholder="e.g. Bridal makeup for 4 people on June 12"
-            className={`${inputClass} mt-2`}
-          />
-        </div>
-      ) : (
-        <div className="space-y-4">
-          <div>
-            <label htmlFor="provider" className={labelClass}>
-              Choose your artist
-            </label>
-            <select
-              id="provider"
-              value={providerId}
-              onChange={(e) => {
-                setProviderId(e.target.value);
-                setServiceId("");
-                const p = providers.find((x) => x.id === e.target.value);
-                if (p?.city && !city) setCity(p.city);
-              }}
-              className={inputClass}
-            >
-              <option value="">Select an artist…</option>
-              {providers.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.name}
-                  {p.city ? ` — ${p.city}` : ""}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {selectedProvider && (
-            <div>
-              <label htmlFor="artist-service" className={labelClass}>
-                Which service? (optional)
-              </label>
-              <select
-                id="artist-service"
-                value={serviceId}
-                onChange={(e) => setServiceId(e.target.value)}
-                className={inputClass}
-              >
-                <option value="">I&apos;m not sure yet</option>
-                {selectedProvider.services.map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {s.title} — {money(s.price)} · {s.durationMinutes} min
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
         </div>
       )}
 
-      {/* Scheduling preferences */}
+      {/* 1. Service first */}
+      <div>
+        <label htmlFor="service" className={labelClass}>
+          What would you like booked?
+        </label>
+        <select
+          id="service"
+          value={serviceId}
+          onChange={(e) => onServiceChange(e.target.value)}
+          className={inputClass}
+        >
+          <option value="">Select a service…</option>
+          {scopedProvider
+            ? scopedProvider.services.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.title} — {money(s.price)} · {s.durationMinutes} min
+                </option>
+              ))
+            : servicesByCategory.map(([cat, list]) => (
+                <optgroup key={cat} label={cat}>
+                  {list.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.label}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+        </select>
+      </div>
+
+      {/* 2. Location dropdown, sourced from the pros' cities */}
+      <div>
+        <label htmlFor="city" className={labelClass}>
+          Location
+        </label>
+        <select
+          id="city"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          disabled={!!scopedProvider && !!scopedProvider.city}
+          className={inputClass}
+        >
+          <option value="">Select a location…</option>
+          {cities.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Scheduling */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="preferredDate" className={labelClass}>
@@ -331,22 +310,9 @@ export default function BookingForm({
             <option>Evening</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="altDate" className={labelClass}>
-            Alternate date (optional)
-          </label>
-          <input
-            id="altDate"
-            type="date"
-            min={today}
-            value={altDate}
-            onChange={(e) => setAltDate(e.target.value)}
-            className={inputClass}
-          />
-        </div>
       </div>
 
-      {/* Contact details */}
+      {/* Contact details — all required */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClass}>
@@ -376,46 +342,20 @@ export default function BookingForm({
             className={inputClass}
           />
         </div>
-        <div>
+        <div className="sm:col-span-2">
           <label htmlFor="phone" className={labelClass}>
-            Phone (optional)
+            Phone
           </label>
           <input
             id="phone"
             type="tel"
+            required
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="(555) 123-4567"
             className={inputClass}
           />
         </div>
-        <div>
-          <label htmlFor="city" className={labelClass}>
-            City (optional)
-          </label>
-          <input
-            id="city"
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            placeholder="Los Angeles"
-            className={inputClass}
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="notes" className={labelClass}>
-          Anything else? (optional)
-        </label>
-        <textarea
-          id="notes"
-          rows={3}
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="Inspo photos, occasion, allergies, budget…"
-          className={inputClass}
-        />
       </div>
 
       {status === "error" && (
