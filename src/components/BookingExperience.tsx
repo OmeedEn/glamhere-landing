@@ -17,8 +17,10 @@ const ProviderMap = dynamic(() => import("./ProviderMap"), {
 
 export default function BookingExperience({
   providers,
+  categories,
 }: {
   providers: BookableProvider[];
+  categories: string[];
 }) {
   const [selectedProviderId, setSelectedProviderId] = useState<string>("");
   const formRef = useRef<HTMLDivElement>(null);
@@ -57,7 +59,11 @@ export default function BookingExperience({
         id="booking-form"
         className="mx-auto max-w-2xl scroll-mt-28"
       >
-        <BookingForm providers={providers} initialProviderId={selectedProviderId} />
+        <BookingForm
+          providers={providers}
+          categories={categories}
+          initialProviderId={selectedProviderId}
+        />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BookingExperience from "@/components/BookingExperience";
-import { getBookableProviders } from "@/lib/booking";
+import { getBookableProviders, getServiceCategories } from "@/lib/booking";
 import { getSiteSettings } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
@@ -15,8 +15,9 @@ export const metadata: Metadata = {
 export const revalidate = 300;
 
 export default async function BookPage() {
-  const [providers, settings] = await Promise.all([
+  const [providers, categories, settings] = await Promise.all([
     getBookableProviders(),
+    getServiceCategories(),
     getSiteSettings(),
   ]);
 
@@ -74,7 +75,7 @@ export default async function BookPage() {
 
       <section className="pb-20">
         {providers.length > 0 ? (
-          <BookingExperience providers={providers} />
+          <BookingExperience providers={providers} categories={categories} />
         ) : (
           <div className="mx-auto max-w-xl px-6">
             <div className="rounded-3xl border border-[#f3d7e3] bg-white p-8 text-center shadow-[0_30px_70px_-45px_rgba(163,11,69,0.45)]">

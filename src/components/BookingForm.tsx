@@ -16,14 +16,17 @@ function track(event: string, params: Record<string, string>) {
 
 export default function BookingForm({
   providers,
+  categories,
   initialProviderId = "",
 }: {
   providers: BookableProvider[];
+  categories: string[];
   initialProviderId?: string;
 }) {
   // A specific provider can be scoped in from the map ("Book with X").
   const [providerScopeId, setProviderScopeId] = useState(initialProviderId);
-  const [serviceId, setServiceId] = useState("");
+  const [serviceId, setServiceId] = useState(""); // used only in the scoped path
+  const [category, setCategory] = useState(""); // used in the default path
   const [city, setCity] = useState("");
 
   const [name, setName] = useState("");
@@ -42,26 +45,6 @@ export default function BookingForm({
     ).padStart(2, "0")}`;
   }, []);
 
-  // serviceId -> provider + service info.
-  const serviceLookup = useMemo(() => {
-    const map = new Map<
-      string,
-      { providerId: string; providerName: string; city: string | null; title: string; price: number }
-    >();
-    for (const p of providers) {
-      for (const s of p.services) {
-        map.set(s.id, {
-          providerId: p.id,
-          providerName: p.name,
-          city: p.city,
-          title: s.title,
-          price: s.price,
-        });
-      }
-    }
-    return map;
-  }, [providers]);
-
   // Distinct cities the professionals are in — powers the location dropdown.
   const cities = useMemo(() => {
     const set = new Set<string>();
@@ -69,24 +52,6 @@ export default function BookingForm({
       if (p.services.length > 0 && p.city) set.add(p.city);
     }
     return [...set].sort((a, b) => a.localeCompare(b));
-  }, [providers]);
-
-  // All services grouped by category (for the default, unscoped flow).
-  const servicesByCategory = useMemo(() => {
-    const groups = new Map<string, { id: string; label: string }[]>();
-    for (const p of providers) {
-      for (const s of p.services) {
-        const cat = s.category || "Other services";
-        if (!groups.has(cat)) groups.set(cat, []);
-        groups.get(cat)!.push({
-          id: s.id,
-          label: `${s.title} · ${p.name}${p.city ? ` (${p.city})` : ""} — ${money(s.price)}`,
-        });
-      }
-    }
-    for (const list of groups.values())
-      list.sort((a, b) => a.label.localeCompare(b.label));
-    return [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]));
   }, [providers]);
 
   // React to a provider being chosen from the map (initialProviderId change).
@@ -108,32 +73,25 @@ export default function BookingForm({
     setCity("");
   }
 
-  function onServiceChange(id: string) {
-    setServiceId(id);
-    // Auto-fill the location to the chosen service's pro city (still editable).
-    if (!scopedProvider) {
-      const info = serviceLookup.get(id);
-      if (info?.city) setCity(info.city);
-    }
-  }
-
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Resolve provider + service.
+    // Resolve what's being requested.
     let payloadProviderId: string | null = null;
     let payloadServiceId: string | null = null;
+    let payloadRequested: string | null = null;
     if (scopedProvider) {
+      // Booking a specific pro from the map: capture their specific service.
       payloadProviderId = scopedProvider.id;
       payloadServiceId = serviceId || null;
     } else {
-      if (!serviceId) {
+      // Default flow: pick a service category.
+      if (!category) {
         setErrorMsg("Please choose a service.");
         setStatus("error");
         return;
       }
-      payloadServiceId = serviceId;
-      payloadProviderId = serviceLookup.get(serviceId)?.providerId ?? null;
+      payloadRequested = category;
     }
 
     if (!city) {
@@ -156,6 +114,7 @@ export default function BookingForm({
           city,
           serviceId: payloadServiceId,
           providerId: payloadProviderId,
+          requestedService: payloadRequested,
           preferredDate,
           preferredTime,
           source: "book_page",
@@ -228,34 +187,41 @@ export default function BookingForm({
         </div>
       )}
 
-      {/* 1. Service first */}
+      {/* 1. Service first — a category by default, or the pro's specific
+          services when booking someone chosen from the map. */}
       <div>
         <label htmlFor="service" className={labelClass}>
           What would you like booked?
         </label>
-        <select
-          id="service"
-          value={serviceId}
-          onChange={(e) => onServiceChange(e.target.value)}
-          className={inputClass}
-        >
-          <option value="">Select a service…</option>
-          {scopedProvider
-            ? scopedProvider.services.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.title} — {money(s.price)} · {s.durationMinutes} min
-                </option>
-              ))
-            : servicesByCategory.map(([cat, list]) => (
-                <optgroup key={cat} label={cat}>
-                  {list.map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {s.label}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-        </select>
+        {scopedProvider ? (
+          <select
+            id="service"
+            value={serviceId}
+            onChange={(e) => setServiceId(e.target.value)}
+            className={inputClass}
+          >
+            <option value="">Select a service…</option>
+            {scopedProvider.services.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.title} — {money(s.price)} · {s.durationMinutes} min
+              </option>
+            ))}
+          </select>
+        ) : (
+          <select
+            id="service"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className={inputClass}
+          >
+            <option value="">Select a service…</option>
+            {categories.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        )}
       </div>
 
       {/* 2. Location dropdown, sourced from the pros' cities */}

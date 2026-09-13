@@ -46,6 +46,31 @@ function displayName(p: {
   );
 }
 
+/**
+ * Active service categories (Makeup, Hair Styling, Nail Care, …) used to populate
+ * the "What would you like booked?" dropdown. Anon-readable via existing RLS.
+ */
+export async function getServiceCategories(): Promise<string[]> {
+  try {
+    const supabase = getSupabase();
+    const { data, error } = await supabase
+      .from("service_categories")
+      .select("name, is_active, sort_order")
+      .eq("is_active", true)
+      .order("sort_order", { ascending: true });
+    if (error) {
+      console.error("getServiceCategories query failed", error);
+      return [];
+    }
+    return (data ?? [])
+      .map((r) => (r.name as string | null)?.trim())
+      .filter((n): n is string => !!n);
+  } catch (e) {
+    console.error("getServiceCategories failed", e);
+    return [];
+  }
+}
+
 type ServiceRow = {
   id: string;
   title: string;
