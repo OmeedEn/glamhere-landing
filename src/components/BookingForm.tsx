@@ -8,6 +8,14 @@ type Status = "idle" | "submitting" | "done" | "error";
 const money = (n: number) =>
   n === 0 ? "Free" : `$${n % 1 === 0 ? n.toFixed(0) : n.toFixed(2)}`;
 
+// Format up to 10 stored digits as (123) 456-7890 for display.
+function formatPhone(digits: string): string {
+  const d = digits.slice(0, 10);
+  if (d.length <= 3) return d;
+  if (d.length <= 6) return `(${d.slice(0, 3)}) ${d.slice(3)}`;
+  return `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}`;
+}
+
 function track(event: string, params: Record<string, string>) {
   if (typeof window !== "undefined" && typeof window.gtag === "function") {
     window.gtag("event", event, params);
@@ -96,6 +104,12 @@ export default function BookingForm({
 
     if (!city) {
       setErrorMsg("Please choose a location.");
+      setStatus("error");
+      return;
+    }
+
+    if (phone.length !== 10) {
+      setErrorMsg("Please enter a valid 10-digit phone number.");
       setStatus("error");
       return;
     }
@@ -315,12 +329,18 @@ export default function BookingForm({
           <input
             id="phone"
             type="tel"
+            inputMode="numeric"
             required
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            value={formatPhone(phone)}
+            onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
             placeholder="(555) 123-4567"
             className={inputClass}
           />
+          {phone.length > 0 && phone.length < 10 && (
+            <p className="mt-1 text-xs text-[#c11a63]">
+              Enter a 10-digit phone number.
+            </p>
+          )}
         </div>
       </div>
 

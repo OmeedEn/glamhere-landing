@@ -42,9 +42,10 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
-  if (!customer_phone) {
+  const phone_digits = customer_phone ? customer_phone.replace(/\D/g, "") : "";
+  if (phone_digits.length !== 10) {
     return NextResponse.json(
-      { error: "A phone number is required" },
+      { error: "A valid 10-digit phone number is required" },
       { status: 400 }
     );
   }
@@ -61,7 +62,7 @@ export async function POST(request: Request) {
   const row = {
     customer_name,
     customer_email,
-    customer_phone,
+    customer_phone: phone_digits,
     service_id,
     provider_id,
     requested_service,
