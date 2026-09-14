@@ -42,9 +42,11 @@ export default function BookingForm({
   const [phone, setPhone] = useState("");
   const [preferredDate, setPreferredDate] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
+  const [startTime, setStartTime] = useState("");
 
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [bookedProvider, setBookedProvider] = useState<string | null>(null);
 
   const today = useMemo(() => {
     const d = new Date();
@@ -74,6 +76,10 @@ export default function BookingForm({
 
   const scopedProvider =
     providers.find((p) => p.id === providerScopeId) ?? null;
+
+  // Calendar-eligible: a specific pro + specific service is picked, so we can
+  // request an exact time slot on their calendar.
+  const calendarMode = !!scopedProvider && !!serviceId;
 
   function clearScope() {
     setProviderScopeId("");
@@ -114,6 +120,14 @@ export default function BookingForm({
       return;
     }
 
+    // For a specific pro + service, we place a real calendar slot → need exact
+    // date and time.
+    if (calendarMode && (!preferredDate || !startTime)) {
+      setErrorMsg("Please choose a date and start time for your appointment.");
+      setStatus("error");
+      return;
+    }
+
     setStatus("submitting");
     setErrorMsg("");
 
@@ -130,7 +144,8 @@ export default function BookingForm({
           providerId: payloadProviderId,
           requestedService: payloadRequested,
           preferredDate,
-          preferredTime,
+          preferredTime: calendarMode ? undefined : preferredTime,
+          startTime: calendarMode ? startTime : undefined,
           source: "book_page",
         }),
       });
@@ -143,9 +158,11 @@ export default function BookingForm({
         return;
       }
 
+      setBookedProvider(data?.booked ? scopedProvider?.name ?? "your pro" : null);
       setStatus("done");
       track("booking_request", {
         status: "success",
+        booked: data?.booked ? "yes" : "no",
         has_provider: payloadProviderId ? "yes" : "no",
         has_service: payloadServiceId ? "yes" : "no",
       });
@@ -165,12 +182,24 @@ export default function BookingForm({
           </svg>
         </div>
         <h2 className="mt-5 font-[var(--font-display)] text-2xl font-semibold tracking-[-0.02em] text-[#24141c]">
-          Request sent!
+          {bookedProvider ? "Appointment requested!" : "Request sent!"}
         </h2>
         <p className="mt-3 text-[#5f4a53]">
-          We&apos;ve got your booking request and will reach out at{" "}
-          <span className="font-semibold text-[#a30b45]">{email}</span> to confirm
-          the details. Keep an eye on your inbox.
+          {bookedProvider ? (
+            <>
+              Your request is on{" "}
+              <span className="font-semibold text-[#a30b45]">{bookedProvider}</span>
+              &apos;s calendar as pending. They&apos;ll confirm it, and we&apos;ll
+              reach out at{" "}
+              <span className="font-semibold text-[#a30b45]">{email}</span>.
+            </>
+          ) : (
+            <>
+              We&apos;ve got your booking request and will reach out at{" "}
+              <span className="font-semibold text-[#a30b45]">{email}</span> to
+              confirm the details. Keep an eye on your inbox.
+            </>
+          )}
         </p>
       </div>
     );
@@ -259,11 +288,12 @@ export default function BookingForm({
         </select>
       </div>
 
-      {/* Scheduling */}
+      {/* Scheduling — exact date+time when booking a specific pro's calendar,
+          otherwise a coarse preference for a lead. */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="preferredDate" className={labelClass}>
-            Preferred date
+            {calendarMode ? "Date" : "Preferred date"}
           </label>
           <input
             id="preferredDate"
@@ -274,23 +304,45 @@ export default function BookingForm({
             className={inputClass}
           />
         </div>
-        <div>
-          <label htmlFor="preferredTime" className={labelClass}>
-            Preferred time
-          </label>
-          <select
-            id="preferredTime"
-            value={preferredTime}
-            onChange={(e) => setPreferredTime(e.target.value)}
-            className={inputClass}
-          >
-            <option value="">Any time</option>
-            <option>Morning</option>
-            <option>Afternoon</option>
-            <option>Evening</option>
-          </select>
-        </div>
+        {calendarMode ? (
+          <div>
+            <label htmlFor="startTime" className={labelClass}>
+              Start time
+            </label>
+            <input
+              id="startTime"
+              type="time"
+              step={900}
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+              className={inputClass}
+            />
+          </div>
+        ) : (
+          <div>
+            <label htmlFor="preferredTime" className={labelClass}>
+              Preferred time
+            </label>
+            <select
+              id="preferredTime"
+              value={preferredTime}
+              onChange={(e) => setPreferredTime(e.target.value)}
+              className={inputClass}
+            >
+              <option value="">Any time</option>
+              <option>Morning</option>
+              <option>Afternoon</option>
+              <option>Evening</option>
+            </select>
+          </div>
+        )}
       </div>
+      {calendarMode && (
+        <p className="-mt-3 text-xs text-[#8a7681]">
+          This requests the exact slot on {scopedProvider?.name}&apos;s calendar.
+          They&apos;ll confirm before anything is charged.
+        </p>
+      )}
 
       {/* Contact details — all required */}
       <div className="grid gap-4 sm:grid-cols-2">
