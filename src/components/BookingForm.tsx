@@ -2,6 +2,7 @@
 
 import { FormEvent, useMemo, useState } from "react";
 import type { BookableProvider } from "@/lib/booking";
+import ProviderCalendar from "./ProviderCalendar";
 
 type Status = "idle" | "submitting" | "done" | "error";
 
@@ -45,7 +46,6 @@ export default function BookingForm({
   const [startTime, setStartTime] = useState("");
   const [slots, setSlots] = useState<string[]>([]);
   const [slotsLoading, setSlotsLoading] = useState(false);
-  const [slotsLoaded, setSlotsLoaded] = useState(false);
 
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -55,7 +55,6 @@ export default function BookingForm({
   async function loadSlots(providerId: string, svcId: string, date: string) {
     if (!providerId || !svcId || !date) {
       setSlots([]);
-      setSlotsLoaded(false);
       return;
     }
     setSlotsLoading(true);
@@ -70,7 +69,6 @@ export default function BookingForm({
       setSlots([]);
     } finally {
       setSlotsLoading(false);
-      setSlotsLoaded(true);
     }
   }
 
@@ -106,7 +104,6 @@ export default function BookingForm({
     setServiceId("");
     setStartTime("");
     setSlots([]);
-    setSlotsLoaded(false);
     const p = providers.find((x) => x.id === initialProviderId);
     setCity(p?.city || "");
   }
@@ -124,7 +121,6 @@ export default function BookingForm({
     setCity("");
     setStartTime("");
     setSlots([]);
-    setSlotsLoaded(false);
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -287,7 +283,6 @@ export default function BookingForm({
                 loadSlots(scopedProvider.id, id, preferredDate);
               } else {
                 setSlots([]);
-                setSlotsLoaded(false);
                 setStartTime("");
               }
             }}
@@ -338,59 +333,75 @@ export default function BookingForm({
         </select>
       </div>
 
-      {/* Scheduling — exact date+time when booking a specific pro's calendar,
-          otherwise a coarse preference for a lead. */}
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="preferredDate" className={labelClass}>
-            {calendarMode ? "Date" : "Preferred date"}
-          </label>
-          <input
-            id="preferredDate"
-            type="date"
-            min={today}
-            value={preferredDate}
-            onChange={(e) => {
-              const d = e.target.value;
-              setPreferredDate(d);
-              if (calendarMode && serviceId && scopedProvider) {
-                loadSlots(scopedProvider.id, serviceId, d);
-              }
-            }}
-            className={inputClass}
-          />
-        </div>
-        {calendarMode ? (
-          <div>
-            <label htmlFor="startTime" className={labelClass}>
-              Start time
-            </label>
-            <select
-              id="startTime"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-              disabled={!preferredDate || slotsLoading || slots.length === 0}
-              className={inputClass}
-            >
-              <option value="">
-                {!preferredDate
-                  ? "Pick a date first…"
-                  : slotsLoading
-                  ? "Loading times…"
-                  : slots.length === 0
-                  ? slotsLoaded
+      {/* Scheduling — a real calendar of the pro's open days + open time slots
+          when booking a specific pro; a coarse preference otherwise. */}
+      {scopedProvider ? (
+        serviceId ? (
+          <div className="space-y-4">
+            <div>
+              <label className={labelClass}>Date</label>
+              <ProviderCalendar
+                providerId={scopedProvider.id}
+                serviceId={serviceId}
+                value={preferredDate}
+                onChange={(d) => {
+                  setPreferredDate(d);
+                  loadSlots(scopedProvider.id, serviceId, d);
+                }}
+              />
+            </div>
+            <div>
+              <label htmlFor="startTime" className={labelClass}>
+                Start time
+              </label>
+              <select
+                id="startTime"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                disabled={!preferredDate || slotsLoading || slots.length === 0}
+                className={inputClass}
+              >
+                <option value="">
+                  {!preferredDate
+                    ? "Pick a date first…"
+                    : slotsLoading
+                    ? "Loading times…"
+                    : slots.length === 0
                     ? "No open times — try another date"
-                    : "Select a time…"
-                  : "Select a time…"}
-              </option>
-              {slots.map((s) => (
-                <option key={s} value={s}>
-                  {to12h(s)}
+                    : "Select a time…"}
                 </option>
-              ))}
-            </select>
+                {slots.map((s) => (
+                  <option key={s} value={s}>
+                    {to12h(s)}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <p className="text-xs text-[#8a7681]">
+              This requests the exact slot on {scopedProvider.name}&apos;s
+              calendar. They&apos;ll confirm before anything is charged.
+            </p>
           </div>
         ) : (
+          <p className="text-sm text-[#6f5a64]">
+            Choose a service above to see {scopedProvider.name}&apos;s open dates.
+          </p>
+        )
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label htmlFor="preferredDate" className={labelClass}>
+              Preferred date
+            </label>
+            <input
+              id="preferredDate"
+              type="date"
+              min={today}
+              value={preferredDate}
+              onChange={(e) => setPreferredDate(e.target.value)}
+              className={inputClass}
+            />
+          </div>
           <div>
             <label htmlFor="preferredTime" className={labelClass}>
               Preferred time
@@ -407,13 +418,7 @@ export default function BookingForm({
               <option>Evening</option>
             </select>
           </div>
-        )}
-      </div>
-      {calendarMode && (
-        <p className="-mt-3 text-xs text-[#8a7681]">
-          This requests the exact slot on {scopedProvider?.name}&apos;s calendar.
-          They&apos;ll confirm before anything is charged.
-        </p>
+        </div>
       )}
 
       {/* Contact details — all required */}
