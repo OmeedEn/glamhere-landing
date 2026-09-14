@@ -43,10 +43,44 @@ export default function BookingForm({
   const [preferredDate, setPreferredDate] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
   const [startTime, setStartTime] = useState("");
+  const [slots, setSlots] = useState<string[]>([]);
+  const [slotsLoading, setSlotsLoading] = useState(false);
+  const [slotsLoaded, setSlotsLoaded] = useState(false);
 
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [bookedProvider, setBookedProvider] = useState<string | null>(null);
+
+  // Fetch the pro's real open start times for a service + date.
+  async function loadSlots(providerId: string, svcId: string, date: string) {
+    if (!providerId || !svcId || !date) {
+      setSlots([]);
+      setSlotsLoaded(false);
+      return;
+    }
+    setSlotsLoading(true);
+    setStartTime("");
+    try {
+      const res = await fetch(
+        `/api/availability?providerId=${providerId}&serviceId=${svcId}&date=${date}`
+      );
+      const data = await res.json().catch(() => ({ slots: [] }));
+      setSlots(Array.isArray(data.slots) ? data.slots : []);
+    } catch {
+      setSlots([]);
+    } finally {
+      setSlotsLoading(false);
+      setSlotsLoaded(true);
+    }
+  }
+
+  // "14:30" -> "2:30 PM"
+  function to12h(hhmm: string): string {
+    const [h, m] = hhmm.split(":").map(Number);
+    const period = h < 12 ? "AM" : "PM";
+    const h12 = h % 12 === 0 ? 12 : h % 12;
+    return `${h12}:${String(m).padStart(2, "0")} ${period}`;
+  }
 
   const today = useMemo(() => {
     const d = new Date();
@@ -70,6 +104,9 @@ export default function BookingForm({
     setLastInitProvider(initialProviderId);
     setProviderScopeId(initialProviderId);
     setServiceId("");
+    setStartTime("");
+    setSlots([]);
+    setSlotsLoaded(false);
     const p = providers.find((x) => x.id === initialProviderId);
     setCity(p?.city || "");
   }
@@ -85,6 +122,9 @@ export default function BookingForm({
     setProviderScopeId("");
     setServiceId("");
     setCity("");
+    setStartTime("");
+    setSlots([]);
+    setSlotsLoaded(false);
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -240,7 +280,17 @@ export default function BookingForm({
           <select
             id="service"
             value={serviceId}
-            onChange={(e) => setServiceId(e.target.value)}
+            onChange={(e) => {
+              const id = e.target.value;
+              setServiceId(id);
+              if (id && preferredDate && scopedProvider) {
+                loadSlots(scopedProvider.id, id, preferredDate);
+              } else {
+                setSlots([]);
+                setSlotsLoaded(false);
+                setStartTime("");
+              }
+            }}
             className={inputClass}
           >
             <option value="">Select a service…</option>
@@ -300,7 +350,13 @@ export default function BookingForm({
             type="date"
             min={today}
             value={preferredDate}
-            onChange={(e) => setPreferredDate(e.target.value)}
+            onChange={(e) => {
+              const d = e.target.value;
+              setPreferredDate(d);
+              if (calendarMode && serviceId && scopedProvider) {
+                loadSlots(scopedProvider.id, serviceId, d);
+              }
+            }}
             className={inputClass}
           />
         </div>
@@ -309,14 +365,30 @@ export default function BookingForm({
             <label htmlFor="startTime" className={labelClass}>
               Start time
             </label>
-            <input
+            <select
               id="startTime"
-              type="time"
-              step={900}
               value={startTime}
               onChange={(e) => setStartTime(e.target.value)}
+              disabled={!preferredDate || slotsLoading || slots.length === 0}
               className={inputClass}
-            />
+            >
+              <option value="">
+                {!preferredDate
+                  ? "Pick a date first…"
+                  : slotsLoading
+                  ? "Loading times…"
+                  : slots.length === 0
+                  ? slotsLoaded
+                    ? "No open times — try another date"
+                    : "Select a time…"
+                  : "Select a time…"}
+              </option>
+              {slots.map((s) => (
+                <option key={s} value={s}>
+                  {to12h(s)}
+                </option>
+              ))}
+            </select>
           </div>
         ) : (
           <div>
