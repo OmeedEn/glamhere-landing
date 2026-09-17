@@ -73,10 +73,8 @@ function FitBounds({ points }: { points: [number, number][] }) {
 
 export default function ProviderMap({
   providers,
-  onBook,
 }: {
   providers: BookableProvider[];
-  onBook: (providerId: string) => void;
 }) {
   const located = useMemo(
     () => providers.filter((p) => p.lat != null && p.lng != null),
@@ -201,14 +199,13 @@ export default function ProviderMap({
                 ))}
               </ul>
 
-              <button
-                type="button"
-                onClick={() => onBook(p.id)}
+              <a
+                href={`/pro/${p.id}`}
                 style={{
                   marginTop: 10,
-                  width: "100%",
-                  border: "none",
-                  cursor: "pointer",
+                  display: "block",
+                  textAlign: "center",
+                  textDecoration: "none",
                   borderRadius: 9999,
                   padding: "9px 14px",
                   fontSize: 13,
@@ -217,8 +214,8 @@ export default function ProviderMap({
                   background: "linear-gradient(135deg,#c11a63 0%,#961049 100%)",
                 }}
               >
-                Book with {p.name.split(" ")[0]}
-              </button>
+                View profile &amp; book
+              </a>
             </div>
           </Popup>
         </Marker>

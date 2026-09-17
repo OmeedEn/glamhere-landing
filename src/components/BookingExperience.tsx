@@ -1,6 +1,5 @@
 "use client";
 
-import { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import type { BookableProvider } from "@/lib/booking";
 import BookingForm from "./BookingForm";
@@ -22,17 +21,9 @@ export default function BookingExperience({
   providers: BookableProvider[];
   categories: string[];
 }) {
-  const [selectedProviderId, setSelectedProviderId] = useState<string>("");
-  const formRef = useRef<HTMLDivElement>(null);
-
   const locatedCount = providers.filter(
     (p) => p.lat != null && p.lng != null
   ).length;
-
-  function handleBook(providerId: string) {
-    setSelectedProviderId(providerId);
-    formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
 
   return (
     <div className="mx-auto max-w-6xl px-6">
@@ -42,28 +33,26 @@ export default function BookingExperience({
             Find a pro near you
           </h2>
           <p className="mt-2 text-[15px] text-[#6f5a64]">
-            Tap a pin to see a pro&apos;s services and book straight from the map.
+            Tap a pin to open a pro&apos;s profile, browse their work, and book.
           </p>
           {/* `isolate` keeps Leaflet's internal z-index (panes/controls go up to
               1000) contained so it never paints over the fixed header on scroll. */}
           <div className="isolate mt-6 overflow-hidden rounded-3xl border border-[#f3d7e3] shadow-[0_30px_70px_-45px_rgba(163,11,69,0.45)]">
             <div className="h-[420px] w-full sm:h-[520px]">
-              <ProviderMap providers={providers} onBook={handleBook} />
+              <ProviderMap providers={providers} />
             </div>
           </div>
         </div>
       )}
 
-      <div
-        ref={formRef}
-        id="booking-form"
-        className="mx-auto max-w-2xl scroll-mt-28"
-      >
-        <BookingForm
-          providers={providers}
-          categories={categories}
-          initialProviderId={selectedProviderId}
-        />
+      <div className="mx-auto max-w-2xl">
+        <h2 className="mb-2 text-center font-[var(--font-display)] text-2xl font-semibold tracking-[-0.02em] text-[#24141c]">
+          Or request any available pro
+        </h2>
+        <p className="mb-5 text-center text-[15px] text-[#6f5a64]">
+          Pick a service and location and we&apos;ll match you.
+        </p>
+        <BookingForm providers={providers} categories={categories} />
       </div>
     </div>
   );
