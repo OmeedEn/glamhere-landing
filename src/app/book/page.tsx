@@ -41,27 +41,27 @@ export default async function BookPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(135deg, #fff1f7 0%, #f9d5e5 22%, #e8a0bf 48%, rgba(193,26,99,0.28) 68%, transparent 88%)",
+              "linear-gradient(178deg,#3b0a1c 0%,#59102f 32%,#83254a 58%,#b7627f 82%,#e3a9c3 100%)",
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,#ffffff_92%,#ffffff_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(180deg,transparent_0%,#ffffff_100%)]" />
 
         <div className="relative mx-auto max-w-2xl">
-          <span className="inline-flex items-center rounded-full border border-[#f3d7e3] bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#a30b45]">
+          <span className="inline-flex items-center rounded-full border border-white/40 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-white">
             Book on the web
           </span>
-          <h1 className="mt-5 font-[var(--font-display)] text-4xl font-semibold leading-[1.02] tracking-[-0.03em] text-[#24141c] sm:text-5xl">
+          <h1 className="mt-5 font-[var(--font-display)] text-4xl font-semibold leading-[1.02] tracking-[-0.03em] text-white sm:text-5xl">
             Book your next glam moment
           </h1>
-          <p className="mx-auto mt-5 max-w-md text-base leading-7 text-[#5f4a53]">
+          <p className="mx-auto mt-5 max-w-md text-base leading-7 text-white/85">
             Find a pro on the map or pick a service below. A glamhere pro reviews
             your request and confirms — no payment until it&apos;s locked in.
           </p>
 
           <ul className="mx-auto mt-7 flex max-w-xl flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {stats.map((item) => (
-              <li key={item} className="flex items-center gap-2 text-[#4a3640]">
-                <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
+              <li key={item} className="flex items-center gap-2 text-white">
+                <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-white/20">
                   <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={3.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
