@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BookingExperience from "@/components/BookingExperience";
 import BookingMap from "@/components/BookingMap";
+import ProviderSearch from "@/components/ProviderSearch";
 import { getBookableProviders, getServiceCategories } from "@/lib/booking";
 import { getSiteSettings } from "@/lib/sanity/queries";
 
@@ -72,6 +73,12 @@ export default async function BookPage() {
             ))}
           </ul>
         </div>
+
+        {providers.length > 0 && (
+          <div className="relative z-10 mx-auto mt-12 max-w-6xl px-6">
+            <ProviderSearch providers={providers} />
+          </div>
+        )}
 
         {locatedCount > 0 && (
           <div className="relative mx-auto mt-14 max-w-6xl px-6">

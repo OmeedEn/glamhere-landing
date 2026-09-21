@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import { APP_STORE_URL, GOOGLE_PLAY_URL } from "@/lib/constants";
-import PhonePostCard from "./PhonePostCard";
 
 const HERO_GRADIENT =
   "linear-gradient(178deg,#3b0a1c 0%,#59102f 32%,#83254a 58%,#b7627f 82%,#e3a9c3 100%)";
@@ -65,9 +65,16 @@ export default function HeroRedesign() {
           </p>
         </div>
 
-        <div className="relative mx-auto">
+        <div className="relative mx-auto w-[300px] sm:w-[360px]">
           <div className="pointer-events-none absolute inset-x-6 top-8 h-72 rounded-full bg-white/20 blur-[90px]" />
-          <PhonePostCard />
+          <Image
+            src="/screens/welcome-map.png"
+            alt="glamhere app — follow your favorites and discover pros near you"
+            width={1080}
+            height={1350}
+            priority
+            className="relative w-full drop-shadow-[0_45px_100px_rgba(0,0,0,0.5)]"
+          />
         </div>
       </div>
     </section>

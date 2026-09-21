@@ -20,16 +20,22 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-[#f5dbe7] bg-white/90 backdrop-blur-xl">
+    <header
+      className="fixed top-0 z-50 w-full border-b border-white/10 backdrop-blur-xl"
+      style={{
+        background:
+          "linear-gradient(90deg,#3b0a1c 0%,#59102f 30%,#83254a 62%,#a30b45 100%)",
+      }}
+    >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
         <Link href="/" className="shrink-0">
-          <BrandLogo size="md" />
+          <BrandLogo size="md" color="text-white" />
         </Link>
 
         <div className="flex items-center gap-2.5">
           <Link
             href="/book"
-            className="inline-flex items-center justify-center rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_16px_32px_-20px_rgba(163,11,69,0.75)] transition hover:brightness-105"
+            className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#a30b45] shadow-[0_16px_32px_-20px_rgba(0,0,0,0.6)] transition hover:brightness-95"
           >
             Book now
           </Link>
@@ -37,7 +43,7 @@ export default function Header() {
           <div ref={ref} className="relative">
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-[#f3d7e3] bg-white px-5 py-2.5 text-sm font-semibold text-[#24141c] shadow-sm transition hover:border-[#c11a63]/40"
+            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/20"
           >
             Download
             <svg
