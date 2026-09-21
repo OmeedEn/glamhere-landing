@@ -51,7 +51,8 @@ export default async function BookPage() {
 
         <div className="relative mx-auto max-w-2xl px-6 text-center">
           <h1 className="font-[var(--font-display)] text-4xl font-semibold leading-[1.02] tracking-[-0.03em] text-white sm:text-5xl">
-            Book your next glam moment
+            Book your next{" "}
+            <em className="font-bold italic text-[#f5c6da]">glam</em> moment
           </h1>
           <p className="mx-auto mt-5 max-w-md text-base leading-7 text-white/85">
             Find a pro on the map or pick a service below. A glamhere pro reviews
