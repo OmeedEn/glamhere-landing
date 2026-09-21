@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BookingExperience from "@/components/BookingExperience";
+import BookingMap from "@/components/BookingMap";
 import { getBookableProviders, getServiceCategories } from "@/lib/booking";
 import { getSiteSettings } from "@/lib/sanity/queries";
 
@@ -36,32 +37,32 @@ export default async function BookPage() {
     <main className="min-h-screen overflow-x-hidden bg-white">
       <Header />
 
-      <section className="relative overflow-hidden px-6 pb-14 pt-[120px] text-center sm:pt-36">
+      <section className="relative overflow-hidden pb-16 pt-[120px] sm:pt-36">
+        {/* Gradient stretches from the top of the page down to the bottom of the
+            map so the hero copy and stats stay on the dark, readable area. */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(135deg, #fff1f7 0%, #f9d5e5 22%, #e8a0bf 48%, rgba(193,26,99,0.28) 68%, transparent 88%)",
+              "linear-gradient(180deg,#3b0a1c 0%,#59102f 28%,#7a1f42 50%,#a94e70 76%,#e3a9c3 100%)",
           }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,#ffffff_92%,#ffffff_100%)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-[linear-gradient(180deg,transparent_0%,#ffffff_100%)]" />
 
-        <div className="relative mx-auto max-w-2xl">
-          <span className="inline-flex items-center rounded-full border border-[#f3d7e3] bg-white/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-[#a30b45]">
-            Book on the web
-          </span>
-          <h1 className="mt-5 font-[var(--font-display)] text-4xl font-semibold leading-[1.02] tracking-[-0.03em] text-[#24141c] sm:text-5xl">
-            Book your next glam moment
+        <div className="relative mx-auto max-w-2xl px-6 text-center">
+          <h1 className="font-[var(--font-display)] text-4xl font-semibold leading-[1.02] tracking-[-0.03em] text-white sm:text-5xl">
+            Book your next{" "}
+            <em className="font-bold italic text-[#f5c6da]">glam</em> moment
           </h1>
-          <p className="mx-auto mt-5 max-w-md text-base leading-7 text-[#5f4a53]">
+          <p className="mx-auto mt-5 max-w-md text-base leading-7 text-white/85">
             Find a pro on the map or pick a service below. A glamhere pro reviews
             your request and confirms — no payment until it&apos;s locked in.
           </p>
 
           <ul className="mx-auto mt-7 flex max-w-xl flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {stats.map((item) => (
-              <li key={item} className="flex items-center gap-2 text-[#4a3640]">
-                <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,#c11a63_0%,#961049_100%)]">
+              <li key={item} className="flex items-center gap-2 text-white">
+                <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-white/20">
                   <svg className="h-3 w-3 text-white" fill="none" viewBox="0 0 24 24" strokeWidth={3.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
@@ -71,9 +72,15 @@ export default async function BookPage() {
             ))}
           </ul>
         </div>
+
+        {locatedCount > 0 && (
+          <div className="relative mx-auto mt-14 max-w-6xl px-6">
+            <BookingMap providers={providers} />
+          </div>
+        )}
       </section>
 
-      <section className="pb-20">
+      <section className="pb-20 pt-16">
         {providers.length > 0 ? (
           <BookingExperience providers={providers} categories={categories} />
         ) : (
