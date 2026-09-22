@@ -8,7 +8,7 @@ const HERO_GRADIENT =
 export default function HeroRedesign() {
   return (
     <section className="relative overflow-hidden" style={{ background: HERO_GRADIENT }}>
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 pb-20 pt-[132px] lg:grid-cols-[1.05fr_0.95fr] lg:pb-28 lg:pt-40">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 pb-20 pt-[132px] lg:grid-cols-[1fr_1.1fr] lg:pb-28 lg:pt-40">
         <div>
           <h1 className="font-[var(--font-display)] text-5xl font-semibold leading-[1.02] tracking-[-0.03em] text-white sm:text-6xl">
             Discover beauty.
@@ -65,8 +65,8 @@ export default function HeroRedesign() {
           </p>
         </div>
 
-        <div className="relative mx-auto w-[300px] sm:w-[360px]">
-          <div className="pointer-events-none absolute inset-x-6 top-8 h-72 rounded-full bg-white/20 blur-[90px]" />
+        <div className="relative mx-auto w-[340px] sm:w-[460px] lg:w-[540px]">
+          <div className="pointer-events-none absolute inset-x-6 top-8 h-80 rounded-full bg-white/20 blur-[90px]" />
           <Image
             src="/screens/welcome-map.png"
             alt="glamhere app — follow your favorites and discover pros near you"

@@ -33,10 +33,10 @@ export default function ProsClients() {
   const c = CONTENT[tab];
 
   return (
-    <section className="bg-[#fdeef4] px-6 py-20 sm:py-24">
+    <section className="bg-white px-6 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl">
         <div className="flex justify-center">
-          <div className="inline-flex rounded-full border border-[#f0cede] bg-white p-1 shadow-sm">
+          <div className="inline-flex rounded-full border border-[#f0cede] bg-[#fdeef4] p-1 shadow-sm">
             {(["pros", "clients"] as const).map((t) => (
               <button
                 key={t}
