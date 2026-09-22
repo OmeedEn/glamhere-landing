@@ -12,15 +12,13 @@ export default function PostTypes() {
       <div className="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
         {/* Regular Post */}
         <div className="text-center">
-          <div className="overflow-hidden rounded-3xl border border-[#f3d7e3] shadow-[0_24px_60px_-40px_rgba(163,11,69,0.5)]">
-            <Image
-              src="/screens/post-regular.png"
-              alt="A glamhere regular post — clients admire, follow, and DM"
-              width={1080}
-              height={1350}
-              className="h-auto w-full"
-            />
-          </div>
+          <Image
+            src="/screens/post-regular.png"
+            alt="A glamhere regular post — clients admire, follow, and DM"
+            width={1080}
+            height={1350}
+            className="h-auto w-full"
+          />
           <h3 className="mt-5 text-lg font-semibold text-[#24141c]">Regular Post</h3>
           <p className="mx-auto mt-2 max-w-[16rem] text-[15px] leading-6 text-[#6f5a64]">
             Show off your work. Clients admire, follow, and DM.
@@ -32,15 +30,13 @@ export default function PostTypes() {
 
         {/* Service Post */}
         <div className="text-center">
-          <div className="overflow-hidden rounded-3xl border border-[#7a1540] shadow-[0_30px_70px_-38px_rgba(90,15,45,0.8)]">
-            <Image
-              src="/screens/post-service.png"
-              alt="A glamhere service post — a price tag that clients can book instantly"
-              width={1080}
-              height={1350}
-              className="h-auto w-full"
-            />
-          </div>
+          <Image
+            src="/screens/post-service.png"
+            alt="A glamhere service post — a price tag that clients can book instantly"
+            width={1080}
+            height={1350}
+            className="h-auto w-full"
+          />
           <h3 className="mt-5 text-lg font-semibold text-[#24141c]">Service Post</h3>
           <p className="mx-auto mt-2 max-w-[16rem] text-[15px] leading-6 text-[#6f5a64]">
             Show off your work — and let them book it, instantly.
